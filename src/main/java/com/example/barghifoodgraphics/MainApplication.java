@@ -8,12 +8,19 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainApplication extends Application {
+    static Stage stage;
+    static Scene login, signup;
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-application.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
+    public void start(Stage mainStage) throws IOException {
+        FXMLLoader fxmlLoaderLogin = new FXMLLoader(MainApplication.class.getResource("login.fxml"));
+        login = new Scene(fxmlLoaderLogin.load(), 400, 600);
+        FXMLLoader fxmlLoaderSignup = new FXMLLoader(MainApplication.class.getResource("signup.fxml"));
+        signup = new Scene(fxmlLoaderSignup.load(), 400, 600);
+        stage = mainStage;
+        stage.setTitle("Barghi Food");
+        stage.setMinWidth(400);
+        stage.setMinHeight(640);
+        stage.setScene(login);
         stage.show();
     }
 

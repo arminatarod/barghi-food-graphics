@@ -4,13 +4,14 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class Main {
+    static Core core;
     public static Matcher getMatcher(String command, String regex) {
         Matcher matcher = Pattern.compile(regex).matcher(command);
         return matcher.matches() ? matcher : null;
     }
     public static void main(String[] args) {
         Scanner cin = new Scanner(System.in);
-        Core core = new Core();
+        core = new Core();
         String command;
         Matcher matcher;
         while (true) {
