@@ -250,6 +250,9 @@ public class Main {
             else if ((matcher = getMatcher(command, "^-GET PATH TO RESTAURANT *")) != null) {
                 core.getPathToRestaurant();
             }
+            else if ((matcher = getMatcher(command, "^-SUGGEST ORDER *")) != null) {
+                core.suggestFood();
+            }
 
             //TODO :  delivery man command,
             //TODO : delivy mane commands like : suggest order, active order, get path

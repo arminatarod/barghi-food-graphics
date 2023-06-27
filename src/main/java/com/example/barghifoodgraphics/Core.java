@@ -551,9 +551,6 @@ public class Core {
     public void getPathToUser() {
 
     }
-    public void getFood() {
-
-    }
     public void withdraw() {
 
     }
