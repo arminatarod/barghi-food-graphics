@@ -64,6 +64,10 @@ public class Main {
             else if ((matcher = getMatcher(command, "^-DISPLAY ACTIVE ORDERS *")) != null) {
                 core.displayActiveOrders();
             }
+            else if ((matcher = getMatcher(command, "^-SELECT RESTAURANT (?<id>[0-9]+) *")) != null) {
+                int id = Integer.parseInt(matcher.group("id"));
+                core.selectRestaurant(id);
+            }
             else if ((matcher = getMatcher(command, "^-SELECT FOOD (?<id>[0-9]+) *")) != null) {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.selectFood(id);
@@ -99,6 +103,16 @@ public class Main {
                 String toRemove = matcher.group("toRemove");
                 core.removeFoodType(toRemove, fs);
             }
+            else if ((matcher = getMatcher(command, "^-ADD FOOD TYPE (?<toAdd>[a-zA-Z]+) *")) != null) {
+                // TODO : ghaare beineshon maslan ',' bahse
+                System.out.println("are you sure about that ? (type yes/no)");
+                boolean fs = false;
+                command = cin.nextLine();
+                if ((matcher = getMatcher(command, "^yes *")) != null)
+                    fs = true;
+                String toAdd = matcher.group("toAdd");
+                core.addFoodType(toAdd, fs);
+            }
             else if ((matcher = getMatcher(command, "^-EDIT RATING (?<newRating>[0-9]+) *")) != null) {
                 int newRating = Integer.parseInt(matcher.group("newRating"));
                 core.editRating(newRating);
@@ -114,7 +128,9 @@ public class Main {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.editLocation(id);
             }
-            //TODO : view of show path function
+            else if ((matcher = getMatcher(command, "^-SHOW PATH *")) != null) {
+                core.showPath();
+            }
             else if ((matcher = getMatcher(command, "^-SEARCH RESTAURANT NAME (?<name>[a-zA-Z]+) *")) != null) {
                 String name = matcher.group("name");
                 core.searchRestaurantName(name);
@@ -171,16 +187,6 @@ public class Main {
                 int rating = Integer.parseInt(matcher.group("rating"));
                 core.submitRating(rating);
             }
-            else if ((matcher = getMatcher(command, "^-ADD FOOD TYPE (?<toAdd>[a-zA-Z]+) *")) != null) {
-                // TODO : ghaare beineshon maslan ',' bahse
-                System.out.println("are you sure about that ? (type yes/no)");
-                boolean fs = false;
-                command = cin.nextLine();
-                if ((matcher = getMatcher(command, "^yes *")) != null)
-                    fs = true;
-                String toAdd = matcher.group("toAdd");
-                core.addFoodType(toAdd, fs);
-            }
             else if ((matcher = getMatcher(command, "^-DISPLAY ACCOUNT BALANCE *")) != null) {
                 core.displayAccountBalance();
             }
@@ -222,8 +228,30 @@ public class Main {
                 core.displayComments();
             }
             else if ((matcher = getMatcher(command, "^-DISPLAY RATING *")) != null) {
-                core.displayComments();
+                core.displayRating();
             }
+            else if ((matcher = getMatcher(command, "^-SET LOCATION (?<id>[0-9]+) *")) != null) {
+                int id = Integer.parseInt(matcher.group("id"));
+                core.setLocation(id);
+            }
+            else if ((matcher = getMatcher(command, "^-SHOW AVAILABLE ORDERS *")) != null) {
+                core.showAvailableOrders();
+            }
+            else if ((matcher = getMatcher(command, "^-WITHDRAW *")) != null) {
+                core.withdraw();
+            }
+            else if ((matcher = getMatcher(command, "^-ACCEPT ORDER (?<id>[0-9]+) *")) != null) {
+                int id = Integer.parseInt(matcher.group("id"));
+                core.acceptOrder(id);
+            }
+            else if ((matcher = getMatcher(command, "^-GET PATH TO USER *")) != null) {
+                core.getPathToUser();
+            }
+            else if ((matcher = getMatcher(command, "^-GET PATH TO RESTAURANT *")) != null) {
+                core.getPathToRestaurant();
+            }
+
+            //TODO :  delivery man command,
             //TODO : delivy mane commands like : suggest order, active order, get path
             else {
                 System.out.println("Wrong command format !");

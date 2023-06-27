@@ -316,6 +316,7 @@ public class Core {
     public void editOrderDeliveryTime(int OrderTime, int time) {
 
     }
+    //TODO : upddate for delivery man
     public void showOrderHistory() {
         if (selectedRestaurant == -1) {
             System.out.println("No restaurant has been selected!");
@@ -539,6 +540,28 @@ public class Core {
 
     }
     public void suggestFood() {
+
+    }
+    public void setLocation(int id) {
+
+    }
+    public void getPathToRestaurant() {
+
+    }
+    public void getPathToUser() {
+
+    }
+    public void getFood() {
+
+    }
+    public void withdraw() {
+
+    }
+    // deliveryh man ordern entekhab mikone
+    public void acceptOrder(int id) {
+
+    }
+    public void showAvailableOrders() {
 
     }
 }
