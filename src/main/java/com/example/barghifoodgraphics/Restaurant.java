@@ -12,6 +12,13 @@ public class Restaurant {
     private HashSet<Integer> orders = new HashSet<>(), activeOrders = new HashSet<>(), comments = new HashSet<>(), menu = new HashSet<>();
     private HashSet<String> foodType = new HashSet<>();
     private HashSet<Food> foods = new HashSet<>();
+
+    public Restaurant(int location, String name, String type) {
+        this.location = location;
+        this.name = name;
+        this.type = type;
+    }
+
     public HashSet<String> getFoodType() {
         return foodType;
     }

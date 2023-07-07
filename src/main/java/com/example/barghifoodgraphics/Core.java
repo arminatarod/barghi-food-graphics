@@ -9,10 +9,14 @@ public class Core {
     public Core() throws FileNotFoundException {
         map = new MapG();
         map.readGraphFromFile("graph.txt");
+        accounts = new HashSet<>();
+        orders = new HashSet<>();
+        restaurants = new HashSet<>();
     }
 
     HashSet<Account> accounts;
     HashSet<Order> orders;
+    HashSet<Restaurant> restaurants;
     int loggedInAccount = -1, loggedInUser = -1, loggedInAdmin = -1, loggedInDeliveryman = -1;
     int selectedRestaurant = -1, selectedFood = -1;
     public void login(String userName, String password) {
@@ -708,5 +712,9 @@ public class Core {
     public void selectLocation(int id)
     {
         User.getUser(loggedInUser).setSelectedLoacation(id);
+    }
+    public void addRestaurant(String name,String type,int locationId)
+    {
+        restaurants.add(new Restaurant(locationId,name,type));
     }
 }
