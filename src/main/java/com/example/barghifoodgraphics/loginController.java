@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class loginController {
@@ -16,7 +17,13 @@ public class loginController {
     @FXML
     private Pane captchaPane;
     public void forgotPressed() {
-
+        //String question = Main.core.forgetPasswordPressed(usernameField.getText());
+        Stage forgotPasswordStage = new Stage();
+        forgotPasswordStage.setTitle("Forgot password");
+        forgotPasswordStage.setMinWidth(400);
+        forgotPasswordStage.setMinHeight(640);
+        forgotPasswordStage.setScene(MainApplication.userPage);
+        forgotPasswordStage.show();
     }
     public void captchaPressed() {
         if (captchaBox.isSelected()) {

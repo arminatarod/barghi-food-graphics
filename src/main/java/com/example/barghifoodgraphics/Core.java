@@ -647,27 +647,34 @@ public class Core {
 
         }
     }
-    public void forgetPasswordPressed(String username)
+    public String forgetPasswordPressed(String username)
     {
         for(Account account : accounts)
         {
             if(account.getUsername().equals(username))
             {
                 System.out.println(account.getRecoveryQuestion());
+                return account.getRecoveryQuestion();
             }
         }
+        return null;
     }
-    public void checkRecoveruQuestionAnswer(String username,String recoveryQuestionAnswer)
+    public String checkRecoveryQuestionAnswer(String username,String recoveryQuestionAnswer)
     {
         for(Account account : accounts)
         {
             if(account.getUsername().equals(username))
             {
-                if(account.getRecoveryQuestionAnswer().equals(recoveryQuestionAnswer))
+                if(account.getRecoveryQuestionAnswer().equals(recoveryQuestionAnswer)) {
                     System.out.println(account.getPassword());
-                else
+                    return account.getPassword();
+                }
+                else {
                     System.out.println("Your answer is wrong!!!");
+                    return null;
+                }
             }
         }
+        return null;
     }
 }
