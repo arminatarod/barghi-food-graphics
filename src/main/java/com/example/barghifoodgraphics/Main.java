@@ -94,7 +94,13 @@ public class Main {
                 String toRemove = matcher.group("toRemove");
                 core.editFoodType(toAdd, toRemove, fs);
             }
-            else if ((matcher = getMatcher(command, "^-REMOVE FOOD TYPE (?<toRemove>[a-zA-Z]+) *")) != null) {
+            else if ((matcher = getMatcher(command, "^-ADD RESTAURANT (?<name>[a-zA-Z]+) (?<type>[a-zA-Z,]+) (?<location>[0-9]+) *")) != null) {
+                int location = Integer.parseInt(matcher.group("location"));
+                String name = matcher.group("name");
+                String type = matcher.group("type");
+                core.addRestaurant(name, type, location);
+            }
+            else if ((matcher = getMatcher(command, "^-REMOVE FOOD TYPE (?<toRemove>[a-zA-Z,]+) *")) != null) {
                 // TODO : ghaare beineshon maslan ',' bahse
                 System.out.println("are you sure about that ? (type yes/no)");
                 boolean fs = false;
@@ -104,7 +110,7 @@ public class Main {
                 String toRemove = matcher.group("toRemove");
                 core.removeFoodType(toRemove, fs);
             }
-            else if ((matcher = getMatcher(command, "^-ADD FOOD TYPE (?<toAdd>[a-zA-Z]+) *")) != null) {
+            else if ((matcher = getMatcher(command, "^-ADD FOOD TYPE (?<toAdd>[a-zA-Z,]+) *")) != null) {
                 // TODO : ghaare beineshon maslan ',' bahse
                 System.out.println("are you sure about that ? (type yes/no)");
                 boolean fs = false;
@@ -155,9 +161,6 @@ public class Main {
             }
             else if ((matcher = getMatcher(command, "^-SHOW MENU *")) != null) {
                 core.showMenu();
-            }
-            else if ((matcher = getMatcher(command, "^-SUGGEST FOOD *")) != null) {
-                core.suggestFood();
             }
             else if ((matcher = getMatcher(command, "^-ACTIVE FOOD (?<id>[0-9]+) *")) != null) {
                 int id = Integer.parseInt(matcher.group("id"));
