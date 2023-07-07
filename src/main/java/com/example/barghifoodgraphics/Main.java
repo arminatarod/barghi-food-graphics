@@ -69,6 +69,10 @@ public class Main {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.selectRestaurant(id);
             }
+            else if ((matcher = getMatcher(command, "^-SELECT LOCATION (?<id>[0-9]+) *")) != null) {
+                int id = Integer.parseInt(matcher.group("id"));
+                core.selectLocation(id);
+            }
             else if ((matcher = getMatcher(command, "^-SELECT FOOD (?<id>[0-9]+) *")) != null) {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.selectFood(id);
@@ -257,9 +261,6 @@ public class Main {
             else if ((matcher = getMatcher(command, "^-SUGGEST ORDER *")) != null) {
                 core.suggestFood();
             }
-
-            //TODO :  delivery man command,
-            //TODO : delivy mane commands like : suggest order, active order, get path
             else {
                 System.out.println("Wrong command format !");
             }
