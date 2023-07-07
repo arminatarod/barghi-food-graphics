@@ -1,12 +1,14 @@
 package com.example.barghifoodgraphics;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Core {
-    Map map;
+    MapG map;
+
+    public Core() {
+        map = new MapG();
+    }
+
     HashSet<Account> accounts;
     int loggedInAccount = -1, loggedInUser = -1, loggedInAdmin = -1, loggedInDeliveryman = -1;
     int selectedRestaurant = -1, selectedFood = -1;
@@ -539,8 +541,73 @@ public class Core {
     public void showPath() {
 
     }
-    public void suggestFood() {
+    public void suggestRestuarant()
+    {
+        if(loggedInUser == -1)
+        {
+            System.out.println("No one has logged in!!!");
+        }
+        else
+        {
+            ArrayList<Integer> tmp  =new ArrayList<>();
+            for(Account account : accounts)
+            {
+                if(account.getClass() == Admin.class)
+                {
+                    for(Integer restaurantId : ((Admin) account).getRestaurants())
+                    {
+                        tmp.add(restaurantId);
+                    }
+                }
+            }
+            for(int i = 0;i < tmp.size()-1; i++)
+            {
+                for(int j = i+1;j < tmp.size(); j++)
+                {
+                    if(Restaurant.getRestaurant(tmp.get(i)).getAverageRating() > Restaurant.getRestaurant(tmp.get(j)).getAverageRating())
+                    {
+                        Collections.swap(tmp,i,j);
+                    }
+                }
+            }
+            for(int i=0;i<5;i++)
+            {
+                Restaurant.getRestaurant(tmp.get(tmp.size()-1-i)).showRestaurant();
+            }
+        }
 
+    }
+    public void suggestFood() {
+        if(loggedInUser == -1)
+        {
+            System.out.println("No one has logged in!!!");
+        }
+        else if(selectedRestaurant == -1)
+        {
+            System.out.println("No restaurant has been selected!!!");
+        }
+        else
+        {
+            ArrayList<Integer> tmp = new ArrayList<>();
+            for(Integer foodId : Restaurant.getRestaurant(selectedRestaurant).getMenu())
+            {
+                tmp.add(foodId);
+            }
+            for(int i=0;i<tmp.size();i++)
+            {
+                for(int j=i+1;j<tmp.size();j++)
+                {
+                    if(Food.getFood(tmp.get(i)).getAverageRating() > Food.getFood(tmp.get(j)).getAverageRating())
+                    {
+                        Collections.swap(tmp,i,j);
+                    }
+                }
+            }
+            for(int i=0;i<5;i++)
+            {
+                Food.getFood(tmp.get(i)).showFood();
+            }
+        }
     }
     public void setLocation(int id) {
 
@@ -559,6 +626,48 @@ public class Core {
 
     }
     public void showAvailableOrders() {
+        if(loggedInDeliveryman == -1)
+        {
+            System.out.println("Deliveryman has not logged in!!!");
+        }
+        else
+        {
+            ArrayList<Integer> tmp  =new ArrayList<>();
+            for(Account account : accounts)
+            {
+                if(account.getClass() == Admin.class)
+                {
+                    for(Integer restaurantId : ((Admin) account).getRestaurants())
+                    {
+                        tmp.add(restaurantId);
+                    }
+                }
+            }
+            //TODO Matin khbrt kojaeiiiiii
 
+        }
+    }
+    public void forgetPasswordPressed(String username)
+    {
+        for(Account account : accounts)
+        {
+            if(account.getUsername().equals(username))
+            {
+                System.out.println(account.getRecoveryQuestion());
+            }
+        }
+    }
+    public void checkRecoveruQuestionAnswer(String username,String recoveryQuestionAnswer)
+    {
+        for(Account account : accounts)
+        {
+            if(account.getUsername().equals(username))
+            {
+                if(account.getRecoveryQuestionAnswer().equals(recoveryQuestionAnswer))
+                    System.out.println(account.getPassword());
+                else
+                    System.out.println("Your answer is wrong!!!");
+            }
+        }
     }
 }

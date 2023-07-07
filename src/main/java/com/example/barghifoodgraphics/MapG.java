@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Map {
+public class MapG {
     // ye data structure baraye graph
     private int n, m;
     private int[] dad, dis;

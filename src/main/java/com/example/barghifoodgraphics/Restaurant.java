@@ -100,4 +100,8 @@ public class Restaurant {
             mapper.writeValue(new File("src/data/restaurants/" + ID + ".json"), restaurant);
         } catch (Exception ignored) {}
     }
+    public void showRestaurant()
+    {
+        System.out.println("Restaurant name: " + name + " " + "Average rating: " + averageRating);
+    }
 }
