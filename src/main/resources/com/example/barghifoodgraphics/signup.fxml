@@ -2,17 +2,20 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: rgb(20,40,80);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.signupController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: rgb(30,120,30);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.signupController">
    <children>
-      <Label text="Barghi Food" textFill="#a99c88">
+      <Label text="Barghi Food" textFill="#dcc8aa">
          <font>
             <Font size="48.0" />
          </font>
@@ -28,22 +31,29 @@
             <Insets top="30.0" />
          </VBox.margin>
       </Label>
-      <TextField fx:id="usernameField" promptText="Username">
+      <HBox>
+         <children>
+            <TextField fx:id="usernameField" promptText="Username">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </TextField>
+            <PasswordField fx:id="passwordField" promptText="Password">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </PasswordField>
+         </children>
          <VBox.margin>
-            <Insets left="50.0" right="50.0" top="20.0" />
+            <Insets left="20.0" right="20.0" top="20.0" />
          </VBox.margin>
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <PasswordField fx:id="passwordField" promptText="Password">
-         <VBox.margin>
-            <Insets left="50.0" right="50.0" top="20.0" />
-         </VBox.margin>
-         <font>
-            <Font size="18.0" />
-         </font>
-      </PasswordField>
+      </HBox>
       <HBox alignment="CENTER">
          <VBox.margin>
             <Insets top="20.0" />
@@ -64,12 +74,31 @@
          <VBox.margin>
             <Insets left="20.0" right="20.0" top="20.0" />
          </VBox.margin>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
       </TextField>
       <TextField fx:id="recoveryAnswer" promptText="Recovery answer">
          <VBox.margin>
             <Insets left="20.0" right="20.0" top="20.0" />
          </VBox.margin>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
       </TextField>
+      <Pane fx:id="captchaPane" prefHeight="60.0">
+         <children>
+            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="60.0" layoutX="100.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+            <CheckBox fx:id="captchaBox" layoutX="132.0" layoutY="18.0" mnemonicParsing="false" text="I'm not a robot" onMouseClicked="#captchaPressed">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </CheckBox>
+         </children>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </Pane>
       <Button mnemonicParsing="false" onMouseClicked="#signupPressed" text="Sign up">
          <font>
             <Font size="16.0" />
@@ -81,9 +110,9 @@
             <Insets bottom="5.0" left="40.0" right="40.0" top="5.0" />
          </padding>
       </Button>
-      <Label text="Already have an account? Login!" textFill="WHITE" onMouseClicked="#changeToLogin">
+      <Label onMouseClicked="#changeToLogin" text="Already have an account? Login!" textFill="WHITE">
          <VBox.margin>
-            <Insets top="50.0" />
+            <Insets top="30.0" />
          </VBox.margin>
          <font>
             <Font size="16.0" />
