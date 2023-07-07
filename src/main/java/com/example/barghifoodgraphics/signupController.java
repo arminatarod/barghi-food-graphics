@@ -3,7 +3,7 @@ package com.example.barghifoodgraphics;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 public class signupController {
@@ -16,7 +16,7 @@ public class signupController {
     @FXML
     private CheckBox captchaBox;
     @FXML
-    private Pane captchaPane;
+    private StackPane captchaPane;
     public void captchaPressed() {
         if (captchaBox.isSelected()) {
             captchaPane.setOpacity(0);

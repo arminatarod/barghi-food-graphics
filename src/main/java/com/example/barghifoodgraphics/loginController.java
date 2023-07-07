@@ -3,7 +3,7 @@ package com.example.barghifoodgraphics;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -15,15 +15,26 @@ public class loginController {
     @FXML
     private CheckBox captchaBox;
     @FXML
-    private Pane captchaPane;
+    private StackPane captchaPane;
     public void forgotPressed() {
-        //String question = Main.core.forgetPasswordPressed(usernameField.getText());
         Stage forgotPasswordStage = new Stage();
         forgotPasswordStage.setTitle("Forgot password");
         forgotPasswordStage.setMinWidth(400);
-        forgotPasswordStage.setMinHeight(640);
-        forgotPasswordStage.setScene(MainApplication.userPage);
-        forgotPasswordStage.show();
+        forgotPasswordStage.setMinHeight(540);
+        forgotPasswordStage.setScene(MainApplication.forgotPassword);
+        //String result = Main.core.forgetPasswordPressed(usernameField.getText());
+        String result = "چند کیلویی؟";
+        if (result == null) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Invalid username");
+            a.setContentText("Please enter a valid username.");
+            a.show();
+        } else {
+            forgotPasswordController.username = usernameField.getText();
+            forgotPasswordController.questionText = result;
+            ((forgotPasswordController) MainApplication.fxmlLoaderForgotPassword.getController()).initialize();
+            forgotPasswordStage.show();
+        }
     }
     public void captchaPressed() {
         if (captchaBox.isSelected()) {
@@ -46,5 +57,8 @@ public class loginController {
     }
     public void changeToSignup() {
         MainApplication.stage.setScene(MainApplication.signup);
+    }
+    public String getUsername() {
+        return usernameField.getText();
     }
 }

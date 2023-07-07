@@ -8,9 +8,8 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: rgb(30,120,30);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.signupController">
@@ -33,7 +32,7 @@
       </Label>
       <HBox>
          <children>
-            <TextField fx:id="usernameField" promptText="Username">
+            <TextField fx:id="usernameField" prefWidth="1000.0" promptText="Username">
                <font>
                   <Font size="18.0" />
                </font>
@@ -41,7 +40,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </TextField>
-            <PasswordField fx:id="passwordField" promptText="Password">
+            <PasswordField fx:id="passwordField" prefWidth="1000.0" promptText="Password">
                <font>
                   <Font size="18.0" />
                </font>
@@ -86,19 +85,25 @@
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
       </TextField>
-      <Pane fx:id="captchaPane" prefHeight="60.0">
+      <StackPane fx:id="captchaPane" prefHeight="150.0" prefWidth="200.0">
          <children>
-            <Rectangle arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="60.0" layoutX="100.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <CheckBox fx:id="captchaBox" layoutX="132.0" layoutY="18.0" mnemonicParsing="false" text="I'm not a robot" onMouseClicked="#captchaPressed">
+            <Label prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: WHITE; -fx-background-radius: 5;" />
+            <CheckBox fx:id="captchaBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#captchaPressed" prefWidth="200.0" text="I'm not a robot">
                <font>
                   <Font size="16.0" />
                </font>
+               <padding>
+                  <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+               </padding>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
             </CheckBox>
          </children>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets left="75.0" right="75.0" />
          </VBox.margin>
-      </Pane>
+      </StackPane>
       <Button mnemonicParsing="false" onMouseClicked="#signupPressed" text="Sign up">
          <font>
             <Font size="16.0" />
@@ -110,9 +115,9 @@
             <Insets bottom="5.0" left="40.0" right="40.0" top="5.0" />
          </padding>
       </Button>
-      <Label onMouseClicked="#changeToLogin" text="Already have an account? Login!" textFill="WHITE">
+      <Label onMouseClicked="#changeToLogin" style="-fx-cursor: hand;" text="Already have an account? Login!" textFill="WHITE">
          <VBox.margin>
-            <Insets top="30.0" />
+            <Insets bottom="20.0" top="20.0" />
          </VBox.margin>
          <font>
             <Font size="16.0" />
