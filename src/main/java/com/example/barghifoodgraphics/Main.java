@@ -1,5 +1,6 @@
 package com.example.barghifoodgraphics;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,7 +10,7 @@ public class Main {
         Matcher matcher = Pattern.compile(regex).matcher(command);
         return matcher.matches() ? matcher : null;
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner cin = new Scanner(System.in);
         core = new Core();
         String command;

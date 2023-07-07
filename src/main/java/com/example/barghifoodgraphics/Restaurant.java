@@ -8,7 +8,7 @@ import java.util.HashSet;
 public class Restaurant {
     private int location, balance, ratingCount, adminID;
     private double averageRating;
-    private String name;
+    private String name,type;
     private HashSet<Integer> orders = new HashSet<>(), activeOrders = new HashSet<>(), comments = new HashSet<>(), menu = new HashSet<>();
     private HashSet<String> foodType = new HashSet<>();
     private HashSet<Food> foods = new HashSet<>();
@@ -104,4 +104,11 @@ public class Restaurant {
     {
         System.out.println("Restaurant name: " + name + " " + "Average rating: " + averageRating);
     }
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

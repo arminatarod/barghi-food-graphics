@@ -1,15 +1,18 @@
 package com.example.barghifoodgraphics;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Core {
     MapG map;
 
-    public Core() {
+    public Core() throws FileNotFoundException {
         map = new MapG();
+        map.readGraphFromFile("graph.txt");
     }
 
     HashSet<Account> accounts;
+    HashSet<Order> orders;
     int loggedInAccount = -1, loggedInUser = -1, loggedInAdmin = -1, loggedInDeliveryman = -1;
     int selectedRestaurant = -1, selectedFood = -1;
     public void login(String userName, String password) {
@@ -511,7 +514,10 @@ public class Core {
         else
         {
             System.out.println("Done!");
-            User.getUser(loggedInUser).getCart().setStatus("CONFIRMED");//agr ye enum bznim bra in kara be nzrm bhtare
+            User.getUser(loggedInUser).getCart().setStatus("CONFIRMED");
+            Order tmp = User.getUser(loggedInUser).getCart();
+            orders.add(new Order(orders.size()-1, tmp.getPrice(),tmp.getRestaurant(),tmp.getUser(),null,tmp.getItems()));
+            //agr ye enum bznim bra in kara be nzrm bhtare
         }
     }
     public void showEstimatedDeliveryTime() {
@@ -639,12 +645,34 @@ public class Core {
                 {
                     for(Integer restaurantId : ((Admin) account).getRestaurants())
                     {
-                        tmp.add(restaurantId);
+                        if(Restaurant.getRestaurant(restaurantId).getActiveOrders().size() != 0)
+                        {
+                            for(Integer orderId : Restaurant.getRestaurant(restaurantId).getActiveOrders())
+                            {
+                                tmp.add(orderId);
+                            }
+                        }
                     }
                 }
             }
-            //TODO Matin khbrt kojaeiiiiii
-
+            for(int i=0;i<tmp.size();i++)
+            {
+                for(int j=0;j< tmp.size();j++)
+                {
+                    if(map.getDistance(Order.getOrder(tmp.get(i)).getRestaurant().getLocation(),Deliveryman.getDeliveryman(loggedInDeliveryman).getLocation()) +
+                            map.getDistance(Order.getOrder(tmp.get(i)).getRestaurant().getLocation(),Order.getOrder(tmp.get(i)).getUser().getSelectedLoacation()) >
+                            map.getDistance(Order.getOrder(tmp.get(j)).getRestaurant().getLocation(),Deliveryman.getDeliveryman(loggedInDeliveryman).getLocation()) +
+                                    map.getDistance(Order.getOrder(tmp.get(j)).getRestaurant().getLocation(),Order.getOrder(tmp.get(j)).getUser().getSelectedLoacation()))
+                    {
+                        Collections.swap(tmp,i,j);
+                    }
+                }
+            }
+            for(int i=0;i<5;i++)
+            {
+                Order.getOrder(tmp.get(i)).showOrder(map.getDistance(Order.getOrder(tmp.get(i)).getRestaurant().getLocation(),Deliveryman.getDeliveryman(loggedInDeliveryman).getLocation()) +
+                        map.getDistance(Order.getOrder(tmp.get(i)).getRestaurant().getLocation(),Order.getOrder(tmp.get(i)).getUser().getSelectedLoacation()),tmp.get(i));
+            }
         }
     }
     public String forgetPasswordPressed(String username)
@@ -676,5 +704,9 @@ public class Core {
             }
         }
         return null;
+    }
+    public void selectLocation(int id)
+    {
+        User.getUser(loggedInUser).setSelectedLoacation(id);
     }
 }

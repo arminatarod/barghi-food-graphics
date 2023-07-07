@@ -39,6 +39,16 @@ public class Order {
     private Deliveryman deliveryman;
     private String status;
     private HashMap<Integer, FoodData> items;
+
+    public Order(int id, int price, Restaurant restaurant, User user, Deliveryman deliveryman, HashMap<Integer, FoodData> items) {
+        this.id = id;
+        this.price = price;
+        this.restaurant = restaurant;
+        this.user = user;
+        this.deliveryman = deliveryman;
+        this.items = items;
+    }
+
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
@@ -124,5 +134,9 @@ public class Order {
         try {
             mapper.writeValue(new File("src/data/orders/" + ID + ".json"), order);
         } catch (Exception ignored) {}
+    }
+    public void showOrder(int estimatedTime,int orderId)
+    {
+        System.out.println("orderId: " + orderId + "EstimatedTime: " + estimatedTime);
     }
 }
