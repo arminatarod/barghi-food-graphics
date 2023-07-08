@@ -16,7 +16,7 @@ public class userPageController {
     @FXML
     private ComboBox<String> locationBox;
     public void changeToRestaurant() {
-        MainApplication.stage.setScene(MainApplication.restaurant);
+        //MainApplication.stage.setScene(MainApplication.restaurant);
     }
     public void changeToSupermarket() {
         MainApplication.stage.setScene(MainApplication.supermarket);

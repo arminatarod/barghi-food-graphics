@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.747326203208556" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.adminController2">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <TableView fx:id="myTable" layoutY="32.0" onMouseClicked="#myTableClicked" prefHeight="313.0" prefWidth="444.0">
+              <columns>
+                <TableColumn fx:id="FoodNameColumn" prefWidth="111.0" text="Food Name" />
+                <TableColumn fx:id="FoodPriceColumn" prefWidth="111.0" text="Food Price" />
+                  <TableColumn fx:id="FoodAverageRatingColumn" prefWidth="111.0" text=" Average Rating" />
+                  <TableColumn fx:id="DiscountColumn" prefWidth="111.0" text="Discount" />
+              </columns>
+            </TableView>
+            <HBox alignment="CENTER" layoutY="346.0" prefHeight="54.0" prefWidth="444.0">
+               <children>
+                  <Button fx:id="AddButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#goAdd" text="Add">
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="EditButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#goEdit" text="Edit">
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="RemoveButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#Remove" text="Remove">
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="CommentsButton" alignment="CENTER" mnemonicParsing="false" text="Comments">
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="32.0" prefWidth="444.0">
+               <children>
+                  <Label fx:id="BackLabel" onMouseClicked="#back" style="-fx-cursor: hand;" text="← Back" textFill="#1e78a0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <Label alignment="CENTER" layoutX="34.0" layoutY="114.0" prefHeight="32.0" prefWidth="76.0" text="KFC" />
+            <Button layoutX="9.0" layoutY="167.0" mnemonicParsing="false" onMouseClicked="#goToComments" prefHeight="32.0" prefWidth="134.0" text="Comments" />
+            <ListView fx:id="foodTypeListView" layoutX="9.0" layoutY="205.0" onMouseClicked="#choosingFoodType" prefHeight="178.0" prefWidth="134.0" />
+             <ImageView fx:id="RestaurantPic" fitHeight="95.0" fitWidth="98.0" layoutX="27.0" layoutY="14.0">
+                 <Image url="@../../../../../../../../OneDrive/Desktop/KFCpicture.jpg" />
+             </ImageView>
+         </children>
+      </AnchorPane>
+  </items>
+</SplitPane>

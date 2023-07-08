@@ -1,0 +1,10 @@
+.table-column {
+    -fx-background-color: #215621;
+    -fx-text-fill: #FFFFFF;
+}
+.table-cell {
+    -fx-background-color: #66e746;
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 1px;
+    -fx-text-fill: white;
+}

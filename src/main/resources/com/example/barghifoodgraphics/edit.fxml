@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: #95EF83FF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.editController">
+   <children>
+      <HBox fx:id="BoxOne" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #064D05FF; -fx-border-color: black;">
+         <children>
+            <Label alignment="CENTER" prefHeight="100.0" prefWidth="133.3" style="-fx-border-color: black;" text="Food Name" textFill="#fff8f8">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="100.0" prefWidth="133.3" style="-fx-border-color: black;" text="Food Price" textFill="#fff8f8">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="100.0" prefWidth="133.3" style="-fx-border-color: black;" text="Discount" textFill="#fff8f8">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox fx:id="BoxTwo" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" stylesheets="@style3.css">
+         <children>
+            <TextField fx:id="foodNameTextField" alignment="CENTER" prefHeight="100.0" prefWidth="133.3" promptText="Food Name" style="-fx-border-color: black; -fx-background-color: #08B006FF;">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="foodPriceTextField" alignment="CENTER" prefHeight="100.0" prefWidth="133.3" promptText="Food Price" style="-fx-border-color: black; -fx-background-color: #08B006FF;">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="discountTExtField" alignment="CENTER" prefHeight="100.0" prefWidth="133.3" promptText="Discount" style="-fx-border-color: black; -fx-background-color: #08B006FF;">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="2.0" />
+         </VBox.margin></HBox>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="400.0">
+         <children>
+            <Button mnemonicParsing="false" onMouseClicked="#ok" text="Edit" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
