@@ -20,16 +20,16 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <HBox alignment="CENTER" layoutX="50.0" layoutY="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0">
+                  <HBox alignment="CENTER" layoutX="50.0" layoutY="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0">
                      <children>
                         <ComboBox fx:id="locationBox" focusTraversable="false" prefWidth="1000.0" promptText="Select location">
                            <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
+                              <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </ComboBox>
                         <Button focusTraversable="false" maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" prefWidth="50.0" text="Cart">
                            <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
+                              <Insets left="10.0" />
                            </HBox.margin>
                         </Button>
                      </children>
