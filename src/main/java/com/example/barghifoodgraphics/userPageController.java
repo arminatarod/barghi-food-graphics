@@ -23,6 +23,9 @@ public class userPageController {
     public void changeToSupermarket() {
         MainApplication.stage.setScene(MainApplication.supermarket);
     }
+    public void changeToCart() {
+        MainApplication.stage.setScene(MainApplication.cart);
+    }
     public void refreshSearch() {
         ArrayList<String> results = new ArrayList<>();
         //results.addAll(Arrays.asList(Main.core.searchRestaurantName().split("\n")));
