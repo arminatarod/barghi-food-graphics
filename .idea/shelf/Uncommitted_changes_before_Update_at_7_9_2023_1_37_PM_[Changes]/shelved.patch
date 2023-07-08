@@ -1,0 +1,167 @@
+Index: src/main/java/com/example/barghifoodgraphics/MainApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.barghifoodgraphics;\r\n\r\nimport javafx.application.Application;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Scene;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\n\r\npublic class MainApplication extends Application {\r\n    static Stage stage;\r\n    static Scene login, signup, userPage, forgotPassword;\r\n    static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword;\r\n    @Override\r\n    public void start(Stage mainStage) throws IOException {\r\n        fxmlLoaderLogin = new FXMLLoader(MainApplication.class.getResource(\"login.fxml\"));\r\n        login = new Scene(fxmlLoaderLogin.load(), 400, 600);\r\n        fxmlLoaderSignup = new FXMLLoader(MainApplication.class.getResource(\"signup.fxml\"));\r\n        signup = new Scene(fxmlLoaderSignup.load(), 400, 600);\r\n        fxmlLoaderUserPage = new FXMLLoader(MainApplication.class.getResource(\"userPage.fxml\"));\r\n        userPage = new Scene(fxmlLoaderUserPage.load(), 400, 600);\r\n        fxmlLoaderForgotPassword = new FXMLLoader(MainApplication.class.getResource(\"forgotPassword.fxml\"));\r\n        forgotPassword = new Scene(fxmlLoaderForgotPassword.load(), 400, 500);\r\n        stage = mainStage;\r\n        stage.setTitle(\"Barghi Food\");\r\n        stage.setMinWidth(400);\r\n        stage.setMinHeight(640);\r\n        stage.setScene(login);\r\n        stage.show();\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        launch();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/MainApplication.java b/src/main/java/com/example/barghifoodgraphics/MainApplication.java
+--- a/src/main/java/com/example/barghifoodgraphics/MainApplication.java	(revision 1cf10c5715eceb257ea289b1ce02b713d207b0b4)
++++ b/src/main/java/com/example/barghifoodgraphics/MainApplication.java	(date 1688844054892)
+@@ -9,8 +9,8 @@
+ 
+ public class MainApplication extends Application {
+     static Stage stage;
+-    static Scene login, signup, userPage, forgotPassword;
+-    static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword;
++    static Scene login, signup, userPage, forgotPassword, adminPage;
++    static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword, fxmlLoaderAdminPage;
+     @Override
+     public void start(Stage mainStage) throws IOException {
+         fxmlLoaderLogin = new FXMLLoader(MainApplication.class.getResource("login.fxml"));
+@@ -21,11 +21,13 @@
+         userPage = new Scene(fxmlLoaderUserPage.load(), 400, 600);
+         fxmlLoaderForgotPassword = new FXMLLoader(MainApplication.class.getResource("forgotPassword.fxml"));
+         forgotPassword = new Scene(fxmlLoaderForgotPassword.load(), 400, 500);
++        fxmlLoaderAdminPage = new FXMLLoader(MainApplication.class.getResource("adminPage2.fxml"));
++        adminPage = new Scene(fxmlLoaderAdminPage.load(), 600, 400);
+         stage = mainStage;
+         stage.setTitle("Barghi Food");
+         stage.setMinWidth(400);
+         stage.setMinHeight(640);
+-        stage.setScene(login);
++        stage.setScene(adminPage);
+         stage.show();
+     }
+ 
+Index: src/main/resources/com/example/barghifoodgraphics/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/example/barghifoodgraphics/style.css b/src/main/resources/com/example/barghifoodgraphics/style.css
+new file mode 100644
+--- /dev/null	(date 1688818084725)
++++ b/src/main/resources/com/example/barghifoodgraphics/style.css	(date 1688818084725)
+@@ -0,0 +1,8 @@
++.list-cell {
++    -fx-background-color: #556B2FFF;
++    -fx-text-fill: white;
++    -fx-border-color: white;
++    -fx-font-size: 16;
++    -fx-font-weight: bold;
++    -fx-font-family: "System";
++  }
+Index: src/main/resources/com/example/barghifoodgraphics/adminPage2.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/example/barghifoodgraphics/adminPage2.fxml b/src/main/resources/com/example/barghifoodgraphics/adminPage2.fxml
+new file mode 100644
+--- /dev/null	(date 1688843623870)
++++ b/src/main/resources/com/example/barghifoodgraphics/adminPage2.fxml	(date 1688843623870)
+@@ -0,0 +1,38 @@
++<?xml version="1.0" encoding="UTF-8"?>
++
++<?import javafx.scene.control.Button?>
++<?import javafx.scene.control.Label?>
++<?import javafx.scene.control.ListView?>
++<?import javafx.scene.control.SplitPane?>
++<?import javafx.scene.control.TreeTableColumn?>
++<?import javafx.scene.control.TreeTableView?>
++<?import javafx.scene.image.Image?>
++<?import javafx.scene.image.ImageView?>
++<?import javafx.scene.layout.AnchorPane?>
++
++<SplitPane dividerPositions="0.747326203208556" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.adminController2">
++  <items>
++    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
++         <children>
++            <TreeTableView fx:id="myTable" prefHeight="398.0" prefWidth="444.0">
++              <columns>
++                <TreeTableColumn prefWidth="149.0" text="Food Name" />
++                <TreeTableColumn prefWidth="149.0" text="Price" />
++                  <TreeTableColumn prefWidth="149.0" text="Average Rating" />
++              </columns>
++            </TreeTableView>
++         </children></AnchorPane>
++    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
++         <children>
++            <ImageView fitHeight="99.0" fitWidth="76.0" layoutX="34.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
++               <image>
++                  <Image url="@../../../../../../../../OneDrive/Desktop/images.png" />
++               </image>
++            </ImageView>
++            <Label alignment="CENTER" layoutX="34.0" layoutY="114.0" prefHeight="32.0" prefWidth="76.0" text="KFC" />
++            <Button layoutX="9.0" layoutY="167.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="134.0" text="Comments" />
++            <ListView fx:id="foodTypeListView" layoutX="9.0" layoutY="205.0" prefHeight="178.0" prefWidth="134.0" />
++         </children>
++      </AnchorPane>
++  </items>
++</SplitPane>
+Index: src/main/java/com/example/barghifoodgraphics/adminController2.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/adminController2.java b/src/main/java/com/example/barghifoodgraphics/adminController2.java
+new file mode 100644
+--- /dev/null	(date 1688896815575)
++++ b/src/main/java/com/example/barghifoodgraphics/adminController2.java	(date 1688896815575)
+@@ -0,0 +1,24 @@
++package com.example.barghifoodgraphics;
++
++import javafx.fxml.FXML;
++import javafx.scene.control.*;
++import javafx.scene.control.cell.PropertyValueFactory;
++
++import java.util.ArrayList;
++
++public class adminController2 {
++    @FXML ListView<String> foodTypeListView;
++    @FXML TreeTableView<String> myTable;
++    @FXML TreeTableColumn<Food,String> FoodNameColumn;
++    @FXML TreeTableColumn<Food,String> FoodPriceColumn;
++    @FXML TreeTableColumn<Food,Integer> FoodAverageRatingColumn;
++    public void initialize()
++    {
++        ArrayList<String> foodTypes = new ArrayList<>();
++        foodTypes.add("Pizza");
++        foodTypes.add("Pasta");
++        foodTypes.add("Italian");
++        foodTypes.add("Appetizer");
++        foodTypeListView.getItems().addAll(foodTypes);
++    }
++}
+Index: src/main/java/com/example/barghifoodgraphics/adminController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/adminController.java b/src/main/java/com/example/barghifoodgraphics/adminController.java
+new file mode 100644
+--- /dev/null	(date 1688805063974)
++++ b/src/main/java/com/example/barghifoodgraphics/adminController.java	(date 1688805063974)
+@@ -0,0 +1,21 @@
++package com.example.barghifoodgraphics;
++
++import javafx.fxml.FXML;
++import javafx.scene.control.ListView;
++import java.util.ArrayList;
++
++public class adminController {
++    @FXML
++    ListView restaurantListView;
++    public void initialize()
++    {
++        ArrayList<String> restaurants= new ArrayList<>();
++        restaurants.add("parsa");
++        restaurants.add("matin");
++        restaurants.add("armin");
++        restaurants.add("ghaz");
++        restaurantListView.getItems().addAll(restaurants);
++        String css = this.getClass().getResource("style.css").toExternalForm();
++        restaurantListView.getStylesheets().add(css);
++    }
++}

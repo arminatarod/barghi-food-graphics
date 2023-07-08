@@ -1,0 +1,20 @@
+Index: src/main/resources/com/example/barghifoodgraphics/style2.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/example/barghifoodgraphics/style2.css b/src/main/resources/com/example/barghifoodgraphics/style2.css
+new file mode 100644
+--- /dev/null	(date 1688931229702)
++++ b/src/main/resources/com/example/barghifoodgraphics/style2.css	(date 1688931229702)
+@@ -0,0 +1,10 @@
++.table-column {
++    -fx-background-color: DARKOLIVEGREEN;
++    -fx-text-fill: white;
++}
++.table-cell {
++    -fx-background-color: #215621;
++    -fx-border-color: white;
++    -fx-border-width: 2px;
++    -fx-text-fill: white;
++}

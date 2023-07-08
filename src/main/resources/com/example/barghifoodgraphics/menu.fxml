@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.menuController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="86.0" prefWidth="400.0">
+         <children>
+            <Label fx:id="BackLabel" style="-fx-cursor: hand;" text="← Back" textFill="#1e78a0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="95.0" right="100.0" />
+               </HBox.margin>
+            </Label>
+            <ImageView fitHeight="63.0" fitWidth="67.0">
+               <image>
+                  <Image url="@../../../../../../../../OneDrive/Desktop/images.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="160.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+      <Label text="KFC" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-width: 2;">
+         <children>
+            <Label prefHeight="18.0" prefWidth="96.0" text="Average Rating:">
+               <HBox.margin>
+                  <Insets left="40.0" right="2.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="averageRatingLabel" prefHeight="18.0" prefWidth="31.0" text="Label">
+               <HBox.margin>
+                  <Insets left="2.0" right="40.0" />
+               </HBox.margin>
+            </Label>
+            <Button fx:id="CommentsButton" mnemonicParsing="false" text="Comments">
+               <HBox.margin>
+                  <Insets left="40.0" right="40.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <TabPane fx:id="myTabPane" prefHeight="402.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" />
+   </children>
+</VBox>
