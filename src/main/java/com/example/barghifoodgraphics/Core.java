@@ -664,9 +664,9 @@ public class Core {
                 for(int j=0;j< tmp.size();j++)
                 {
                     if(map.getDistance(Order.getOrder(tmp.get(i)).getRestaurant().getLocation(),Deliveryman.getDeliveryman(loggedInDeliveryman).getLocation()) +
-                            map.getDistance(Order.getOrder(tmp.get(i)).getRestaurant().getLocation(),Order.getOrder(tmp.get(i)).getUser().getSelectedLoacation()) >
+                            map.getDistance(Order.getOrder(tmp.get(i)).getRestaurant().getLocation(),Order.getOrder(tmp.get(i)).getUser().getSelectedLocation()) >
                             map.getDistance(Order.getOrder(tmp.get(j)).getRestaurant().getLocation(),Deliveryman.getDeliveryman(loggedInDeliveryman).getLocation()) +
-                                    map.getDistance(Order.getOrder(tmp.get(j)).getRestaurant().getLocation(),Order.getOrder(tmp.get(j)).getUser().getSelectedLoacation()))
+                                    map.getDistance(Order.getOrder(tmp.get(j)).getRestaurant().getLocation(),Order.getOrder(tmp.get(j)).getUser().getSelectedLocation()))
                     {
                         Collections.swap(tmp,i,j);
                     }
@@ -675,7 +675,7 @@ public class Core {
             for(int i=0;i<5;i++)
             {
                 Order.getOrder(tmp.get(i)).showOrder(map.getDistance(Order.getOrder(tmp.get(i)).getRestaurant().getLocation(),Deliveryman.getDeliveryman(loggedInDeliveryman).getLocation()) +
-                        map.getDistance(Order.getOrder(tmp.get(i)).getRestaurant().getLocation(),Order.getOrder(tmp.get(i)).getUser().getSelectedLoacation()),tmp.get(i));
+                        map.getDistance(Order.getOrder(tmp.get(i)).getRestaurant().getLocation(),Order.getOrder(tmp.get(i)).getUser().getSelectedLocation()),tmp.get(i));
             }
         }
     }
@@ -711,7 +711,7 @@ public class Core {
     }
     public void selectLocation(int id)
     {
-        User.getUser(loggedInUser).setSelectedLoacation(id);
+        User.getUser(loggedInUser).setSelectedLocation(id);
     }
     public void addRestaurant(String name,String type,int locationId)
     {
