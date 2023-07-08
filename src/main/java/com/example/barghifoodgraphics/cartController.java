@@ -24,7 +24,10 @@ public class cartController {
         MainApplication.stage.setScene(MainApplication.userPage);
     }
     public void tableClicked() {
-        selectedRow = ((IntegerProperty)cartTable.getSelectionModel().getSelectedItem().get(0)).getValue();
+        if (cartTable.getSelectionModel().getSelectedItem() == null)
+            selectedRow = -1;
+        else
+            selectedRow = ((IntegerProperty)cartTable.getSelectionModel().getSelectedItem().get(0)).getValue();
     }
     public void increaseRow() {
         if (selectedRow == -1) {
