@@ -25,7 +25,7 @@ public class MainApplication extends Application {
         stage.setTitle("Barghi Food");
         stage.setMinWidth(400);
         stage.setMinHeight(640);
-        stage.setScene(login);
+        stage.setScene(userPage);
         stage.show();
     }
 
