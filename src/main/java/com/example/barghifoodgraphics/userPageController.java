@@ -20,6 +20,9 @@ public class userPageController {
     private VBox searchVbox;
     @FXML
     private ComboBox locationBox;
+    public void changeToSupermarket() {
+        MainApplication.stage.setScene(MainApplication.supermarket);
+    }
     public void refreshSearch() {
         ArrayList<String> results = new ArrayList<>();
         //results.addAll(Arrays.asList(Main.core.searchRestaurantName().split("\n")));
