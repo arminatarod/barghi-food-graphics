@@ -8,7 +8,7 @@ import java.util.HashSet;
 public class User extends Account {
     private HashSet<Integer> locations = new HashSet<>(), orders = new HashSet<>(), comments = new HashSet<>();
     private Order cart;
-    private int selectedLoacation;
+    private int selectedLocation;
     private int balance;
     public User(String userName, String password, String recoveryQuestion, String recoveryQuestionAnswer, int id) {
         super(userName, password, recoveryQuestion, recoveryQuestionAnswer, id);
@@ -63,10 +63,10 @@ public class User extends Account {
         } catch (Exception ignored) {}
     }
 
-    public void setSelectedLoacation(int selectedLoacation) {
-        this.selectedLoacation = selectedLoacation;
+    public void setSelectedLocation(int selectedLoacation) {
+        this.selectedLocation = selectedLoacation;
     }
-    public int getSelectedLoacation() {
-        return selectedLoacation;
+    public int getSelectedLocation() {
+        return selectedLocation;
     }
 }
