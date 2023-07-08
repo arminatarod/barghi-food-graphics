@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class userPageController {
     @FXML
     private ListView searchResultsRestaurant, searchResultsFood;
     @FXML
-    private Label searchRestaurantsLabel, searchFoodsLabel;
+    private VBox searchVbox;
     public void refreshSearch() {
         ArrayList<String> results = new ArrayList<>();
         //results.addAll(Arrays.asList(Main.core.searchRestaurantName().split("\n")));
@@ -32,8 +33,6 @@ public class userPageController {
         results.add("Restaurant10");
         searchResultsRestaurant.getItems().clear();
         searchResultsRestaurant.getItems().addAll(results);
-        searchResultsRestaurant.setVisible(!searchBox.getText().isEmpty());
-        searchRestaurantsLabel.setVisible(!searchBox.getText().isEmpty());
         results.clear();
         //results.addAll(Arrays.asList(Main.core.searchFoodName().split("\n")));
         results.add("Food1");
@@ -48,7 +47,6 @@ public class userPageController {
         results.add("Food10");
         searchResultsFood.getItems().clear();
         searchResultsFood.getItems().addAll(results);
-        searchResultsFood.setVisible(!searchBox.getText().isEmpty());
-        searchFoodsLabel.setVisible(!searchBox.getText().isEmpty());
+        searchVbox.setVisible(!searchBox.getText().isEmpty());
     }
 }

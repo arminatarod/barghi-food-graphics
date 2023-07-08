@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -18,13 +19,14 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <HBox alignment="CENTER" layoutX="68.0" layoutY="71.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <TextField fx:id="searchBox" onKeyTyped="#refreshSearch" promptText="Search restaurant or food" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                  <HBox alignment="CENTER" layoutX="68.0" layoutY="71.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
                      <children>
                         <VBox>
                            <children>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" text="Bakery">
+                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" style="-fx-background-color: rgb(230, 220, 180); -fx-cursor: hand;" text="Bakery">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -32,7 +34,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" text="Protein">
+                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" style="-fx-background-color: rgb(240, 120, 120); -fx-cursor: hand;" text="Protein" textFill="WHITE">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -47,7 +49,7 @@
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" text="Cafe">
+                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" style="-fx-background-color: rgb(160, 80, 40); -fx-cursor: hand;" text="Cafe" textFill="WHITE">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -55,7 +57,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1030.0" text="Restaurant">
+                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1030.0" style="-fx-background-color: rgb(180,50,50); -fx-cursor: hand;" text="Restaurant" textFill="WHITE">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -63,7 +65,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1005.0" text="Bread">
+                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1005.0" style="-fx-background-color: rgb(200,140,90); -fx-cursor: hand;" text="Bread" textFill="WHITE">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -75,7 +77,7 @@
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" text="Fruits">
+                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" style="-fx-background-color: rgb(200,200,50); -fx-cursor: hand;" text="Fruits">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -83,7 +85,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1040.0" text="Supermarket">
+                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1040.0" style="-fx-background-color: WHITE; -fx-border-color: rgb(200,200,200); -fx-border-radius: 3; -fx-cursor: hand;" text="Supermarket">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -103,14 +105,67 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <VBox layoutX="177.0" layoutY="-71.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutX="-0.800000011920929" layoutY="429.6000061035156" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <TextField fx:id="searchBox" onKeyTyped="#refreshSearch" promptText="Search restaurant or food">
-                           <VBox.margin>
-                              <Insets left="20.0" right="20.0" top="20.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <Label fx:id="searchRestaurantsLabel" prefWidth="1000.0" style="-fx-background-color: rgb(150,150,150); -fx-border-width: 1; -fx-border-color: rgb(200,200,200); -fx-border-radius: 3; -fx-background-radius: 3;" text="Restaurants:" textFill="WHITE" visible="false">
+                        <Label prefWidth="2000.0" style="-fx-border-color: rgb(200,200,200); -fx-border-width: 2 0 0 0;" text="Categories:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <ScrollPane fitToHeight="true" prefWidth="5000.0">
+                           <content>
+                              <HBox>
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Persian">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Fast food">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Italian">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Sandwich">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Seafood">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Salad">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Other">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </HBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="searchVbox" layoutX="177.0" layoutY="-71.0" prefHeight="200.0" prefWidth="100.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
+                     <children>
+                        <Label prefWidth="1000.0" style="-fx-background-color: rgb(150,150,150); -fx-border-width: 1 2 1 2; -fx-border-color: rgb(150,150,150);" text="Restaurants:" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -121,12 +176,12 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <ListView fx:id="searchResultsRestaurant" prefHeight="150.0" prefWidth="1000.0" visible="false">
+                        <ListView fx:id="searchResultsRestaurant" prefHeight="150.0" prefWidth="1000.0" style="-fx-border-color: rgb(150,150,150); -fx-border-width: 0 2 0 2;">
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" />
                            </VBox.margin>
                         </ListView>
-                        <Label fx:id="searchFoodsLabel" prefWidth="1000.0" style="-fx-background-color: rgb(150,150,150); -fx-border-width: 1; -fx-border-color: rgb(200,200,200); -fx-border-radius: 3; -fx-background-radius: 3;" text="Foods:" textFill="WHITE" visible="false">
+                        <Label prefWidth="1000.0" style="-fx-background-color: rgb(150,150,150); -fx-border-width: 1 2 1 2; -fx-border-color: rgb(150,150,150);" text="Foods:" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -137,7 +192,7 @@
                               <Insets left="20.0" right="20.0" />
                            </VBox.margin>
                         </Label>
-                        <ListView fx:id="searchResultsFood" prefHeight="150.0" prefWidth="1000.0" visible="false">
+                        <ListView fx:id="searchResultsFood" prefHeight="150.0" prefWidth="1000.0" style="-fx-border-color: rgb(150,150,150); -fx-border-width: 0 2 2 2;">
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" />
                            </VBox.margin>
