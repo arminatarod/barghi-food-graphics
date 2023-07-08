@@ -63,8 +63,8 @@ public class User extends Account {
         } catch (Exception ignored) {}
     }
 
-    public void setSelectedLocation(int selectedLoacation) {
-        this.selectedLocation = selectedLoacation;
+    public void setSelectedLocation(int selectedLocation) {
+        this.selectedLocation = selectedLocation;
     }
     public int getSelectedLocation() {
         return selectedLocation;
