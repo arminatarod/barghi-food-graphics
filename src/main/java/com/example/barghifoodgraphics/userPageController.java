@@ -1,10 +1,9 @@
 package com.example.barghifoodgraphics;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -12,12 +11,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class userPageController {
+    ArrayList<String> locations = new ArrayList<>();
     @FXML
     private TextField searchBox;
     @FXML
     private ListView searchResultsRestaurant, searchResultsFood;
     @FXML
     private VBox searchVbox;
+    @FXML
+    private ComboBox locationBox;
     public void refreshSearch() {
         ArrayList<String> results = new ArrayList<>();
         //results.addAll(Arrays.asList(Main.core.searchRestaurantName().split("\n")));
@@ -48,5 +50,22 @@ public class userPageController {
         searchResultsFood.getItems().clear();
         searchResultsFood.getItems().addAll(results);
         searchVbox.setVisible(!searchBox.getText().isEmpty());
+    }
+    public void initialize() {
+        //locationBox.getItems().addAll(User.getUser(Main.core.loggedInUser).getLocations());
+        locations.add("1");
+        locations.add("2");
+        locations.add("3");
+        locations.add("4");
+        locations.add("5");
+        locations.add("6");
+        locations.add("7");
+        locations.add("8");
+        locations.add("9");
+        locationBox.getItems().addAll(locations);
+        locationBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, selection) -> {
+            //User.getUser(Main.core.loggedInUser).setSelectedLocation(Integer.parseInt(selection.toString()));
+            System.out.println(Integer.parseInt(selection.toString()));
+        });
     }
 }
