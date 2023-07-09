@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f42fa66c-eb4f-4057-bbed-7b6c1c515121" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/commentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/comment.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/commentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/commentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/comment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/comment.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,17 +37,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/Documents/Java codes/barghi-food-graphics/src/main/resources/com/example/barghifoodgraphics",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Documents/Java codes/barghi-food-graphics/src/main/resources/com/example/barghifoodgraphics&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Documents\Java codes\barghi-food-graphics\src\main\resources\com\example\barghifoodgraphics" />
@@ -75,7 +74,8 @@
       <option name="presentableId" value="Default" />
       <updated>1688910036363</updated>
       <workItem from="1688910038556" duration="185000" />
-      <workItem from="1688910237606" duration="3721000" />
+      <workItem from="1688910237606" duration="4046000" />
+      <workItem from="1688929058174" duration="3167000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1688910303191</created>
@@ -91,7 +91,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688910351730</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update">
+      <created>1688916917110</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1688916917110</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
