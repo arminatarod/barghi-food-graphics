@@ -12,7 +12,7 @@
    <children>
       <HBox alignment="CENTER_LEFT" prefWidth="10000.0">
          <children>
-            <Label onMouseClicked="#changeToUserPage" style="-fx-cursor: hand;" text="← Back" textFill="#1e78a0">
+            <Label style="-fx-cursor: hand;" text="← Back" textFill="#1e78a0">
                <font>
                   <Font size="15.0" />
                </font>

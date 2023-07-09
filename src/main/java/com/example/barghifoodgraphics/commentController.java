@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -16,13 +15,10 @@ public class commentController {
     int selectedComment = -1;
     @FXML
     private VBox commentContainer;
-    public void changeToUserPage() {
-        MainApplication.stage.setScene(MainApplication.userPage);
-    }
     public void addComment() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Add comment");
-        dialog.setHeaderText("Enter comment content:");
+        dialog.setHeaderText("Enter comment:");
         ((GridPane)dialog.getDialogPane().getChildren().get(3)).getChildren().remove(1);
         ((GridPane)dialog.getDialogPane().getChildren().get(3)).getChildren().add(new TextArea());
         Optional<String> result = dialog.showAndWait();
