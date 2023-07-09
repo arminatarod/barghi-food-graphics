@@ -1,25 +1,23 @@
 package com.example.barghifoodgraphics;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class userPageController {
     ArrayList<String> locations = new ArrayList<>();
     @FXML
     private TextField searchBox;
     @FXML
-    private ListView searchResultsRestaurant, searchResultsFood;
+    private ListView<String> searchResultsRestaurant, searchResultsFood;
     @FXML
     private VBox searchVbox;
     @FXML
-    private ComboBox locationBox;
+    private ComboBox<String> locationBox;
+    public void changeToRestaurant() {
+        MainApplication.stage.setScene(MainApplication.restaurant);
+    }
     public void changeToSupermarket() {
         MainApplication.stage.setScene(MainApplication.supermarket);
     }
@@ -28,7 +26,7 @@ public class userPageController {
     }
     public void refreshSearch() {
         ArrayList<String> results = new ArrayList<>();
-        //results.addAll(Arrays.asList(Main.core.searchRestaurantName().split("\n")));
+        //results.addAll(Arrays.asList(Main.core.searchRestaurantName(searchBox.getText()).split("\n")));
         results.add("Restaurant1");
         results.add("Restaurant2");
         results.add("Restaurant3");
@@ -71,7 +69,7 @@ public class userPageController {
         locationBox.getItems().addAll(locations);
         locationBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, selection) -> {
             //User.getUser(Main.core.loggedInUser).setSelectedLocation(Integer.parseInt(selection.toString()));
-            System.out.println(Integer.parseInt(selection.toString()));
+            System.out.println(Integer.parseInt(selection));
         });
     }
 }

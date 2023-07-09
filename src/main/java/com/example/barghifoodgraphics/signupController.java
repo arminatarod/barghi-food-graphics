@@ -12,7 +12,7 @@ public class signupController {
     @FXML
     private PasswordField passwordField;
     @FXML
-    private ChoiceBox typeChooser;
+    private ComboBox<String> typeChooser;
     @FXML
     private CheckBox captchaBox;
     @FXML
@@ -46,6 +46,5 @@ public class signupController {
     }
     public void initialize() {
         typeChooser.getItems().addAll("User", "Administrator", "Deliveryman");
-        typeChooser.setValue("User");
     }
 }

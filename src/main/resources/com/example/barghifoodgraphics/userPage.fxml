@@ -49,7 +49,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" style="-fx-background-color: rgb(240, 120, 120); -fx-cursor: hand;" text="Protein" textFill="WHITE">
+                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" style="-fx-background-color: rgb(240, 120, 120); -fx-cursor: hand;" text="Meat shop" textFill="WHITE">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -72,7 +72,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1030.0" style="-fx-background-color: rgb(180,50,50); -fx-cursor: hand;" text="Restaurant" textFill="WHITE">
+                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1030.0" style="-fx-background-color: rgb(180,50,50); -fx-cursor: hand;" text="Restaurant" textFill="WHITE" onMouseClicked="#changeToRestaurant">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
