@@ -44,24 +44,24 @@
       </ScrollPane>
       <HBox alignment="CENTER" prefWidth="10000.0" style="-fx-border-color: rgb(150,150,150); -fx-border-width: 1 0 0 0;">
          <children>
-            <Button onMouseClicked="#addComment" mnemonicParsing="false" style="-fx-background-color: rgb(130,160,120);" text="Add comment" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#addComment" style="-fx-background-color: rgb(130,160,120);" text="Add a comment" textFill="WHITE">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
-            <Button onMouseClicked="#editComment" mnemonicParsing="false" style="-fx-background-color: rgb(200,170,70);" text="Edit comment" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#editComment" style="-fx-background-color: rgb(200,170,70);" text="Edit comment" textFill="WHITE">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
-            <Button onMouseClicked="#deleteComment" mnemonicParsing="false" style="-fx-background-color: rgb(160,0,0);" text="Delete comment" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#deleteComment" style="-fx-background-color: rgb(160,0,0);" text="Delete comment" textFill="WHITE">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
          </children>
          <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            <Insets bottom="20.0" top="20.0" />
          </padding>
          <VBox.margin>
             <Insets left="20.0" right="20.0" />

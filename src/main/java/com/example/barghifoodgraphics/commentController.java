@@ -17,14 +17,14 @@ public class commentController {
     private VBox commentContainer;
     public void addComment() {
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Add comment");
-        dialog.setHeaderText("Enter comment:");
+        dialog.setTitle("Add a comment");
+        dialog.setHeaderText("Enter your comment:");
         ((GridPane)dialog.getDialogPane().getChildren().get(3)).getChildren().remove(1);
         ((GridPane)dialog.getDialogPane().getChildren().get(3)).getChildren().add(new TextArea());
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             System.out.println(((TextArea) ((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().get(1)).getText());
-            //TODO: add comment
+            //TODO: add the comment
         }
         initialize();
     }
@@ -63,6 +63,16 @@ public class commentController {
             contentLabel.setFont(Font.font("System", FontWeight.NORMAL, 12));
             contentLabel.setTextFill(Color.WHITE);
             contentLabel.setWrapText(true);
+            VBox.setMargin(contentLabel, new Insets(10, 0, 0, 0));
+            Label answerTitleLabel = new Label("Response: ");
+            answerTitleLabel.setFont(Font.font("System", FontWeight.NORMAL, 16));
+            answerTitleLabel.setTextFill(Color.color(0.8,0.8,0.8));
+            VBox.setMargin(answerTitleLabel, new Insets(20, 0, 0, 0));
+            Label answerLabel = new Label("No response submitted.");
+            answerLabel.setFont(Font.font("System", FontWeight.NORMAL, 12));
+            answerLabel.setTextFill(Color.color(0.8,0.8,0.8));
+            answerLabel.setWrapText(true);
+            VBox.setMargin(answerLabel, new Insets(10, 0, 0, 0));
             VBox commentBox = new VBox();
             commentBox.setStyle("-fx-background-color: rgb(100,100,100); -fx-background-radius: 10; -fx-cursor: hand;");
             commentBox.setPrefWidth(10000);
@@ -71,12 +81,14 @@ public class commentController {
             VBox.setMargin(commentBox, new Insets(20, 0, 20, 0));
             commentBox.getChildren().add(userLabel);
             commentBox.getChildren().add(contentLabel);
+            commentBox.getChildren().add(answerTitleLabel);
+            commentBox.getChildren().add(answerLabel);
             int indexCopy = i;
             commentBox.setOnMouseClicked(mouseEvent -> {
                 if (selectedComment != -1)
                     commentContainer.getChildren().get(selectedComment).setStyle("-fx-background-color: rgb(100,100,100); -fx-background-radius: 10; -fx-cursor: hand;");
                 selectedComment = indexCopy;
-                commentBox.setStyle("-fx-background-color: rgb(150,150,150); -fx-background-radius: 10; -fx-cursor: hand;");
+                commentBox.setStyle("-fx-background-color: rgb(50,50,50); -fx-background-radius: 10; -fx-cursor: hand;");
             });
             commentContainer.getChildren().add(commentBox);
         }
