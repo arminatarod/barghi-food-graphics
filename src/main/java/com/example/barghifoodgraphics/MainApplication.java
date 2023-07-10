@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public class MainApplication extends Application {
     static Stage stage;
-    static Scene login, signup, userPage, forgotPassword, supermarket, cart, restaurant, comment;
-    static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword, fxmlLoaderSupermarket, fxmlLoaderCart, fxmlLoaderRestaurant, fxmlLoaderComment;
+    static Scene login, signup, userPage, forgotPassword, supermarket, cart, restaurant, comment, deliverymanPage;
+    static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword, fxmlLoaderSupermarket, fxmlLoaderCart, fxmlLoaderRestaurant, fxmlLoaderComment, fxmlLoaderDeliverymanPage;
     @Override
     public void start(Stage mainStage) throws IOException {
         fxmlLoaderLogin = new FXMLLoader(MainApplication.class.getResource("login.fxml"));
@@ -29,11 +29,13 @@ public class MainApplication extends Application {
         restaurant = new Scene(fxmlLoaderRestaurant.load(), 400, 600);
         fxmlLoaderComment = new FXMLLoader(MainApplication.class.getResource("comment.fxml"));
         comment = new Scene(fxmlLoaderComment.load(), 400, 600);
+        fxmlLoaderDeliverymanPage = new FXMLLoader(MainApplication.class.getResource("deliverymanPage.fxml"));
+        deliverymanPage = new Scene(fxmlLoaderDeliverymanPage.load(), 400, 600);
         stage = mainStage;
         stage.setTitle("Barghi Food");
         stage.setMinWidth(410);
         stage.setMinHeight(640);
-        stage.setScene(comment);
+        stage.setScene(deliverymanPage);
         stage.show();
     }
 
