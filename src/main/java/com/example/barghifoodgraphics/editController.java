@@ -12,14 +12,6 @@ public class editController {
     @FXML HBox BoxOne;
     @FXML HBox BoxTwo;
     @FXML TextField foodNameTextField, foodPriceTextField, discountTExtField;
-    public void initialize()
-    {
-        BoxOne = new HBox();
-        BoxTwo = new HBox();
-        foodPriceTextField = new TextField();
-        foodNameTextField = new TextField();
-        discountTExtField = new TextField();
-    }
     public void ok()
     {
         if(foodNameTextField.getText().isBlank() || foodPriceTextField.getText().isBlank() || discountTExtField.getText().isBlank())
