@@ -88,7 +88,11 @@ public class Main {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.selectOrder(id);
             }
-            else if ((matcher = getMatcher(command, "^-EDIT FOOD TYPE (?<toAdd>[a-zA-Z]+) (?<toRemove>[a-zA-Z]+) *")) != null) {
+            else if ((matcher = getMatcher(command, "^-UNSELECT ORDER (?<id>[0-9]+) *")) != null) {
+                int id = Integer.parseInt(matcher.group("id"));
+                core.unselectOrder(id);
+            }
+            else if ((matcher = getMatcher(command, "^-EDIT FOOD TYPE (?<toAdd>[a-zA-Z,]+) *")) != null) {
                 // TODO : ghaare beineshon maslan ',' bahse
                 System.out.println("are you sure about that ? (type yes/no)");
                 boolean fs = false;
@@ -97,7 +101,7 @@ public class Main {
                     fs = true;
                 String toAdd = matcher.group("toAdd");
                 String toRemove = matcher.group("toRemove");
-                core.editFoodType(toAdd, toRemove, fs);
+                core.editFoodType(toAdd, fs);
             }
             else if ((matcher = getMatcher(command, "^-ADD RESTAURANT (?<name>[a-zA-Z]+) (?<type>[a-zA-Z,]+) (?<location>[0-9]+) *")) != null) {
                 int location = Integer.parseInt(matcher.group("location"));
@@ -155,12 +159,6 @@ public class Main {
                 String content = matcher.group("content");
                 core.editComment(id, content);
             }
-            //TODO : yekam in dastor paini ajib nist ?
-            else if ((matcher = getMatcher(command, "^-EDIT ORDER DELIVERY TIME (?<deliveryTime>[0-9]+) (?<time>[0-9]+) *")) != null) {
-                int deliveryTime = Integer.parseInt(matcher.group("deliveryTime"));
-                int time = Integer.parseInt(matcher.group("time"));
-                core.editOrderDeliveryTime(deliveryTime, time);
-            }
             else if ((matcher = getMatcher(command, "^-SHOW FOOD TYPE *")) != null) {
                 core.showFoodType();
             }
@@ -171,10 +169,9 @@ public class Main {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.activateFood(id);
             }
-            else if ((matcher = getMatcher(command, "^-EDIT ORDER STATUS (?<id>[0-9]+) (?<status>[a-zA-Z]+) *")) != null) {
-                int id = Integer.parseInt(matcher.group("id"));
+            else if ((matcher = getMatcher(command, "^-EDIT ORDER STATUS(?<status>[a-zA-Z]+) *")) != null) {
                 String status = matcher.group("status");
-                core.editOrderStatus(id, status);
+                core.editOrderStatus(status);
             }
             else if ((matcher = getMatcher(command, "^-ADD FOOD (?<name>[a-zA-Z]+) (?<price>[0-9]+) *")) != null) {
                 String name = matcher.group("name");
@@ -242,6 +239,10 @@ public class Main {
             else if ((matcher = getMatcher(command, "^-SET LOCATION (?<id>[0-9]+) *")) != null) {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.setLocation(id);
+            }
+            else if ((matcher = getMatcher(command, "^-ADD LOCATION (?<id>[0-9]+) *")) != null) {
+                int id = Integer.parseInt(matcher.group("id"));
+                core.addLocation(id);
             }
             else if ((matcher = getMatcher(command, "^-SHOW AVAILABLE ORDERS *")) != null) {
                 core.showAvailableOrders();

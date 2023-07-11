@@ -38,20 +38,10 @@ public class Account {
     public void setType(String type) {
         this.type = type;
     }
-    static public Account getAccount(int ID) {
-        Account result;
+    public void save() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            result = mapper.readValue("src/data/accounts/" + ID + ".json", Account.class);
-        } catch (Exception e) {
-            return null;
-        }
-        return result;
-    }
-    static public void saveAccount(int ID, Account account) {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("src/data/accounts/" + ID + ".json"), account);
+            mapper.writeValue(new File("src/data/accounts/" + id + ".json"), this);
         } catch (Exception ignored) {}
     }
 }

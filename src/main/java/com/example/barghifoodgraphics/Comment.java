@@ -5,9 +5,35 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 
 public class Comment {
-    private int id;
+    private int id, commenterID, receptionId, receptionType;
     private String content, answer;
-    private int commenterID;
+
+    public Comment(int id, int commenterID, int receptionId, int receptionType, String content) {
+        this.id = id;
+        this.commenterID = commenterID;
+        this.receptionId = receptionId;
+        this.receptionType = receptionType;
+        this.content = content;
+        // type 1  :  for food, type 2 for restaurant
+    }
+
+    public int getReceptionId() {
+        return receptionId;
+    }
+
+    public void setReceptionId(int receptionId) {
+        this.receptionId = receptionId;
+        save();
+    }
+
+    public int getReceptionType() {
+        return receptionType;
+    }
+
+    public void setReceptionType(int receptionType) {
+        this.receptionType = receptionType;
+        save();
+    }
 
     public int getId() {
         return id;
@@ -23,30 +49,27 @@ public class Comment {
     }
     public void setId(int id) {
         this.id = id;
+        save();
     }
     public void setCommenter(int commenterID) {
         this.commenterID = commenterID;
+        save();
     }
     public void setAnswer(String answer) {
         this.answer = answer;
+        save();
     }
     public void setContent(String commentText) {
         this.content = commentText;
+        save();
     }
-    static public Comment getComment(int ID) {
-        Comment result;
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            result = mapper.readValue("src/data/comments/" + ID + ".json", Comment.class);
-        } catch (Exception e) {
-            return null;
+    public void save() {
+        if (id == -1) {
+            return;
         }
-        return result;
-    }
-    static public void saveComment(int ID, Comment comment) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            mapper.writeValue(new File("src/data/comments/" + ID + ".json"), comment);
+            mapper.writeValue(new File("src/data/comments/" + id + ".json"), this);
         } catch (Exception ignored) {}
     }
 }

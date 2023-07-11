@@ -9,12 +9,21 @@ public class Path {
         return pathNode.get(index);
     }
 
+    public int getNodeCount() {
+        return nodeCount;
+    }
+
     public void setTime(int time) {
         this.time = time;
     }
 
+    public int getTime() {
+        return time;
+    }
+
     public void addNode(int u) {
         pathNode.add(u);
+        nodeCount = pathNode.size();
     }
     public int nextNode(int u) {
         int i = 0;

@@ -1,142 +1,86 @@
 package com.example.barghifoodgraphics;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.util.HashMap;
 
 public class Order {
-    public class FoodData {
-        private int count;
-        private double totalPrice, discount;
-
-        public int getCount() {
-            return count;
-        }
-        public double getDiscount(){ return discount; }
-        public void setCount(int count) {
-            this.count = count;
-        }
-        public void setDiscount(double discount) {
-            this.discount = discount;
-        }
-        public double getTotalPrice() {
-            return totalPrice;
-        }
-        public void setTotalPrice(double totalPrice) {
-            this.totalPrice = totalPrice;
-        }
-        public void addPrice(double value) {
-            totalPrice += value;
-        }
-        public void addCount(int value) {
-            count += value;
-        }
-    }
-    private int id, price;
-    private Restaurant restaurant;
-    private User user;
-    private Deliveryman deliveryman;
+    private int id, restaurantId, userId, deliverymanId, userLocation;
     private String status;
-    private HashMap<Integer, FoodData> items;
+    private HashMap<Integer, Integer> items;
 
-    public Order(int id, int price, Restaurant restaurant, User user, Deliveryman deliveryman, HashMap<Integer, FoodData> items) {
+    public Order(int id, int restaurant, int user, int deliveryman, int userLocation) {
         this.id = id;
-        this.price = price;
-        this.restaurant = restaurant;
-        this.user = user;
-        this.deliveryman = deliveryman;
-        this.items = items;
+        this.restaurantId = restaurant;
+        this.userId = user;
+        this.deliverymanId = deliveryman;
+        this.userLocation = userLocation;
     }
+    public Order(){
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
     }
-    public int getPrice() {
-        return price;
+    public int getUserLocation() {
+        return userLocation;
     }
-    public void setPrice(int price) {
-        this.price = price;
+    public void setRestaurant(int restaurant) {
+        this.restaurantId = restaurant;
     }
     public void setStatus(String status) {
         this.status = status;
+        save();
     }
     public String getStatus() {
         return status;
     }
     public void setId(int id) {
         this.id = id;
+        save();
     }
-    public void setDeliveryman(Deliveryman deliveryman) {
-        this.deliveryman = deliveryman;
+    public void setDeliveryman(int deliveryman) {
+        this.deliverymanId = deliveryman;
+        save();
     }
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(int user) {
+        this.userId = user;
+        save();
     }
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public int getRestaurant() {
+        return restaurantId;
     }
     public int getId() {
         return id;
     }
-    public Deliveryman getDeliveryman() {
-        return deliveryman;
+    public int getDeliveryman() {
+        return deliverymanId;
     }
-    public User getUser() {
-        return user;
+    public int getUser() {
+        return userId;
     }
-    public void setItems(HashMap<Integer, FoodData> items) {
-        this.items = items;
-    }
-    public HashMap<Integer, FoodData> getItems() {
+    public HashMap<Integer, Integer> getItems() {
         return items;
     }
-    public void addItem(Food item) {
-        if (item == null)
-            return;
-        if (items.containsKey(item.getId())) {
-            FoodData tmp = items.get(item.getId());
-            tmp.addCount(1);
-            tmp.addPrice(item.getPrice());
+    public void addItem(int itemId, int count) {
+        if (items.containsKey(itemId)){
+            items.replace(itemId, items.get(itemId) + count);
         }
         else {
-            FoodData tmp = new FoodData();
-            tmp.setCount(1);
-            tmp.setTotalPrice(item.getPrice());
-            items.put(item.getId(), tmp);
+            items.put(itemId, count);
         }
-        price += item.getPrice();
+        save();
     }
-    public void removeItem(Food item) {
+    public void removeItem(Food item, int count) {
         if (item == null)
                 return;
         if (items.containsKey(item.getId())) {
-            FoodData tmp = items.get(item.getId());
-            tmp.addCount(-1);
-            tmp.addPrice(-item.getPrice());
-            if (tmp.getCount() == 0)
-                items.remove(item.getId());
-            price += item.getPrice();
+            int tmp = items.get(item.getId());
+            items.replace(item.getId(), tmp - count);
         }
+        save();
     }
-    static public Order getOrder(int ID) {
-        Order result;
+    public void save() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            result = mapper.readValue("src/data/orders/" + ID + ".json", Order.class);
-        } catch (Exception e) {
-            return null;
-        }
-        return result;
-    }
-    static public void saveOrder(int ID, Order order) {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("src/data/orders/" + ID + ".json"), order);
+            mapper.writeValue(new File("src/data/orders/" + id + ".json"), this);
         } catch (Exception ignored) {}
-    }
-    public void showOrder(int estimatedTime,int orderId)
-    {
-        System.out.println("orderId: " + orderId + "EstimatedTime: " + estimatedTime);
     }
 }

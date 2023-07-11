@@ -3,21 +3,31 @@ package com.example.barghifoodgraphics;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class User extends Account {
-    private HashSet<Integer> locations = new HashSet<>(), orders = new HashSet<>(), comments = new HashSet<>();
+    private HashSet<Integer> locations, orders, comments;
     private Order cart;
     private int selectedLocation;
     private int balance;
     public User(String userName, String password, String recoveryQuestion, String recoveryQuestionAnswer, int id) {
         super(userName, password, recoveryQuestion, recoveryQuestionAnswer, id);
+        locations = new HashSet<>();
+        orders = new HashSet<>();
+        comments = new HashSet<>();
     }
+
+    public void setCart(Order cart) {
+        this.cart = cart;
+    }
+
     public Order getCart() {
         return cart;
     }
     public void addLocation(int location) {
         locations.add(location);
+        save();
     }
     public void addOrder(int orderID) {
         orders.add(orderID);
@@ -45,26 +55,18 @@ public class User extends Account {
     }
     public void removeLocation(int id) {
         locations.remove(id);
+        save();
     }
-    static public User getUser(int ID) {
-        User result;
+    public void save() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            result = mapper.readValue("src/data/users/" + ID + ".json", User.class);
-        } catch (Exception e) {
-            return null;
-        }
-        return result;
-    }
-    static public void saveUser(int ID, User user) {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("src/data/users/" + ID + ".json"), user);
+            mapper.writeValue(new File("src/data/accounts/" + this.getId() + "u.json"), this);
         } catch (Exception ignored) {}
     }
 
     public void setSelectedLocation(int selectedLocation) {
         this.selectedLocation = selectedLocation;
+        save();
     }
     public int getSelectedLocation() {
         return selectedLocation;

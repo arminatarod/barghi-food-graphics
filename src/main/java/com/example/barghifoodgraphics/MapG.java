@@ -32,7 +32,7 @@ public class MapG {
     }
     private ArrayList<ArrayList<edge>> graph;
     public void readGraphFromFile(String address) throws FileNotFoundException {
-        File myObj = new File("filename.txt");
+        File myObj = new File(address);
         Scanner myReader;
         try {
             myReader = new Scanner(myObj);
@@ -43,8 +43,8 @@ public class MapG {
         n = myReader.nextInt();
         m = myReader.nextInt();
         graph = new ArrayList<ArrayList<edge>>();
-        for (int i = 0; i < n; i++)
-                graph.set(i, new ArrayList<edge>());
+        for (int i = 0; i < n + 1; i++)
+                graph.add(new ArrayList<edge>());
         for (int i = 0; i < m; i++) {
             int u = myReader.nextInt(), v = myReader.nextInt(), w = myReader.nextInt();
             graph.get(u).add(new edge(v, w));

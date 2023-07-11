@@ -13,34 +13,19 @@ public class Admin extends Account {
     }
     public void addRestaurant (int restaurantID) {
         restaurants.add(restaurantID);
+        save();
     }
     public void removeRestaurant(int restaurantID) {
         restaurants.remove(restaurantID);
+        save();
     }
     public HashSet<Integer> getRestaurants() {
         return restaurants;
     }
-    public void showRestaurants() {
-        HashMap<String, Restaurant> mp = new HashMap<>();
-        for(Integer restaurantId : restaurants) {
-            mp.put(Restaurant.getRestaurant(restaurantId).getName(),Restaurant.getRestaurant(restaurantId));
-        }
-
-    }
-    static public Admin getAdmin(int ID) {
-        Admin result;
+    public void save() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            result = mapper.readValue("src/data/admins/" + ID + ".json", Admin.class);
-        } catch (Exception e) {
-            return null;
-        }
-        return result;
-    }
-    static public void saveAdmin(int ID, Admin admin) {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("src/data/admins/" + ID + ".json"), admin);
+            mapper.writeValue(new File("src/data/accounts/" + this.getId() + "a.json"), this);
         } catch (Exception ignored) {}
     }
 }

@@ -3,31 +3,37 @@ package com.example.barghifoodgraphics;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Food {
-    private int id, price, discount, discountTimestamp;
-    private Restaurant restaurant;
+    private int id, price, discount, discountTimestamp, restaurantId;
+
     private double averageRating;
-    private HashSet<Integer> raters = new HashSet<>();
+    private HashMap<Integer, Integer> ratings;
+    //String imageUrl;
     // baraye bakhsh graphic khobe aksesham dashte bashim !? ye string url
     private String name;
     private boolean activeDiscount, isActive;
-    private HashSet<Integer> comments = new HashSet<>();
+    private HashSet<Integer> comments;
 
-    public Food(int id, int price, Restaurant restaurant, String name) {
+    public Food(int id, int price, int restaurantId, String name) {
         this.id = id;
         this.price = price;
-        this.restaurant = restaurant;
+        this.restaurantId = restaurantId;
         this.name = name;
+        ratings = new HashMap<>();
+        comments = new HashSet<>();
     }
-    public Food(){ }
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+
+    public void setRestaurant(int restaurant) {
+        this.restaurantId = restaurant;
+        save();
     }
     public void setDiscount(int discount, int timestamp) {
         this.discount = discount;
         this.discountTimestamp = timestamp;
+        save();
     }
     public int getDiscount() {
         return discount;
@@ -46,17 +52,22 @@ public class Food {
     }
     public void setActive(boolean active) {
         isActive = active;
+        save();
     }
     public void setActiveDiscount(boolean activeDiscount) {
         this.activeDiscount = activeDiscount;
+        save();
     }
     public void setName(String name) {
         this.name = name;
+        save();
     }
     public void setPrice(int price) {
         this.price = price;
+        save();
     }
-    public int getPrice() {
+    public double getPrice() {
+        // TODO : if discount is available count that
         return price;
     }
     public String getName() {
@@ -66,43 +77,33 @@ public class Food {
         return averageRating;
     }
     public int getRatingCount() {
-        return raters.size();
+        return ratings.size();
     }
     public void addRating(int raterID, int rating) {
-        averageRating = (averageRating * raters.size() + rating) / (raters.size() + 1);
-        raters.add(raterID);
+        averageRating = (averageRating * ratings.size() + rating) / (ratings.size() + 1);
+        ratings.put(raterID, rating);
     }
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public int getRestaurant() {
+        return restaurantId;
     }
-    public void editRating(int oldRating, int newRating) {
-        averageRating = (averageRating * raters.size() - oldRating + newRating) / raters.size();
+    public void editRating(int raterId, int newRating) {
+        averageRating = (averageRating * ratings.size() - ratings.get(raterId) + newRating) / ratings.size();
+        ratings.replace(raterId, newRating);
+        save();
+    }
+    public void addComment(int commentId) {
+        comments.add(commentId);
     }
     public HashSet<Integer> getComments() {
         return comments;
     }
-    public HashSet<Integer> getRaters() {
-        return raters;
+    public HashMap<Integer, Integer> getRaters() {
+        return ratings;
     }
-    static public Food getFood(int ID) {
-        Food result;
+    public void save() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            result = mapper.readValue("src/data/foods/" + ID + ".json", Food.class);
-        } catch (Exception e) {
-            return null;
-        }
-        return result;
-    }
-    static public void saveFood(int ID, Food food) {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("src/data/foods/" + ID + ".json"), food);
+            mapper.writeValue(new File("src/data/foods/" + id + ".json"), this);
         } catch (Exception ignored) {}
     }
-    public void showFood()
-    {
-        System.out.println("Food name: " + name + "Food price: " + price + "Average rating: " + averageRating);
-    }
-
 }
