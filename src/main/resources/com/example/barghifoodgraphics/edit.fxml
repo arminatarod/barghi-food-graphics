@@ -50,7 +50,7 @@
                   <Font size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="discountTExtField" alignment="CENTER" prefHeight="100.0" prefWidth="133.3" promptText="Discount" style="-fx-border-color: black; -fx-background-color: #08B006FF;">
+            <TextField fx:id="discountTextField" alignment="CENTER" prefHeight="100.0" prefWidth="133.3" promptText="Discount" style="-fx-border-color: black; -fx-background-color: #08B006FF;">
                <font>
                   <Font size="15.0" />
                </font>

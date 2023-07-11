@@ -106,16 +106,6 @@ public class adminController2 {
     }
     public void goAdd()
     {
-        if(selectedRow == -1)
-        {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("No row selected");
-            a.setContentText("You must select a row from the table.");
-            a.show();
-        }
-        else
-        {
-            MainApplication.stage.setScene(MainApplication.add);
-        }
+        MainApplication.stage.setScene(MainApplication.add);
     }
 }
