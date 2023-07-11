@@ -1,20 +1,62 @@
 package com.example.barghifoodgraphics;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 
 public class userPageController {
     ArrayList<String> locations = new ArrayList<>();
     @FXML
-    private TextField searchBox;
+    private TextField searchBox, balanceTextField, locationTextField;
     @FXML
-    private ListView<String> searchResultsRestaurant, searchResultsFood;
+    private ListView<String> searchResultsRestaurant, searchResultsFood, locationsList;
     @FXML
-    private VBox searchVbox;
+    private VBox searchVbox, ordersBox;
     @FXML
     private ComboBox<String> locationBox;
+    @FXML
+    private Label idLabel, usernameLabel, passwordLabel, recoveryQuestionLabel, recoveryAnswerLabel, balanceLabel;
+    public void setBalance() {
+        if (!balanceTextField.getText().matches("^([0-9]+)$")) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Invalid number");
+            a.setContentText("Please enter a valid, non-negative, integer number.");
+            a.show();
+        } else {
+            //TODO: update balance
+        }
+    }
+    public void addLocation() {
+        if (!locationTextField.getText().matches("^([0-9]+)$")) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Invalid input");
+            a.setContentText("Please enter a valid location id.");
+            a.show();
+        } else {
+            int input = Integer.parseInt(locationTextField.getText());
+            if (false/*TODO: check existence*/) {
+                //TODO: add location
+            } else {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setHeaderText("Invalid ID");
+                a.setContentText("Please enter a valid location id.");
+                a.show();
+            }
+        }
+    }
+    public void logout() {
+        //TODO: logout
+    }
+    public void deleteAccount() {
+        //TODO: delete account
+    }
     public void changeToRestaurant() {
         //MainApplication.stage.setScene(MainApplication.restaurant);
     }
@@ -57,19 +99,43 @@ public class userPageController {
     }
     public void initialize() {
         //locationBox.getItems().addAll(User.getUser(Main.core.loggedInUser).getLocations());
-        locations.add("1");
-        locations.add("2");
-        locations.add("3");
-        locations.add("4");
-        locations.add("5");
-        locations.add("6");
-        locations.add("7");
-        locations.add("8");
-        locations.add("9");
+        for (int i = 1; i <= 20; i++)
+            locations.add(String.valueOf(i));
         locationBox.getItems().addAll(locations);
         locationBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, selection) -> {
             //User.getUser(Main.core.loggedInUser).setSelectedLocation(Integer.parseInt(selection.toString()));
             System.out.println(Integer.parseInt(selection));
         });
+        locationsList.getItems().addAll(locations);
+        //TODO: insert data
+        for (int i = 0; i < 10; i++) {
+            VBox newOrder = new VBox();
+            newOrder.setStyle("-fx-background-color: rgb(100,100,100); -fx-background-radius: 10;");
+            newOrder.setAlignment(Pos.TOP_CENTER);
+            newOrder.setPadding(new Insets(20, 20, 20, 20));
+            newOrder.setPrefSize(10000, Region.USE_COMPUTED_SIZE);
+            VBox.setMargin(newOrder, new Insets((i == 0? 0 : 20), 0, 0, 0));
+            Label newLabel = new Label("Order id: 1234");
+            newLabel.setTextFill(Color.WHITE);
+            newOrder.getChildren().add(newLabel);
+            newLabel = new Label("Origin: Kassab");
+            newLabel.setTextFill(Color.WHITE);
+            newOrder.getChildren().add(newLabel);
+            newLabel = new Label("Cost: 1234");
+            newLabel.setTextFill(Color.WHITE);
+            newOrder.getChildren().add(newLabel);
+            newLabel = new Label("Deliveryman: Mojtaba");
+            newLabel.setTextFill(Color.WHITE);
+            newOrder.getChildren().add(newLabel);
+            newLabel = new Label("Status: Delivered");
+            newLabel.setTextFill(Color.WHITE);
+            newOrder.getChildren().add(newLabel);
+            Button viewDetailsButton = new Button("View Details");
+            VBox.setMargin(viewDetailsButton, new Insets(20, 0, 0, 0));
+            viewDetailsButton.setFocusTraversable(false);
+            viewDetailsButton.setStyle("-fx-cursor: hand;");
+            newOrder.getChildren().add(viewDetailsButton);
+            ordersBox.getChildren().add(newOrder);
+        }
     }
 }
