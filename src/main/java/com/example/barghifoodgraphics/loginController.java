@@ -22,8 +22,7 @@ public class loginController {
         forgotPasswordStage.setMinWidth(400);
         forgotPasswordStage.setMinHeight(540);
         forgotPasswordStage.setScene(MainApplication.forgotPassword);
-        //String result = Main.core.forgetPasswordPressed(usernameField.getText());
-        String result = "چند کیلویی؟";
+        String result = "Where are you from?"/*Main.core.forgetPasswordPressed(usernameField.getText())*/;
         if (result == null) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Invalid username");

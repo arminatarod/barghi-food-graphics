@@ -41,7 +41,7 @@
                            <children>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" style="-fx-background-color: rgb(230, 220, 180); -fx-cursor: hand;" text="Bakery">
+                                    <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#comingSoon" prefWidth="1000.0" style="-fx-background-color: rgb(230, 220, 180); -fx-cursor: hand;" text="Bakery">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -49,7 +49,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" style="-fx-background-color: rgb(240, 120, 120); -fx-cursor: hand;" text="Meat shop" textFill="WHITE">
+                                    <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#comingSoon" prefWidth="1000.0" style="-fx-background-color: rgb(240, 120, 120); -fx-cursor: hand;" text="Meat shop" textFill="WHITE">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -64,7 +64,7 @@
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" style="-fx-background-color: rgb(160, 80, 40); -fx-cursor: hand;" text="Cafe" textFill="WHITE">
+                                    <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#comingSoon" prefWidth="1000.0" style="-fx-background-color: rgb(160, 80, 40); -fx-cursor: hand;" text="Cafe" textFill="WHITE">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -80,7 +80,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1005.0" style="-fx-background-color: rgb(200,140,90); -fx-cursor: hand;" text="Bread" textFill="WHITE">
+                                    <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#comingSoon" prefWidth="1005.0" style="-fx-background-color: rgb(200,140,90); -fx-cursor: hand;" text="Bread" textFill="WHITE">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -92,7 +92,7 @@
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1000.0" style="-fx-background-color: rgb(200,200,50); -fx-cursor: hand;" text="Fruits">
+                                    <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#comingSoon" prefWidth="1000.0" style="-fx-background-color: rgb(200,200,50); -fx-cursor: hand;" text="Fruits">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -374,23 +374,11 @@
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <HBox alignment="CENTER">
+                                    <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#logout" style="-fx-background-color: rgb(160,0,0); -fx-cursor: hand;" text="Logout" textFill="WHITE">
                                        <VBox.margin>
                                           <Insets top="20.0" />
                                        </VBox.margin>
-                                       <children>
-                                          <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#logout" style="-fx-background-color: rgb(200,170,70); -fx-cursor: hand;" text="Logout" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets left="10.0" right="10.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#deleteAccount" style="-fx-background-color: rgb(160,0,0); -fx-cursor: hand;" text="Delete account" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets right="10.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                       </children>
-                                    </HBox>
+                                    </Button>
                                  </children>
                                  <padding>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

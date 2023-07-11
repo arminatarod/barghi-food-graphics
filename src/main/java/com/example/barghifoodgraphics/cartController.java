@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class cartController {
-    int selectedRow = -1;
+    int selectedRow;
     @FXML
-    private TableColumn<List<StringProperty>, String> number, item, unitPrice, quantity, totalPrice, discount, finalPrice;
+    private TableColumn<List<StringProperty>, String> number, itemID, itemName, unitPrice, quantity, totalPrice, discount, finalPrice;
     @FXML
     private TableView<List<Object>> cartTable;
     public void changeToUserPage() {
@@ -37,7 +37,8 @@ public class cartController {
             a.show();
             return;
         }
-        //TODO: update data
+        /*int foodID = ((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue();
+        ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().put(foodID, ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(foodID) + 1);*/
         initialize();
     }
     public void decreaseRow() {
@@ -48,7 +49,8 @@ public class cartController {
             a.show();
             return;
         }
-        //TODO: update data
+        /*int foodID = ((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue();
+        ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().put(foodID, ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(foodID) - 1);*/
         initialize();
     }
     public void deleteRow() {
@@ -59,28 +61,42 @@ public class cartController {
             a.show();
             return;
         }
-        //TODO: update data
+        //((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().remove(((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue());
+        initialize();
+    }
+    public void addOrder() {
+        boolean done = /*Main.core.confirmOrder()*/false;
+        if (!done) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Order wasn't submitted");
+            a.setContentText("A problem occurred while finalizing this order.");
+            a.show();
+        }
         initialize();
     }
     public void initialize() {
+        selectedRow = -1;
         number.setCellValueFactory(data -> data.getValue().get(0));
-        item.setCellValueFactory(data -> data.getValue().get(1));
-        unitPrice.setCellValueFactory(data -> data.getValue().get(2));
-        quantity.setCellValueFactory(data -> data.getValue().get(3));
-        totalPrice.setCellValueFactory(data -> data.getValue().get(4));
-        discount.setCellValueFactory(data -> data.getValue().get(5));
-        finalPrice.setCellValueFactory(data -> data.getValue().get(6));
+        itemID.setCellValueFactory(data -> data.getValue().get(1));
+        itemName.setCellValueFactory(data -> data.getValue().get(2));
+        unitPrice.setCellValueFactory(data -> data.getValue().get(3));
+        quantity.setCellValueFactory(data -> data.getValue().get(4));
+        totalPrice.setCellValueFactory(data -> data.getValue().get(5));
+        discount.setCellValueFactory(data -> data.getValue().get(6));
+        finalPrice.setCellValueFactory(data -> data.getValue().get(7));
         ObservableList<List<Object>> data = FXCollections.observableArrayList();
-        //TODO: get data
+        int index = 1;
+        //for (int i : ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().keySet()) {
         for (int i = 1; i <= 30; i++) {
             List<Object> row = new ArrayList<>();
+            row.add(new SimpleIntegerProperty(index++));
             row.add(new SimpleIntegerProperty(i));
-            row.add(new SimpleStringProperty("Food" + i));
-            row.add(new SimpleIntegerProperty(1000 * i));
-            row.add(new SimpleIntegerProperty(i));
-            row.add(new SimpleIntegerProperty(1000 * i * i));
-            row.add(new SimpleIntegerProperty(100 * i));
-            row.add(new SimpleIntegerProperty(1000 * i * i - 100 * i));
+            row.add(new SimpleStringProperty(/*Main.core.foods.get(i).getName()*/));
+            row.add(new SimpleIntegerProperty(/*(int)Main.core.foods.get(i).getPrice()*/));
+            row.add(new SimpleIntegerProperty(/*((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(i)*/));
+            row.add(new SimpleIntegerProperty(/*(int)(Main.core.foods.get(i).getPrice() * (double)((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(i) * (1.0 / (1.0 - Main.core.foods.get(i).getDiscount())))*/));
+            row.add(new SimpleIntegerProperty(/*Main.core.foods.get(i).getDiscount()*/));
+            row.add(new SimpleIntegerProperty(/*(int)(Main.core.foods.get(i).getPrice() * (double)((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(i))*/));
             data.add(row);
         }
         cartTable.setItems(data);

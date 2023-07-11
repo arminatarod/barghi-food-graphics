@@ -12,7 +12,7 @@
    <children>
       <HBox alignment="CENTER_LEFT" prefWidth="10000.0">
          <children>
-            <Label style="-fx-cursor: hand;" text="← Back" textFill="#1e78a0">
+            <Label onMouseClicked="#backClick" style="-fx-cursor: hand;" text="← Back" textFill="#1e78a0">
                <font>
                   <Font size="15.0" />
                </font>
@@ -44,17 +44,17 @@
       </ScrollPane>
       <HBox alignment="CENTER" prefWidth="10000.0" style="-fx-border-color: rgb(150,150,150); -fx-border-width: 1 0 0 0;">
          <children>
-            <Button mnemonicParsing="false" onMouseClicked="#addComment" style="-fx-background-color: rgb(130,160,120);" text="Add a comment" textFill="WHITE">
+            <Button fx:id="greenButton" mnemonicParsing="false" onMouseClicked="#greenClick" style="-fx-background-color: rgb(130,160,120);" text="Add a comment" textFill="WHITE">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#editComment" style="-fx-background-color: rgb(200,170,70);" text="Edit comment" textFill="WHITE">
+            <Button fx:id="yellowButton" mnemonicParsing="false" onMouseClicked="#yellowClick" style="-fx-background-color: rgb(200,170,70);" text="Edit comment" textFill="WHITE">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#deleteComment" style="-fx-background-color: rgb(160,0,0);" text="Delete comment" textFill="WHITE">
+            <Button fx:id="redButton" mnemonicParsing="false" onMouseClicked="#redClick" style="-fx-background-color: rgb(160,0,0);" text="Delete comment" textFill="WHITE">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>

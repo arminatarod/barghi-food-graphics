@@ -4,15 +4,14 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class userPageController {
-    ArrayList<String> locations = new ArrayList<>();
     @FXML
     private TextField searchBox, balanceTextField, locationTextField;
     @FXML
@@ -30,7 +29,7 @@ public class userPageController {
             a.setContentText("Please enter a valid, non-negative, integer number.");
             a.show();
         } else {
-            //TODO: update balance
+            //((User)Main.core.accounts.get(Main.core.loggedInUser)).setBalance(Integer.parseInt(balanceTextField.getText()));
         }
     }
     public void addLocation() {
@@ -42,7 +41,7 @@ public class userPageController {
         } else {
             int input = Integer.parseInt(locationTextField.getText());
             if (false/*TODO: check existence*/) {
-                //TODO: add location
+                //((User)Main.core.accounts.get(Main.core.loggedInUser)).addLocation(input);
             } else {
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setHeaderText("Invalid ID");
@@ -52,13 +51,11 @@ public class userPageController {
         }
     }
     public void logout() {
-        //TODO: logout
-    }
-    public void deleteAccount() {
-        //TODO: delete account
+        /*Main.core.logout();
+        MainApplication.stage.setScene(MainApplication.login);*/
     }
     public void changeToRestaurant() {
-        //MainApplication.stage.setScene(MainApplication.restaurant);
+        MainApplication.stage.setScene(MainApplication.restaurant);
     }
     public void changeToSupermarket() {
         MainApplication.stage.setScene(MainApplication.supermarket);
@@ -82,7 +79,7 @@ public class userPageController {
         searchResultsRestaurant.getItems().clear();
         searchResultsRestaurant.getItems().addAll(results);
         results.clear();
-        //results.addAll(Arrays.asList(Main.core.searchFoodName().split("\n")));
+        //results.addAll(Arrays.asList(Main.core.searchFoodName(searchBox.getText()).split("\n")));
         results.add("Food1");
         results.add("Food2");
         results.add("Food3");
@@ -97,17 +94,28 @@ public class userPageController {
         searchResultsFood.getItems().addAll(results);
         searchVbox.setVisible(!searchBox.getText().isEmpty());
     }
+    public void comingSoon() {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setHeaderText("Coming soon!");
+        a.setContentText("This section will soon be available for use.");
+        a.show();
+    }
     public void initialize() {
-        //locationBox.getItems().addAll(User.getUser(Main.core.loggedInUser).getLocations());
-        for (int i = 1; i <= 20; i++)
-            locations.add(String.valueOf(i));
-        locationBox.getItems().addAll(locations);
+        /*idLabel.setText(String.valueOf(Main.core.loggedInUser));
+        usernameLabel.setText(Main.core.accounts.get(Main.core.loggedInUser).getUsername());
+        passwordLabel.setText(Main.core.accounts.get(Main.core.loggedInUser).getPassword());
+        recoveryQuestionLabel.setText(Main.core.accounts.get(Main.core.loggedInUser).getRecoveryQuestion());
+        recoveryAnswerLabel.setText(Main.core.accounts.get(Main.core.loggedInUser).getRecoveryQuestionAnswer());
+        balanceLabel.setText(String.valueOf(((User)Main.core.accounts.get(Main.core.loggedInUser)).getBalance()));*/
+        /*for (int i : ((User)Main.core.accounts.get(Main.core.loggedInUser)).getLocations())
+            locationBox.getItems().add(String.valueOf(i));*/
+        locationBox.getItems().addAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15");
         locationBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, selection) -> {
-            //User.getUser(Main.core.loggedInUser).setSelectedLocation(Integer.parseInt(selection.toString()));
-            System.out.println(Integer.parseInt(selection));
+            //((User)Main.core.accounts.get(Main.core.loggedInUser)).setSelectedLocation(Integer.parseInt(selection));
         });
-        locationsList.getItems().addAll(locations);
+        locationsList.getItems().addAll(locationBox.getItems());
         //TODO: insert data
+        //for (int i : ((User)Main.core.accounts.get(Main.core.loggedInUser)).getOrders()) {
         for (int i = 0; i < 10; i++) {
             VBox newOrder = new VBox();
             newOrder.setStyle("-fx-background-color: rgb(100,100,100); -fx-background-radius: 10;");
@@ -115,19 +123,19 @@ public class userPageController {
             newOrder.setPadding(new Insets(20, 20, 20, 20));
             newOrder.setPrefSize(10000, Region.USE_COMPUTED_SIZE);
             VBox.setMargin(newOrder, new Insets((i == 0? 0 : 20), 0, 0, 0));
-            Label newLabel = new Label("Order id: 1234");
+            Label newLabel = new Label("Order id: " + i);
             newLabel.setTextFill(Color.WHITE);
             newOrder.getChildren().add(newLabel);
-            newLabel = new Label("Origin: Kassab");
+            newLabel = new Label("Origin: "/* + Main.core.orders.get(i).getRestaurant()*/);
             newLabel.setTextFill(Color.WHITE);
             newOrder.getChildren().add(newLabel);
-            newLabel = new Label("Cost: 1234");
+            newLabel = new Label("Cost: "/*TODO: get cost of order*/);
             newLabel.setTextFill(Color.WHITE);
             newOrder.getChildren().add(newLabel);
-            newLabel = new Label("Deliveryman: Mojtaba");
+            newLabel = new Label("Deliveryman: "/* + Main.core.accounts.get(Main.core.orders.get(i).getDeliveryman()).getUsername()*/);
             newLabel.setTextFill(Color.WHITE);
             newOrder.getChildren().add(newLabel);
-            newLabel = new Label("Status: Delivered");
+            newLabel = new Label("Status: "/* + Main.core.orders.get(i).getStatus()*/);
             newLabel.setTextFill(Color.WHITE);
             newOrder.getChildren().add(newLabel);
             Button viewDetailsButton = new Button("View Details");

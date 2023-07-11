@@ -37,7 +37,8 @@
       <TableView fx:id="cartTable" focusTraversable="false" onMouseClicked="#tableClicked" prefHeight="10000.0" prefWidth="10000.0">
         <columns>
             <TableColumn fx:id="number" editable="false" prefWidth="75.0" text="Number" />
-            <TableColumn fx:id="item" editable="false" prefWidth="75.0" text="Item" />
+            <TableColumn fx:id="itemID" editable="false" prefWidth="75.0" text="Item ID" />
+            <TableColumn fx:id="itemName" editable="false" prefWidth="75.0" text="Item name" />
             <TableColumn fx:id="unitPrice" editable="false" prefWidth="75.0" text="Unit price" />
             <TableColumn fx:id="quantity" editable="false" prefWidth="75.0" text="Quantity" />
             <TableColumn fx:id="totalPrice" editable="false" prefWidth="75.0" text="Total price" />
@@ -47,30 +48,33 @@
          <VBox.margin>
             <Insets />
          </VBox.margin>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <HBox alignment="CENTER">
          <VBox.margin>
             <Insets top="20.0" />
          </VBox.margin>
          <children>
-            <Button onMouseClicked="#increaseRow" mnemonicParsing="false" style="-fx-background-color: rgb(130,160,120);" text="Increase selected row" textAlignment="CENTER" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#increaseRow" style="-fx-background-color: rgb(130,160,120);" text="Increase selected row" textAlignment="CENTER" textFill="WHITE">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button onMouseClicked="#decreaseRow" focusTraversable="false" mnemonicParsing="false" style="-fx-background-color: rgb(160,0,0);" text="Decrease selected row" textAlignment="CENTER" textFill="WHITE">
+            <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#decreaseRow" style="-fx-background-color: rgb(160,0,0);" text="Decrease selected row" textAlignment="CENTER" textFill="WHITE">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Button>
-            <Button onMouseClicked="#deleteRow" focusTraversable="false" mnemonicParsing="false" style="-fx-background-color: BLACK;" text="Delete selected row" textAlignment="CENTER" textFill="WHITE">
+            <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#deleteRow" style="-fx-background-color: BLACK;" text="Delete selected row" textAlignment="CENTER" textFill="WHITE">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </Button>
          </children>
       </HBox>
-      <Button focusTraversable="false" mnemonicParsing="false" text="Proceed to checkout">
+      <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#addOrder" text="Add order">
          <VBox.margin>
             <Insets top="20.0" />
          </VBox.margin>
