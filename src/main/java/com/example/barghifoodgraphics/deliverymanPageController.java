@@ -2,7 +2,6 @@ package com.example.barghifoodgraphics;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class deliverymanPageController {
-    int selectedRow = -1;
+    int currentDelivery = -1, selectedRow = -1;
     @FXML
     private TableColumn<List<StringProperty>, String> startingPoint, destinationPoint, estimatedDuration;
     @FXML
@@ -36,13 +35,18 @@ public class deliverymanPageController {
             a.setContentText("You must select a row from the table.");
             a.show();
             return;
+        } else if (currentDelivery != -1) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Currently delivering");
+            a.setContentText("You must finish your current delivery first.");
+            a.show();
+            return;
         }
         //TODO: update data
         initialize();
     }
     public void initialize() {
-        //int currentDelivery = Deliveryman.getDeliveryman(Main.core.loggedInDeliveryman).getActiveOrder();
-        int currentDelivery = -1;
+        //currentDelivery = Deliveryman.getDeliveryman(Main.core.loggedInDeliveryman).getActiveOrder();
         if (currentDelivery == -1) {
             startLabel.setText("Starting point: -");
             destinationLabel.setText("Destination point: -");

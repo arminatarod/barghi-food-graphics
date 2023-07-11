@@ -3,11 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -27,7 +30,7 @@
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </ComboBox>
-                        <Button focusTraversable="false" maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" prefWidth="50.0" text="Cart" onMouseClicked="#changeToCart">
+                        <Button focusTraversable="false" maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" onMouseClicked="#changeToCart" prefWidth="50.0" text="Cart">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -72,7 +75,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1030.0" style="-fx-background-color: rgb(180,50,50); -fx-cursor: hand;" text="Restaurant" textFill="WHITE" onMouseClicked="#changeToRestaurant">
+                                    <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#changeToRestaurant" prefWidth="1030.0" style="-fx-background-color: rgb(180,50,50); -fx-cursor: hand;" text="Restaurant" textFill="WHITE">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -100,7 +103,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button focusTraversable="false" mnemonicParsing="false" prefWidth="1040.0" style="-fx-background-color: WHITE; -fx-border-color: rgb(200,200,200); -fx-border-radius: 3; -fx-cursor: hand;" text="Supermarket" onMouseClicked="#changeToSupermarket">
+                                    <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#changeToSupermarket" prefWidth="1040.0" style="-fx-background-color: WHITE; -fx-border-color: rgb(200,200,200); -fx-border-radius: 3; -fx-cursor: hand;" text="Supermarket">
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </padding>
@@ -219,7 +222,63 @@
     </Tab>
     <Tab style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent;" text="Orders">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" layoutX="166.0" layoutY="186.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefWidth="10000.0" style="-fx-background-color: rgb(100,100,100); -fx-background-radius: 10;">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <Label text="Order id: 1234" textFill="WHITE" />
+                              <Label text="Origin: Shandiz" textFill="WHITE" />
+                              <Label text="Cost: 1000" textFill="WHITE" />
+                              <Label text="Deliveryman: Mostafa Peterson" textFill="WHITE" />
+                              <Label text="Status: Delivered" textFill="WHITE" />
+                              <DialogPane expanded="true" style="-fx-background-radius: 10;">
+                                  <header>
+                                    <AnchorPane />
+                                  </header>
+                                  <content>
+                                    <AnchorPane>
+                                       <children>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" text="Order details:" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                  </content>
+                                  <expandableContent>
+                                    <AnchorPane>
+                                       <children>
+                                          <TableView focusTraversable="false" layoutX="-2.0" layoutY="5.0" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                              <TableColumn prefWidth="75.0" text="Number" />
+                                              <TableColumn prefWidth="75.0" text="Item" />
+                                                <TableColumn prefWidth="75.0" text="Unit price" />
+                                                <TableColumn prefWidth="75.0" text="Quantity" />
+                                                <TableColumn prefWidth="75.0" text="Total price" />
+                                                <TableColumn prefWidth="75.0" text="Discount" />
+                                                <TableColumn prefWidth="75.0" text="Final price" />
+                                            </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                  </expandableContent>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </DialogPane>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </children></AnchorPane>
       </content>
     </Tab>
       <Tab style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent;" text="My account">
