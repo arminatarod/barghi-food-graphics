@@ -12,7 +12,6 @@ public class menuController {
     @FXML Label  averageRatingLabel, BackLabel;
     public void initialize()
     {
-        myTabPane = new TabPane();
         List<String> foodTypes = Arrays.asList("Appetizers", "Entrees", "Desserts", "Pizza", "Pasta", "Drinks", "Chicken", "Steak", "Coffee");
         for(String FoodType : foodTypes)
         {
