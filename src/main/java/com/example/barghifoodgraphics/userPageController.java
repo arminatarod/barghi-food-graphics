@@ -24,7 +24,7 @@ public class userPageController {
     private ComboBox<String> locationBox;
     @FXML
     private Label idLabel, usernameLabel, passwordLabel, recoveryQuestionLabel, recoveryAnswerLabel, balanceLabel;
-    public void setBalance() {
+    public void setBalance() throws IOException {
         if (!balanceTextField.getText().matches("^([0-9]+)$")) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Invalid number");
@@ -34,7 +34,7 @@ public class userPageController {
             ((User)MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).setBalance(Integer.parseInt(balanceTextField.getText()));
         initialize();
     }
-    public void addLocation() {
+    public void addLocation() throws IOException {
         if (!locationTextField.getText().matches("^([0-9]+)$")) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Invalid input");
@@ -63,9 +63,7 @@ public class userPageController {
     public void changeToSupermarket() {
         MainApplication.stage.setScene(MainApplication.supermarket);
     }
-    public void changeToCart() throws IOException {
-        MainApplication.fxmlLoaderCart = new FXMLLoader(MainApplication.class.getResource("cart.fxml"));
-        MainApplication.cart = new Scene(MainApplication.fxmlLoaderCart.load(), 600, 600);
+    public void changeToCart() {
         MainApplication.stage.setScene(MainApplication.cart);
     }
     public void refreshSearch() {
@@ -84,7 +82,9 @@ public class userPageController {
         a.setContentText("This section will soon be available for use.");
         a.show();
     }
-    public void initialize() {
+    public void initialize() throws IOException {
+        MainApplication.fxmlLoaderCart = new FXMLLoader(MainApplication.class.getResource("cart.fxml"));
+        MainApplication.cart = new Scene(MainApplication.fxmlLoaderCart.load(), 600, 600);
         idLabel.setText(String.valueOf(MainApplication.core.loggedInUser));
         usernameLabel.setText(MainApplication.core.accounts.get(MainApplication.core.loggedInUser).getUsername());
         passwordLabel.setText(MainApplication.core.accounts.get(MainApplication.core.loggedInUser).getPassword());

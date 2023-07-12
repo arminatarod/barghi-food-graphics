@@ -88,7 +88,7 @@
       <StackPane fx:id="captchaPane" prefHeight="150.0" prefWidth="200.0">
          <children>
             <Label prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: WHITE; -fx-background-radius: 5;" />
-            <CheckBox fx:id="captchaBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#captchaPressed" prefWidth="200.0" text="I'm not a robot">
+            <CheckBox fx:id="captchaBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#captchaPressed" prefWidth="200.0" text="I'm not a robot">
                <font>
                   <Font size="16.0" />
                </font>
