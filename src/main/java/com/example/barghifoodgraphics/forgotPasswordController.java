@@ -12,19 +12,18 @@ public class forgotPasswordController {
     @FXML
     TextField answer;
     public void submit() {
-        //String result = Main.core.checkRecoveryQuestionAnswer(((loginController)MainApplication.fxmlLoaderLogin.getController()).getUsername(), answer.getText());
-        String result = "ASDFASDF";
+        String result = MainApplication.core.checkRecoveryQuestionAnswer(((loginController)MainApplication.fxmlLoaderLogin.getController()).getUsername(), answer.getText());
+        Alert a;
         if (result == null) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
+            a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Invalid request");
             a.setContentText("The username is invalid and/or the answer is incorrect.");
-            a.show();
         } else {
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a = new Alert(Alert.AlertType.INFORMATION);
             a.setHeaderText("Your password:");
             a.setContentText(result);
-            a.show();
         }
+        a.show();
     }
     public void initialize() {
         question.setText(questionText);

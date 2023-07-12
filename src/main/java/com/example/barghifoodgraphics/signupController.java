@@ -60,6 +60,8 @@ public class signupController {
             } else {
                 int result = MainApplication.core.addDeliveryman(usernameField.getText(), passwordField.getText(), recoveryQuestion.getText(), recoveryAnswer.getText());
                 if (result == 0) {
+                    MainApplication.fxmlLoaderDeliverymanPage = new FXMLLoader(MainApplication.class.getResource("deliverymanPage.fxml"));
+                    MainApplication.deliverymanPage = new Scene(MainApplication.fxmlLoaderDeliverymanPage.load(), 400, 600);
                     MainApplication.stage.setScene(MainApplication.deliverymanPage);
                 } else checkSignupError(result);
             }

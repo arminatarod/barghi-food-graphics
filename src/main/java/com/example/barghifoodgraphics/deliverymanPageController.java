@@ -1,6 +1,5 @@
 package com.example.barghifoodgraphics;
 
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -44,7 +43,7 @@ public class deliverymanPageController {
             a.show();
             return;
         }
-        //Main.core.acceptOrder(availableOrders.get(selectedRow));
+        MainApplication.core.acceptOrder(availableOrders.get(selectedRow));
         initialize();
     }
     public void setBalance() {
@@ -53,26 +52,27 @@ public class deliverymanPageController {
             a.setHeaderText("Invalid number");
             a.setContentText("Please enter a valid, non-negative, integer number.");
             a.show();
-        } else {
-            //((User)Main.core.accounts.get(Main.core.loggedInUser)).setBalance(Integer.parseInt(balanceTextField.getText()));
-        }
+        } else
+            ((Deliveryman)MainApplication.core.accounts.get(MainApplication.core.loggedInDeliveryman)).setBalance(Integer.parseInt(balanceTextField.getText()));
+        initialize();
     }
     public void withdraw() {
-        //Main.core.withdraw();
+        MainApplication.core.withdraw();
+        initialize();
     }
     public void logout() {
-        /*Main.core.logout();
-        MainApplication.stage.setScene(MainApplication.login);*/
+        MainApplication.core.logout();
+        MainApplication.stage.setScene(MainApplication.login);
     }
     public void initialize() {
         selectedRow = -1;
-        /*idLabel.setText(String.valueOf(Main.core.loggedInDeliveryman));
-        usernameLabel.setText(Main.core.accounts.get(Main.core.loggedInDeliveryman).getUsername());
-        passwordLabel.setText(Main.core.accounts.get(Main.core.loggedInDeliveryman).getPassword());
-        recoveryQuestionLabel.setText(Main.core.accounts.get(Main.core.loggedInDeliveryman).getRecoveryQuestion());
-        recoveryAnswerLabel.setText(Main.core.accounts.get(Main.core.loggedInDeliveryman).getRecoveryQuestionAnswer());
-        balanceLabel.setText(String.valueOf(((User)Main.core.accounts.get(Main.core.loggedInDeliveryman)).getBalance()));*/
-        currentDelivery = -1/*((Deliveryman)Main.core.accounts.get(Main.core.loggedInDeliveryman)).getActiveOrder()*/;
+        idLabel.setText(String.valueOf(MainApplication.core.loggedInDeliveryman));
+        usernameLabel.setText(MainApplication.core.accounts.get(MainApplication.core.loggedInDeliveryman).getUsername());
+        passwordLabel.setText(MainApplication.core.accounts.get(MainApplication.core.loggedInDeliveryman).getPassword());
+        recoveryQuestionLabel.setText(MainApplication.core.accounts.get(MainApplication.core.loggedInDeliveryman).getRecoveryQuestion());
+        recoveryAnswerLabel.setText(MainApplication.core.accounts.get(MainApplication.core.loggedInDeliveryman).getRecoveryQuestionAnswer());
+        balanceLabel.setText(String.valueOf(((Deliveryman)MainApplication.core.accounts.get(MainApplication.core.loggedInDeliveryman)).getBalance()));
+        currentDelivery = ((Deliveryman)MainApplication.core.accounts.get(MainApplication.core.loggedInDeliveryman)).getActiveOrder();
         if (currentDelivery == -1) {
             currentDeliveryLabel.setText("No current delivery");
             startLabel.setText("Starting point: -");
@@ -80,22 +80,21 @@ public class deliverymanPageController {
             estimationLabel.setText("Estimated time left: -");
         } else {
             currentDeliveryLabel.setText("Current delivery ID: " + currentDelivery);
-            startLabel.setText("Starting point: "/* + Main.core.restaurants.get(Main.core.orders.get(currentDelivery).getRestaurant()).getLocation()*/);
-            destinationLabel.setText("Destination point: "/* + Main.core.restaurants.get(Main.core.orders.get(currentDelivery).getUserLocation())*/);
-            estimationLabel.setText("Estimated time left: "/* + Main.core.showEstimatedDeliveryTime()*/);
+            startLabel.setText("Starting point: " + MainApplication.core.restaurants.get(MainApplication.core.orders.get(currentDelivery).getRestaurant()).getLocation());
+            destinationLabel.setText("Destination point: " + MainApplication.core.restaurants.get(MainApplication.core.orders.get(currentDelivery).getUserLocation()));
+            estimationLabel.setText("Estimated time left: " + MainApplication.core.showEstimatedDeliveryTime());
         }
         startingPoint.setCellValueFactory(data -> data.getValue().get(0));
         destinationPoint.setCellValueFactory(data -> data.getValue().get(1));
         estimatedDuration.setCellValueFactory(data -> data.getValue().get(2));
         ObservableList<List<Object>> data = FXCollections.observableArrayList();
-        availableOrders = /*Main.core.showAvailableOrders()*/null;
-        int deliverymanLocation = 0/*((Deliveryman)Main.core.accounts.get(Main.core.loggedInDeliveryman)).getLocation()*/;
-        //for (int i : availableOrders) {
-        for (int i = 1; i <= 30; i++) {
-            int userLocation = i/*Main.core.orders.get(i).getUserLocation()*/;
-            int restaurantLocation = i/*Main.core.restaurants.get(Main.core.orders.get(i).getRestaurant()).getLocation()*/;
-            int toRestaurantTime = i/*Main.core.map.getShortestPath(deliverymanLocation, restaurantLocation).getTime()*/;
-            int toUserTime = i/*Main.core.map.getShortestPath(restaurantLocation, userLocation).getTime()*/;
+        availableOrders = MainApplication.core.showAvailableOrders();
+        int deliverymanLocation = ((Deliveryman)MainApplication.core.accounts.get(MainApplication.core.loggedInDeliveryman)).getLocation();
+        for (int i : availableOrders) {
+            int userLocation = MainApplication.core.orders.get(i).getUserLocation();
+            int restaurantLocation = MainApplication.core.restaurants.get(MainApplication.core.orders.get(i).getRestaurant()).getLocation();
+            int toRestaurantTime = MainApplication.core.map.getShortestPath(deliverymanLocation, restaurantLocation).getTime();
+            int toUserTime = MainApplication.core.map.getShortestPath(restaurantLocation, userLocation).getTime();
             List<Object> row = new ArrayList<>();
             row.add(new SimpleIntegerProperty(restaurantLocation));
             row.add(new SimpleIntegerProperty(userLocation));

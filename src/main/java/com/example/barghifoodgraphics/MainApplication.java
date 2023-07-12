@@ -37,8 +37,6 @@ public class MainApplication extends Application {
         adminPageTwo = new Scene(fxmlLoaderAdminPageTwo.load(), 600, 400);
         fxmlLoaderMenu = new FXMLLoader(MainApplication.class.getResource("menu.fxml"));
         menu = new Scene(fxmlLoaderMenu.load(), 400, 600);
-        fxmlLoaderDeliverymanPage = new FXMLLoader(MainApplication.class.getResource("deliverymanPage.fxml"));
-        deliverymanPage = new Scene(fxmlLoaderDeliverymanPage.load(), 400, 600);
         stage = mainStage;
         stage.setTitle("Barghi Food");
         stage.setMinWidth(410);

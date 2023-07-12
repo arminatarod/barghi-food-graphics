@@ -27,25 +27,13 @@ public class restaurantController {
         MainApplication.stage.setScene(MainApplication.userPage);
     }
     public void refreshSearch() {
-        ArrayList<String> results = new ArrayList<>();
-        //results.addAll(Arrays.asList(Main.core.searchRestaurantName(searchBox.getText()).split("\n")));
-        results.add("Restaurant1");
-        results.add("Restaurant2");
-        results.add("Restaurant3");
-        results.add("Restaurant4");
-        results.add("Restaurant5");
-        results.add("Restaurant6");
-        results.add("Restaurant7");
-        results.add("Restaurant8");
-        results.add("Restaurant9");
-        results.add("Restaurant10");
+        ArrayList<String> results = new ArrayList<>(MainApplication.core.searchRestaurantName(searchBox.getText()));
         searchResultsRestaurant.getItems().clear();
         searchResultsRestaurant.getItems().addAll(results);
         searchVbox.setVisible(!searchBox.getText().isEmpty());
     }
     public void initialize() throws FileNotFoundException {
-        //for (int i : Main.core.getNearestRestaurants()) {
-        for (int i = 1; i <= 5; i++) {
+        for (int i : MainApplication.core.getNearestRestaurants()) {
             VBox restaurantBox = new VBox();
             restaurantBox.setAlignment(Pos.TOP_CENTER);
             restaurantBox.setStyle("-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;");
@@ -56,18 +44,18 @@ public class restaurantController {
             restaurantLogo.setPreserveRatio(true);
             restaurantLogo.setFitHeight(150);
             restaurantLogo.setFitWidth(200);
-            Label restaurantTitle = new Label("ASDF"/*Main.core.restaurants.get(i).getName()*/);
+            Label restaurantTitle = new Label(MainApplication.core.restaurants.get(i).getName());
             restaurantTitle.setFont(Font.font("System", 24));
             restaurantTitle.setPadding(new Insets(5, 5, 5, 5));
-            Label restaurantRating = new Label("Rating: " + "★".repeat(3/*Math.round(Main.core.restaurants.get(i).getAverageRating()*/) + "☆".repeat(5 - 3/*Math.round(Main.core.restaurants.get(i).getAverageRating()*/));
+            Label restaurantRating = new Label("Rating: " + "★".repeat((int)Math.round(Main.core.restaurants.get(i).getAverageRating())) + "☆".repeat(5 - (int)Math.round(Main.core.restaurants.get(i).getAverageRating())));
             restaurantRating.setPadding(new Insets(5, 5, 5, 5));
-            /*StringBuilder foodTypes = new StringBuilder();
+            StringBuilder foodTypes = new StringBuilder();
             for (String foodType : Main.core.restaurants.get(i).getFoodType())
                 foodTypes.append(foodType).append('-');
-            foodTypes.deleteCharAt(foodTypes.length() - 1);*/
-            Label restaurantFoodTypes = new Label("A-B-C-D"/*foodTypes.toString()*/);
+            foodTypes.deleteCharAt(foodTypes.length() - 1);
+            Label restaurantFoodTypes = new Label(foodTypes.toString());
             restaurantFoodTypes.setPadding(new Insets(5, 5, 5, 5));
-            Label deliveryPrice = new Label("Delivery price: " + 1000/*Main.core.showDeliveryPrice(i)*/);
+            Label deliveryPrice = new Label("Delivery price: " + Main.core.showDeliveryPrice(i));
             deliveryPrice.setPadding(new Insets(5, 5, 5, 5));
             VBox.setMargin(deliveryPrice, new Insets(20, 0, 10, 0));
             restaurantBox.getChildren().addAll(restaurantLogo, restaurantTitle, restaurantRating, restaurantFoodTypes, deliveryPrice);

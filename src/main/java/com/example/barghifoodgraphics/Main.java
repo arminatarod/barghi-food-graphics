@@ -56,7 +56,7 @@ public class Main {
             }
             else if ((matcher = getMatcher(command, "^-SEARCH FOOD NAME (?<name>[a-zA-Z]+) *")) != null) {
                 String name = matcher.group("name");
-                core.searchFoodName(name);
+                core.searchFoodName(core.selectedRestaurant, name);
             }
             else if ((matcher = getMatcher(command, "^-UNSELECT FOOD *")) != null) {
                 core.unselectFood();
@@ -285,7 +285,7 @@ public class Main {
                 core.nearRestaurant();
             }
             else if ((matcher = getMatcher(command, "^-SHOW DELIVERY PRICE *")) != null) {
-                core.showDeliveryPrice();
+                core.showDeliveryPrice(core.selectedRestaurant);
             }
             else {
                 System.out.println("Wrong command format !");

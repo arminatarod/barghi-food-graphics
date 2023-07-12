@@ -632,16 +632,12 @@ public class Core {
         }
         System.out.println("you don't have access to change the status");
     }
-    public int showDeliveryPrice() {
+    public int showDeliveryPrice(int restaurantID) {
         if (loggedInUser == -1) {
-            System.out.println("login az user first !");
-            return -2;
-        }
-        if (selectedRestaurant == -1) {
-            System.out.println("first select restaurant!");
+            System.out.println("Login as user first!");
             return -1;
         }
-        int price = map.getDistance(((User)accounts.get(loggedInUser)).getSelectedLocation(), restaurants.get(selectedRestaurant).getLocation()) + 5000;
+        int price = map.getDistance(((User)accounts.get(loggedInUser)).getSelectedLocation(), restaurants.get(restaurantID).getLocation()) + 5000;
         System.out.println("Delivery price is : " + price);
         return price;
     }
@@ -672,51 +668,67 @@ public class Core {
         selectedRestaurant = restaurantID;
         System.out.println("Restaurant successfully selected.");
     }
-    //TODO :  fucking 2 ta tabeye ziro kodom khari zade !!!!!
-    public void searchRestaurantName(String name) {
-        if(loggedInAdmin != -1) {
-            boolean check = false;
-            Admin admin = (Admin) accounts.get(loggedInAdmin);
-            for(Integer restaurantId : admin.getRestaurants()) {
-                if(restaurants.get(restaurantId).getName().startsWith(name)) {
-                    System.out.println("Restaurant name : "+ restaurants.get(restaurantId).getName()+ " Restaurant ID: "+ restaurantId);
-                    check = true;
-                }
-            }
-            if(!check) {
-                System.out.println("There is no restaurant with this given name!!!");
-            }
-        }
-        else if(loggedInUser != -1) {
-            boolean check = false;
-            for(int id : restaurants.keySet()) {
-                if(restaurants.get(id).getName().startsWith(name)){
-                    System.out.println("Restaurant name : "+ restaurants.get(id).getName()+ " Restaurant ID: "+ id);
-                    check = true;
-                }
-            }
-            if(!check) {
-                System.out.println("There is no restaurant with this given name!!!");
-            }
-        }
-        else {
-            System.out.println("login first !");
-        }
+    public ArrayList<Integer> getNearestRestaurants() {
+        ArrayList<Integer> result = new ArrayList<>(restaurants.keySet());
+        for (int i = 0; i < result.size(); i++)
+            for (int j = i + 1; j < result.size(); j++)
+                if (map.getDistance(restaurants.get(i).getLocation(), ((User)accounts.get(loggedInUser)).getSelectedLocation()) > map.getDistance(restaurants.get(j).getLocation(), ((User)accounts.get(loggedInUser)).getSelectedLocation()))
+                    Collections.swap(result, i, j);
+        if (result.size() > 5)
+            for (int i = 5; i < result.size(); i++)
+                result.remove(i);
+        return result;
     }
-    public void searchFoodName(String name) {
-        if(loggedInUser == -1) {
-            System.out.println("No one has logged in!!!");
-        }
-        else if(selectedRestaurant == -1) {
-            System.out.println("no restaurant has been selected!!!");
-        }
-        else {
-            for(Integer foodId : restaurants.get(selectedRestaurant).getMenu()) {
-                if(foods.get(foodId).getName().startsWith(name)) {
-                    System.out.println("food name: "+foods.get(foodId).getName()+" food price: "+ foods.get(foodId).getPrice());
+    public ArrayList<String> searchRestaurantName(String name) {
+        ArrayList<String> result = new ArrayList<>();
+        boolean check = false;
+        if (loggedInAdmin != -1) {
+            Admin admin = (Admin)accounts.get(loggedInAdmin);
+            for (Integer restaurantId : admin.getRestaurants())
+                if (restaurants.get(restaurantId).getName().startsWith(name)) {
+                    result.add(restaurants.get(restaurantId).getName());
+                    System.out.println("Restaurant name : " + restaurants.get(restaurantId).getName() + " Restaurant ID: " + restaurantId);
+                    check = true;
                 }
-            }
-        }
+            if (!check)
+                System.out.println("There is no restaurant with this given name!");
+            return result;
+        } else if (loggedInUser != -1) {
+            for (int id : restaurants.keySet())
+                if (restaurants.get(id).getName().startsWith(name)) {
+                    result.add(restaurants.get(id).getName());
+                    System.out.println("Restaurant name : " + restaurants.get(id).getName() + ", Restaurant ID: " + id);
+                    check = true;
+                }
+            if (!check)
+                System.out.println("There is no restaurant with this given name!");
+            return result;
+        } else
+            System.out.println("Login first!");
+        return null;
+    }
+    public ArrayList<String> searchFoodName(String name) {
+        ArrayList<String> result = new ArrayList<>();
+        if (loggedInUser == -1) {
+            System.out.println("No one has logged in!!!");
+            return null;
+        } else
+            for (Integer foodId : foods.keySet())
+                if (foods.get(foodId).getName().startsWith(name)) {
+                    result.add(foods.get(foodId).getName());
+                    System.out.println("Food name: " + foods.get(foodId).getName() + ", Food price: "+ foods.get(foodId).getPrice());
+                }
+        return result;
+    }
+    public void searchFoodName(int restaurantID, String name) {
+        if (loggedInUser == -1) {
+            System.out.println("No one has logged in!!!");
+        } else if(restaurantID == -1) {
+            System.out.println("no restaurant has been selected!!!");
+        } else
+            for (Integer foodId : restaurants.get(restaurantID).getMenu())
+                if (foods.get(foodId).getName().startsWith(name))
+                    System.out.println("food name: "+foods.get(foodId).getName()+" food price: "+ foods.get(foodId).getPrice());
     }
     public void addComment(String content) {
         if (loggedInUser == -1) {
@@ -938,16 +950,16 @@ public class Core {
             return 0;
         }
     }
-    public void showEstimatedDeliveryTime() {
+    public int showEstimatedDeliveryTime() {
         if (loggedInUser == -1 && loggedInDeliveryman == -1) {
-            System.out.println("login as deliverymen or User first !");
-            return;
+            System.out.println("Login as deliverymen or User first!");
+            return -1;
         }
         if (selectedOrder == -1 && selectedRestaurant == -1) {
-            System.out.println("select order or restaurant first !");
-            return;
+            System.out.println("Select order or restaurant first!");
+            return -2;
         }
-        int tmp = -1, tmp2 = -1;
+        int tmp, tmp2;
         if (loggedInUser != -1)
             tmp = ((User)accounts.get(loggedInUser)).getSelectedLocation();
         else
@@ -957,6 +969,7 @@ public class Core {
         else
             tmp2 = restaurants.get(orders.get(selectedOrder).getRestaurant()).getLocation();
         System.out.println("Estimated Delivery time from restaurant to User selected location : " + map.getDistance(tmp, tmp2));
+        return map.getDistance(tmp, tmp2);
     }
     public void chargeAccount(int value) {
         if(loggedInUser == -1) {
@@ -1099,47 +1112,48 @@ public class Core {
             return;
         }
         if (((Deliveryman)accounts.get(loggedInDeliveryman)).getActiveOrder() != -1){
-            System.out.println("you have an active order !");
+            System.out.println("You already have an active order!");
             return;
         }
         if (!orders.containsKey(id)) {
-            System.out.println("order doesn't exist !");
+            System.out.println("Order doesn't exist!");
             return;
         }
         if (orders.get(id).getDeliveryman() != -1){
-            System.out.println("order is taken !");
+            System.out.println("Order is taken!");
             return;
         }
         orders.get(id).setDeliveryman(loggedInDeliveryman);
         ((Deliveryman)accounts.get(loggedInDeliveryman)).addOrder(id);
         ((Deliveryman)accounts.get(loggedInDeliveryman)).setActiveOrder(id);
-        System.out.println("order accepted successfully!");
+        System.out.println("Order accepted successfully.");
     }
-    public void showAvailableOrders() {
-        if(loggedInDeliveryman == -1) {
-            System.out.println("Deliveryman has not logged in!!!");
+    public ArrayList<Integer> showAvailableOrders() {
+        if (loggedInDeliveryman == -1) {
+            System.out.println("Deliveryman has not logged in!");
+            return null;
         }
         else {
             ArrayList<Integer> tmp = new ArrayList<>();
-            for (Order i : orders.values()) {
+            for (Order i : orders.values())
                 if (i.getStatus().equals("inr") && i.getDeliveryman() == -1)
                     tmp.add(i.getId());
-            }
-            for(int i=0;i<tmp.size();i++) {
-                for(int j=0;j< tmp.size();j++) {
-                    if(map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurant()).getLocation(), ((Deliveryman) accounts.get(loggedInDeliveryman)).getLocation()) +
+            for (int i = 0; i < tmp.size(); i++)
+                for (int j = 0; j < tmp.size(); j++)
+                    if (map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurant()).getLocation(), ((Deliveryman) accounts.get(loggedInDeliveryman)).getLocation()) +
                             map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurant()).getLocation(), ((User)accounts.get(orders.get(tmp.get(i)).getUser())).getSelectedLocation()) >
                             map.getDistance(restaurants.get(orders.get(tmp.get(j)).getRestaurant()).getLocation(), ((Deliveryman) accounts.get(loggedInDeliveryman)).getLocation()) +
                                     map.getDistance(restaurants.get(orders.get(tmp.get(j)).getRestaurant()).getLocation(), ((User)accounts.get(orders.get(tmp.get(j)).getUser())).getSelectedLocation())) {
                         Collections.swap(tmp,i,j);
                     }
-                }
-            }
-            for(int i=0;i<5;i++) {
+            ArrayList<Integer> result = new ArrayList<>();
+            for (int i = 0; i < Math.min(5, tmp.size()); i++) {
+                result.add(tmp.get(i));
                 Order tmp2 = orders.get(tmp.get(i));
                 int koft = map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurant()).getLocation(), ((Deliveryman) accounts.get(loggedInDeliveryman)).getLocation()) + map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurant()).getLocation(), ((User)accounts.get(orders.get(tmp.get(i)).getUser())).getSelectedLocation());
                 System.out.println("id : " + tmp2.getId() + " Restaurant id : " + tmp2.getRestaurant() + " Estimated time : " + koft);
             }
+            return result;
         }
     }
     public String forgetPasswordPressed(String username) {

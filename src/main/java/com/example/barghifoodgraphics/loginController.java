@@ -57,8 +57,15 @@ public class loginController {
                 MainApplication.stage.setScene(MainApplication.userPage);
             } else if (result == 1) {
                 MainApplication.stage.setScene(MainApplication.adminPageOne);
-            } else if (result == 3) {
+            } else if (result == 2) {
+                MainApplication.fxmlLoaderDeliverymanPage = new FXMLLoader(MainApplication.class.getResource("deliverymanPage.fxml"));
+                MainApplication.deliverymanPage = new Scene(MainApplication.fxmlLoaderDeliverymanPage.load(), 400, 600);
                 MainApplication.stage.setScene(MainApplication.deliverymanPage);
+            } else if (result == 3) {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setHeaderText("Not logged out!");
+                a.setContentText("You are already logged in.");
+                a.show();
             } else if (result == 4) {
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setHeaderText("Incorrect password!");
