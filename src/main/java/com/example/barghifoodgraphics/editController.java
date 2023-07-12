@@ -11,10 +11,11 @@ import java.util.Optional;
 public class editController {
     @FXML HBox BoxOne;
     @FXML HBox BoxTwo;
-    @FXML TextField foodNameTextField, foodPriceTextField, discountTExtField;
+    @FXML TextField foodNameTextField, foodPriceTextField, discountTextField;
+    public void initialize() {}
     public void ok()
     {
-        if(foodNameTextField.getText().isBlank() || foodPriceTextField.getText().isBlank() || discountTExtField.getText().isBlank())
+        if(foodNameTextField.getText().isBlank() || foodPriceTextField.getText().isBlank() || discountTextField.getText().isBlank())
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Missing field");
