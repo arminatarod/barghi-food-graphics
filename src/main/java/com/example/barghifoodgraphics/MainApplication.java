@@ -31,10 +31,6 @@ public class MainApplication extends Application {
         add = new Scene(fxmlLoaderAdd.load(), 400, 250);
         fxmlLoaderEdit = new FXMLLoader(MainApplication.class.getResource("edit.fxml"));
         edit = new Scene(fxmlLoaderEdit.load(), 400, 250);
-        fxmlLoaderAdminPageOne = new FXMLLoader(MainApplication.class.getResource("adminPage.fxml"));
-        adminPageOne = new Scene(fxmlLoaderAdminPageOne.load(), 600, 400);
-        fxmlLoaderAdminPageTwo = new FXMLLoader(MainApplication.class.getResource("adminPage2.fxml"));
-        adminPageTwo = new Scene(fxmlLoaderAdminPageTwo.load(), 600, 400);
         fxmlLoaderMenu = new FXMLLoader(MainApplication.class.getResource("menu.fxml"));
         menu = new Scene(fxmlLoaderMenu.load(), 400, 600);
         stage = mainStage;

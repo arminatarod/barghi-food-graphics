@@ -30,8 +30,13 @@ public class signupController {
             ft.play();
         }
     }
-    private void checkSignupError(int result) {
-        if (result == 1) {
+    private void checkSignup(int result) {
+        if (result == 0) {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText("Registration successful");
+            a.setContentText("Your account has been registered successfully.");
+            a.show();
+        } else if (result == 1) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Not logged out!");
             a.setContentText("You must be logged out to sign up.");
@@ -43,27 +48,17 @@ public class signupController {
             a.show();
         }
     }
-    public void signupPressed() throws IOException {
+    public void signupPressed() {
         if (captchaBox.isSelected()) {
             if (typeChooser.getValue().equals("User")) {
                 int result = MainApplication.core.addUser(usernameField.getText(), passwordField.getText(), recoveryQuestion.getText(), recoveryAnswer.getText());
-                if (result == 0) {
-                    MainApplication.fxmlLoaderUserPage = new FXMLLoader(MainApplication.class.getResource("userPage.fxml"));
-                    MainApplication.userPage = new Scene(MainApplication.fxmlLoaderUserPage.load(), 400, 600);
-                    MainApplication.stage.setScene(MainApplication.userPage);
-                } else checkSignupError(result);
+                checkSignup(result);
             } else if (typeChooser.getValue().equals("Administrator")) {
                 int result = MainApplication.core.addAdmin(usernameField.getText(), passwordField.getText(), recoveryQuestion.getText(), recoveryAnswer.getText());
-                if (result == 0) {
-                    MainApplication.stage.setScene(MainApplication.adminPageOne);
-                } else checkSignupError(result);
+                checkSignup(result);
             } else {
                 int result = MainApplication.core.addDeliveryman(usernameField.getText(), passwordField.getText(), recoveryQuestion.getText(), recoveryAnswer.getText());
-                if (result == 0) {
-                    MainApplication.fxmlLoaderDeliverymanPage = new FXMLLoader(MainApplication.class.getResource("deliverymanPage.fxml"));
-                    MainApplication.deliverymanPage = new Scene(MainApplication.fxmlLoaderDeliverymanPage.load(), 400, 600);
-                    MainApplication.stage.setScene(MainApplication.deliverymanPage);
-                } else checkSignupError(result);
+                checkSignup(result);
             }
         } else {
             Alert a = new Alert(Alert.AlertType.ERROR);
