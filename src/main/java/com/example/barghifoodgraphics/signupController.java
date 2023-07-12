@@ -46,5 +46,6 @@ public class signupController {
     }
     public void initialize() {
         typeChooser.getItems().addAll("User", "Administrator", "Deliveryman");
+        typeChooser.setValue("User");
     }
 }

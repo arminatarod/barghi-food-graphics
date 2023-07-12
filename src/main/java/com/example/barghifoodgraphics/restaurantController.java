@@ -67,7 +67,7 @@ public class restaurantController {
             foodTypes.deleteCharAt(foodTypes.length() - 1);*/
             Label restaurantFoodTypes = new Label("A-B-C-D"/*foodTypes.toString()*/);
             restaurantFoodTypes.setPadding(new Insets(5, 5, 5, 5));
-            Label deliveryPrice = new Label("Delivery price: " + 1000/*Main.core.getDeliveryPrice(i)*/);
+            Label deliveryPrice = new Label("Delivery price: " + 1000/*Main.core.showDeliveryPrice(i)*/);
             deliveryPrice.setPadding(new Insets(5, 5, 5, 5));
             VBox.setMargin(deliveryPrice, new Insets(20, 0, 10, 0));
             restaurantBox.getChildren().addAll(restaurantLogo, restaurantTitle, restaurantRating, restaurantFoodTypes, deliveryPrice);

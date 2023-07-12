@@ -37,8 +37,8 @@ public class cartController {
             a.show();
             return;
         }
-        /*int foodID = ((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue();
-        ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().put(foodID, ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(foodID) + 1);*/
+        int foodID = ((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue();
+        //((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().addItem(foodID, 1);*/
         initialize();
     }
     public void decreaseRow() {
@@ -49,8 +49,8 @@ public class cartController {
             a.show();
             return;
         }
-        /*int foodID = ((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue();
-        ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().put(foodID, ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(foodID) - 1);*/
+        int foodID = ((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue();
+        //((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().removeItem(foodID, 1);*/
         initialize();
     }
     public void deleteRow() {
@@ -61,12 +61,13 @@ public class cartController {
             a.show();
             return;
         }
-        //((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().remove(((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue());
+        int foodID = ((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue();
+        //((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().removeItem(foodID, ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(foodID));
         initialize();
     }
     public void addOrder() {
-        boolean done = /*Main.core.confirmOrder()*/false;
-        if (!done) {
+        int done = /*Main.core.confirmOrder()*/0;
+        if (done != 0) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Order wasn't submitted");
             a.setContentText("A problem occurred while finalizing this order.");

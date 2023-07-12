@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: rgb(30,120,30);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.loginController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: rgb(75,120,75);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.loginController">
    <children>
       <Label text="Barghi Food" textFill="#dcc8aa">
          <font>
-            <Font size="48.0" />
+            <Font name="Papyrus" size="48.0" />
          </font>
          <padding>
-            <Insets top="50.0" />
+            <Insets top="20.0" />
          </padding>
       </Label>
       <Label text="Login" textAlignment="CENTER" textFill="WHITE">

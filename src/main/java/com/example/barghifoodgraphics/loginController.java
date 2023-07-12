@@ -17,11 +17,6 @@ public class loginController {
     @FXML
     private StackPane captchaPane;
     public void forgotPressed() {
-        Stage forgotPasswordStage = new Stage();
-        forgotPasswordStage.setTitle("Forgot password");
-        forgotPasswordStage.setMinWidth(400);
-        forgotPasswordStage.setMinHeight(540);
-        forgotPasswordStage.setScene(MainApplication.forgotPassword);
         String result = "Where are you from?"/*Main.core.forgetPasswordPressed(usernameField.getText())*/;
         if (result == null) {
             Alert a = new Alert(Alert.AlertType.ERROR);
@@ -29,6 +24,11 @@ public class loginController {
             a.setContentText("Please enter a valid username.");
             a.show();
         } else {
+            Stage forgotPasswordStage = new Stage();
+            forgotPasswordStage.setTitle("Forgot password");
+            forgotPasswordStage.setMinWidth(400);
+            forgotPasswordStage.setMinHeight(540);
+            forgotPasswordStage.setScene(MainApplication.forgotPassword);
             forgotPasswordController.username = usernameField.getText();
             forgotPasswordController.questionText = result;
             ((forgotPasswordController) MainApplication.fxmlLoaderForgotPassword.getController()).initialize();

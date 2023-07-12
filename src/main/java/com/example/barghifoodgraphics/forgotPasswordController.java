@@ -16,8 +16,8 @@ public class forgotPasswordController {
         String result = "ASDFASDF";
         if (result == null) {
             Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("Invalid username");
-            a.setContentText("Please enter a valid username.");
+            a.setHeaderText("Invalid request");
+            a.setContentText("The username is invalid and/or the answer is incorrect.");
             a.show();
         } else {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
