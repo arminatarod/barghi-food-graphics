@@ -29,7 +29,6 @@ public class deliverymanPageController {
             selectedRow = -1;
         else
             selectedRow = availableOrdersTable.getSelectionModel().selectedIndexProperty().get();
-        System.out.println(selectedRow);
     }
     public void accept() {
         if (selectedRow == -1) {
@@ -89,7 +88,6 @@ public class deliverymanPageController {
         destinationPoint.setCellValueFactory(data -> data.getValue().get(1));
         estimatedDuration.setCellValueFactory(data -> data.getValue().get(2));
         ObservableList<List<Object>> data = FXCollections.observableArrayList();
-        //TODO: get data
         availableOrders = /*Main.core.showAvailableOrders()*/null;
         int deliverymanLocation = 0/*((Deliveryman)Main.core.accounts.get(Main.core.loggedInDeliveryman)).getLocation()*/;
         //for (int i : availableOrders) {
