@@ -612,17 +612,18 @@ public class Core {
         }
         System.out.println("you don't have access to change the status");
     }
-    public void showDeliveryPrice() {
+    public int showDeliveryPrice() {
         if (loggedInUser == -1) {
             System.out.println("login az user first !");
-            return;
+            return -2;
         }
         if (selectedRestaurant == -1) {
             System.out.println("first select restaurant!");
-            return;
+            return -1;
         }
         int price = map.getDistance(((User)accounts.get(loggedInUser)).getSelectedLocation(), restaurants.get(selectedRestaurant).getLocation()) + 5000;
-        System.out.println("Delivery price is : " + price) ;
+        System.out.println("Delivery price is : " + price);
+        return price;
     }
     public void showOrderHistory() {
         if (loggedInUser == -1 && loggedInDeliveryman == -1 && selectedRestaurant == -1) {
