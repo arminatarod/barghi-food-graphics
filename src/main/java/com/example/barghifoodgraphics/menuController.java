@@ -52,11 +52,13 @@ public class menuController {
                 data.add(row);
             }
             tableView.setItems(data);
+            tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
             Tab tab = new Tab(FoodType, tableView);
             myTabPane.getTabs().add(tab);
             tableViews.add(tableView);
         }
         averageRatingLabel.setText(Double.toString(4.8));
+        quantity.setValue(1);
     }
     public void addToCart()
     {

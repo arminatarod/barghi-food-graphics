@@ -20,15 +20,15 @@
                   <Font size="15.0" />
                </font>
                <HBox.margin>
-                  <Insets bottom="95.0" right="100.0" />
+                  <Insets bottom="95.0" right="80.0" />
                </HBox.margin>
             </Label>
-            <ImageView fitHeight="63.0" fitWidth="67.0">
+            <ImageView fitHeight="82.0" fitWidth="96.0">
                <image>
-                  <Image url="@../../../../../../../../OneDrive/Desktop/images.png" />
+                  <Image url="@restaurantLogos/5.png" />
                </image>
                <HBox.margin>
-                  <Insets right="160.0" />
+                  <Insets left="10.0" right="140.0" />
                </HBox.margin>
             </ImageView>
          </children>
@@ -56,19 +56,15 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <TabPane fx:id="myTabPane" prefHeight="310.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" />
-      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="400.0">
+      <TabPane fx:id="myTabPane" prefHeight="330.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" />
+      <HBox alignment="CENTER" prefHeight="39.0" prefWidth="400.0" style="-fx-border-color: black; -fx-border-width: 2;">
          <children>
             <Button fx:id="addButton" mnemonicParsing="false" text="Add to cart">
                <HBox.margin>
-                  <Insets left="50.0" />
+                  <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <ChoiceBox fx:id="quantity" prefHeight="15.0" prefWidth="34.0">
-               <HBox.margin>
-                  <Insets left="30.0" />
-               </HBox.margin>
-            </ChoiceBox>
+            <ChoiceBox fx:id="quantity" prefHeight="10.0" prefWidth="27.0" />
          </children>
       </HBox>
    </children>
