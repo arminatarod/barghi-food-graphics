@@ -10,14 +10,18 @@ public class User extends Account {
     private HashSet<Integer> locations, orders, comments;
     private Order cart;
     private int selectedLocation;
-    private int balance;
+    private double balance;
     public User(String userName, String password, String recoveryQuestion, String recoveryQuestionAnswer, int id) {
         super(userName, password, recoveryQuestion, recoveryQuestionAnswer, id);
         locations = new HashSet<>();
         orders = new HashSet<>();
         comments = new HashSet<>();
+        cart = new Order();
+        cart.setId((-(this.getId() + 1)));
+        cart.setUser(id);
+        cart.setStatus("pend");
+        cart.setRestaurant(-1);
     }
-
     public void setCart(Order cart) {
         this.cart = cart;
     }
@@ -41,13 +45,13 @@ public class User extends Account {
     public HashSet<Integer> getLocations() {
         return locations;
     }
-    public void setBalance(int amount) {
+    public void setBalance(double amount) {
         this.balance = amount;
     }
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
-    public void addBalance(int amount) {
+    public void addBalance(double amount) {
         this.balance += amount;
     }
     public void addComment(int commentID) {

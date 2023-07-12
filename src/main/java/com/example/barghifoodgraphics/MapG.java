@@ -30,6 +30,10 @@ public class MapG {
             return weight;
         }
     }
+
+    public int getN() {
+        return n;
+    }
     private ArrayList<ArrayList<edge>> graph;
     public void readGraphFromFile(String address) throws FileNotFoundException {
         File myObj = new File(address);

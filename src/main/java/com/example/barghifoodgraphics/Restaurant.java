@@ -5,10 +5,11 @@ import java.io.File;
 import java.util.HashSet;
 
 public class Restaurant {
-    private int location, balance, adminID, id;
+    private int location, adminID, id;
     private String name,type;
-    private HashSet<Integer> orders, activeOrders, menu;
+    private HashSet<Integer> orders, menu;
     private HashSet<String> foodType;
+    private double balance;
 
     public Restaurant(int location, String name, String type, int id) {
         this.location = location;
@@ -16,7 +17,6 @@ public class Restaurant {
         this.type = type;
         this.id = id;
         orders = new HashSet<>();
-        activeOrders = new HashSet<>();
         menu = new HashSet<>();
         foodType = new HashSet<>();
     }
@@ -45,18 +45,15 @@ public class Restaurant {
         return location;
     }
     public void addOrder(int orderID) {
-        activeOrders.add(orderID);
+        orders.add(orderID);
     }
     public HashSet<Integer> getOrders() {
         return orders;
     }
-    public HashSet<Integer> getActiveOrders() {
-        return activeOrders;
-    }
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
-    public void addBalance(int value) {
+    public void addBalance(double value) {
         balance += value;
         save();
     }
@@ -99,5 +96,8 @@ public class Restaurant {
         this.type = type;
         save();
     }
-
+    public void withdraw() {
+        balance = 0;
+        save();
+    }
 }

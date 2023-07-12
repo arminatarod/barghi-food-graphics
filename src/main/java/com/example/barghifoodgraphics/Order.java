@@ -7,6 +7,11 @@ import java.util.HashMap;
 public class Order {
     private int id, restaurantId, userId, deliverymanId, userLocation;
     private String status;
+    // orders status :
+    // pend
+    // inr :  in resturant
+    // ind : in delivery
+    // done : done
     private HashMap<Integer, Integer> items;
 
     public Order(int id, int restaurant, int user, int deliveryman, int userLocation) {
@@ -17,7 +22,7 @@ public class Order {
         this.userLocation = userLocation;
     }
     public Order(){
-
+        deliverymanId = -1;
     }
     public int getUserLocation() {
         return userLocation;
@@ -68,19 +73,29 @@ public class Order {
         }
         save();
     }
-    public void removeItem(Food item, int count) {
-        if (item == null)
-                return;
-        if (items.containsKey(item.getId())) {
-            int tmp = items.get(item.getId());
-            items.replace(item.getId(), tmp - count);
+    public void removeItem(int item, int count) {
+        int tmp = items.get(item);
+        if (tmp - count == 0) {
+            items.remove(item);
+        }
+        else {
+            items.replace(item, tmp - count);
         }
         save();
     }
     public void save() {
         ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(new File("src/data/orders/" + id + ".json"), this);
-        } catch (Exception ignored) {}
+        //if (id < 0) {
+            //try {
+              //  mapper.writeValue(new File("src/data/carts/" + userId + ".json"), this);
+            //} catch (Exception ignored) {}
+
+        //}
+        if (id >= 0) {
+            try {
+                mapper.writeValue(new File("src/data/orders/" + id + ".json"), this);
+            } catch (Exception ignored) {
+            }
+        }
     }
 }

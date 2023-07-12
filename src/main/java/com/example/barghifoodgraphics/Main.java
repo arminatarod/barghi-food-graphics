@@ -27,6 +27,11 @@ public class Main {
                 String recoveryQuestionAnswer = matcher.group("recoveryQuestionAnswer");
                 core.addAdmin(name, password, recoveryQuestion, recoveryQuestionAnswer);
             }
+            if ((matcher = getMatcher(command, "^-LOGIN (?<name>[a-zA-Z]+) (?<password>\\S+) *")) != null) {
+                String name = matcher.group("name");
+                String password = matcher.group("password");
+                core.login(name, password);
+            }
             else if ((matcher = getMatcher(command, "^-REGISTER USER (?<name>[a-zA-Z]+) (?<password>\\S+) (?<recoveryQuestion>\\S+) (?<recoveryQuestionAnswer>\\S+) *")) != null) {
                 String name = matcher.group("name");
                 String password = matcher.group("password");
@@ -93,7 +98,6 @@ public class Main {
                 core.unselectOrder(id);
             }
             else if ((matcher = getMatcher(command, "^-EDIT FOOD TYPE (?<toAdd>[a-zA-Z,]+) *")) != null) {
-                // TODO : ghaare beineshon maslan ',' bahse
                 System.out.println("are you sure about that ? (type yes/no)");
                 boolean fs = false;
                 command = cin.nextLine();
@@ -110,7 +114,6 @@ public class Main {
                 core.addRestaurant(name, type, location);
             }
             else if ((matcher = getMatcher(command, "^-REMOVE FOOD TYPE (?<toRemove>[a-zA-Z,]+) *")) != null) {
-                // TODO : ghaare beineshon maslan ',' bahse
                 System.out.println("are you sure about that ? (type yes/no)");
                 boolean fs = false;
                 command = cin.nextLine();
@@ -120,7 +123,6 @@ public class Main {
                 core.removeFoodType(toRemove, fs);
             }
             else if ((matcher = getMatcher(command, "^-ADD FOOD TYPE (?<toAdd>[a-zA-Z,]+) *")) != null) {
-                // TODO : ghaare beineshon maslan ',' bahse
                 System.out.println("are you sure about that ? (type yes/no)");
                 boolean fs = false;
                 command = cin.nextLine();
@@ -146,10 +148,6 @@ public class Main {
             }
             else if ((matcher = getMatcher(command, "^-SHOW PATH *")) != null) {
                 core.showPath();
-            }
-            else if ((matcher = getMatcher(command, "^-SEARCH RESTAURANT NAME (?<name>[a-zA-Z]+) *")) != null) {
-                String name = matcher.group("name");
-                core.searchRestaurantName(name);
             }
             else if ((matcher = getMatcher(command, "^-SHOW LOCATION *")) != null) {
                 core.showLocation();
@@ -188,6 +186,14 @@ public class Main {
             else if ((matcher = getMatcher(command, "^-ADD TO CART *")) != null) {
                 int count = 1;
                 core.addToCart(count);
+            }
+            else if ((matcher = getMatcher(command, "^-REMOVE FROM CART (?<count>[0-9]+) *")) != null) {
+                int count = Integer.parseInt(matcher.group("count"));
+                core.removeFromCart(count);
+            }
+            else if ((matcher = getMatcher(command, "^-REMOVE FROM CART *")) != null) {
+                int count = 1;
+                core.removeFromCart(count);
             }
             else if ((matcher = getMatcher(command, "^-SUBMIT RATING (?<rating>[0-9]+) *")) != null) {
                 int rating = Integer.parseInt(matcher.group("rating"));

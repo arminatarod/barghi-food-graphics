@@ -23,6 +23,7 @@ public class Food {
         this.restaurantId = restaurantId;
         this.name = name;
         ratings = new HashMap<>();
+        isActive = false;
         comments = new HashSet<>();
     }
 
