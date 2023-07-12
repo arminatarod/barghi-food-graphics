@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.HashMap;
 
 public class Order {
-    private int id, restaurantId, userId, deliverymanId, userLocation;
+    private int id, restaurantId, userId, deliverymanId, userLocation, deliveryPrice;
     private String status;
     // orders status :
     // pend
@@ -24,9 +24,23 @@ public class Order {
     public Order(){
         deliverymanId = -1;
     }
+    public void setDeliveryPrice(int deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
+        save();
+    }
+
+    public int getDeliveryPrice() {
+        return deliveryPrice;
+    }
     public int getUserLocation() {
         return userLocation;
     }
+
+    public void setUserLocation(int userLocation) {
+        this.userLocation = userLocation;
+        save();
+    }
+
     public void setRestaurant(int restaurant) {
         this.restaurantId = restaurant;
     }

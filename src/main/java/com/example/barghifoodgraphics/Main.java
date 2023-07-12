@@ -79,6 +79,9 @@ public class Main {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.selectLocation(id);
             }
+            else if ((matcher = getMatcher(command, "^-SHOW SELECTED LOCATION *")) != null) {
+                core.showSelectedLocation();
+            }
             else if ((matcher = getMatcher(command, "^-SELECT FOOD (?<id>[0-9]+) *")) != null) {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.selectFood(id);
@@ -93,9 +96,8 @@ public class Main {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.selectOrder(id);
             }
-            else if ((matcher = getMatcher(command, "^-UNSELECT ORDER (?<id>[0-9]+) *")) != null) {
-                int id = Integer.parseInt(matcher.group("id"));
-                core.unselectOrder(id);
+            else if ((matcher = getMatcher(command, "^-UNSELECT ORDER *")) != null) {
+                core.unselectOrder();
             }
             else if ((matcher = getMatcher(command, "^-EDIT FOOD TYPE (?<toAdd>[a-zA-Z,]+) *")) != null) {
                 System.out.println("are you sure about that ? (type yes/no)");
@@ -250,6 +252,10 @@ public class Main {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.addLocation(id);
             }
+            else if ((matcher = getMatcher(command, "^-REMOVE LOCATION (?<id>[0-9]+) *")) != null) {
+                int id = Integer.parseInt(matcher.group("id"));
+                core.removeLocation(id);
+            }
             else if ((matcher = getMatcher(command, "^-SHOW AVAILABLE ORDERS *")) != null) {
                 core.showAvailableOrders();
             }
@@ -260,6 +266,12 @@ public class Main {
                 int id = Integer.parseInt(matcher.group("id"));
                 core.acceptOrder(id);
             }
+            else if ((matcher = getMatcher(command, "^-GET FOOD *")) != null) {
+                core.getFood();
+            }
+            else if ((matcher = getMatcher(command, "^-GIVE FOOD *")) != null) {
+                core.giveFood();
+            }
             else if ((matcher = getMatcher(command, "^-GET PATH TO USER *")) != null) {
                 core.getPathToUser();
             }
@@ -268,6 +280,12 @@ public class Main {
             }
             else if ((matcher = getMatcher(command, "^-SUGGEST ORDER *")) != null) {
                 core.suggestFood();
+            }
+            else if ((matcher = getMatcher(command, "^-NEAREST RESTAURANT *")) != null) {
+                core.nearRestaurant();
+            }
+            else if ((matcher = getMatcher(command, "^-SHOW DELIVERY PRICE *")) != null) {
+                core.showDeliveryPrice();
             }
             else {
                 System.out.println("Wrong command format !");

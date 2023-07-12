@@ -21,9 +21,13 @@ public class User extends Account {
         cart.setUser(id);
         cart.setStatus("pend");
         cart.setRestaurant(-1);
+        cart.setUserLocation(1);
+        locations.add(1);
+        selectedLocation = 1;
     }
     public void setCart(Order cart) {
         this.cart = cart;
+        save();
     }
 
     public Order getCart() {

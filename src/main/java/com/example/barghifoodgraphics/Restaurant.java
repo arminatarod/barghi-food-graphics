@@ -21,6 +21,8 @@ public class Restaurant {
         foodType = new HashSet<>();
     }
 
+
+
     public int getId() {
         return id;
     }
@@ -29,9 +31,11 @@ public class Restaurant {
     }
     public void addFoodToMenu(int id) {
         menu.add(id);
+        save();
     }
     public void addFoodType(String type) {
         foodType.add(type);
+        save();
     }
     public void removeFoodType(String type) {
         foodType.remove(type);
@@ -46,6 +50,7 @@ public class Restaurant {
     }
     public void addOrder(int orderID) {
         orders.add(orderID);
+        save();
     }
     public HashSet<Integer> getOrders() {
         return orders;

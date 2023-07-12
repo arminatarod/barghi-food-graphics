@@ -14,7 +14,7 @@ public class Deliveryman extends Account {
         balance = 0;
         activeOrder = -1;
         orders = new HashSet<>();
-        location = 0;
+        location = 1;
     }
     public int getLocation() {
         return location;
@@ -32,7 +32,7 @@ public class Deliveryman extends Account {
     public int getBalance() {
         return balance;
     }
-    public void addMoney(int amount) {
+    public void addBalance(int amount) {
         balance += amount;
     }
     public int getActiveOrder() {

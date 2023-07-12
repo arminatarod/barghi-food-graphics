@@ -3,18 +3,19 @@ package com.example.barghifoodgraphics;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.HashSet;
 
 public class Food {
-    private int id, price, discount, discountTimestamp, restaurantId;
-
-    private double averageRating;
+    private int id, price, restaurantId;
+    private LocalTime discountTimestamp;
+    private double averageRating, discount;
     private HashMap<Integer, Integer> ratings;
     //String imageUrl;
     // baraye bakhsh graphic khobe aksesham dashte bashim !? ye string url
     private String name;
-    private boolean activeDiscount, isActive;
+    private boolean isActive;
     private HashSet<Integer> comments;
 
     public Food(int id, int price, int restaurantId, String name) {
@@ -31,15 +32,20 @@ public class Food {
         this.restaurantId = restaurant;
         save();
     }
-    public void setDiscount(int discount, int timestamp) {
+    public void setDiscount(double discount, LocalTime timestamp) {
         this.discount = discount;
         this.discountTimestamp = timestamp;
         save();
     }
-    public int getDiscount() {
-        return discount;
+    public double getDiscount() {
+        if (LocalTime.now().isAfter(discountTimestamp)) {
+            return 0;
+        }
+        else {
+            return  0;
+        }
     }
-    public int getDiscountTimestamp() {
+    public LocalTime getDiscountTimestamp() {
         return discountTimestamp;
     }
     public void setId(int id) {
@@ -55,10 +61,6 @@ public class Food {
         isActive = active;
         save();
     }
-    public void setActiveDiscount(boolean activeDiscount) {
-        this.activeDiscount = activeDiscount;
-        save();
-    }
     public void setName(String name) {
         this.name = name;
         save();
@@ -68,8 +70,12 @@ public class Food {
         save();
     }
     public double getPrice() {
-        // TODO : if discount is available count that
-        return price;
+        if (LocalTime.now().isAfter(discountTimestamp)) {
+            return price;
+        }
+        else {
+            return  price * (1 - discount);
+        }
     }
     public String getName() {
         return name;

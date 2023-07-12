@@ -1,10 +1,12 @@
 package com.example.barghifoodgraphics;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import java.time.LocalTime;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+
+import static java.lang.Integer.min;
 
 public class Core {
     MapG map;
@@ -65,16 +67,6 @@ public class Core {
                 orders.put(result.getId(), result);
             } catch (Exception e) {
                 System.out.println("there is an missing file in orders data base");
-            }
-        }
-        for (int i = 0; i < accounts.size(); i++) {
-            Order result;
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                result = mapper.readValue("src/data/orders/" + i + ".json", Order.class);
-                ((User)accounts.get(i)).setCart(result);
-            } catch (Exception e) {
-                System.out.println("there is an missing file in carts data base");
             }
         }
         // Reading restaurants
@@ -241,6 +233,23 @@ public class Core {
         User tmp = (User) accounts.get(loggedInUser);
         tmp.addLocation(nodeId);
         System.out.println("location added successfully");
+    }
+    public void removeLocation(int nodeId){
+        if (loggedInUser == -1) {
+            System.out.println("you should login as an User !");
+            return;
+        }
+        if (nodeId > map.getN()) {
+            System.out.println("invalid nodeId");
+            return;
+        }
+        User tmp = (User) accounts.get(loggedInUser);
+        if (!tmp.getLocations().contains(nodeId)) {
+            System.out.println("this location is not in your location lists");
+            return;
+        }
+        tmp.removeLocation(nodeId);
+        System.out.println("location removed successfully");
     }
     public void showFoodType() {
         if (selectedRestaurant == -1) {
@@ -449,8 +458,11 @@ public class Core {
             System.out.println("The selected restaurant does not have a food with the given ID!");
         }
         else {
-            // TODO : time work of food discount
-            foods.get(foodID).setDiscount(discountPercentage, timestamp);
+            if (discountPercentage > 100 || discountPercentage < 1) {
+                System.out.println("wrong discount percentage amount !");
+                return;
+            }
+            foods.get(foodID).setDiscount((double) discountPercentage / 100, LocalTime.now().plusMinutes(timestamp));
             System.out.println("Information updated successfully.");
         }
     }
@@ -567,7 +579,7 @@ public class Core {
                         continue;
                     }
                     i++;
-                    System.out.println("Order  " + i + "  : " + "id : " + orderId + " Deliverymen id : " + orders.get(orderId).getDeliveryman() + " Status : " + orders.get(orderId).getStatus());
+                    System.out.println("Order  " + i + "  : " + "id : " + orderId + " Deliverymen id : " + orders.get(orderId).getDeliveryman() + " Price : " + getPrice(orders.get(orderId).getItems()));
                 }
             }
         }
@@ -578,7 +590,7 @@ public class Core {
             }
             else {
                 Order tmp2 = orders.get(tmp.getActiveOrder());
-                System.out.println("Order id : " + tmp2.getId() + " Restaurant location : " + restaurants.get(tmp2.getRestaurant()).getLocation() + " User location : " + tmp2.getUserLocation());
+                System.out.println("Order id : " + tmp2.getId() + " Restaurant location : " + restaurants.get(tmp2.getRestaurant()).getLocation() + " User location : " + tmp2.getUserLocation() + " Delivery price :" + tmp2.getDeliveryPrice());
             }
         }
     }
@@ -600,6 +612,18 @@ public class Core {
         }
         System.out.println("you don't have access to change the status");
     }
+    public void showDeliveryPrice() {
+        if (loggedInUser == -1) {
+            System.out.println("login az user first !");
+            return;
+        }
+        if (selectedRestaurant == -1) {
+            System.out.println("first select restaurant!");
+            return;
+        }
+        int price = map.getDistance(((User)accounts.get(loggedInUser)).getSelectedLocation(), restaurants.get(selectedRestaurant).getLocation()) + 5000;
+        System.out.println("Delivery price is : " + price) ;
+    }
     public void showOrderHistory() {
         if (loggedInUser == -1 && loggedInDeliveryman == -1 && selectedRestaurant == -1) {
             System.out.println("login as User or deliverymen or select your owen restaurant!");
@@ -613,7 +637,7 @@ public class Core {
         else
             tmp = restaurants.get(selectedRestaurant).getOrders();
         for (int i : tmp)
-            System.out.println("ID: " + i + ", STATUS: " + orders.get(i).getStatus() + " Restaurant : " + orders.get(i).getRestaurant() + ", PRICE: " + getPrice(orders.get(i).getItems()));
+            System.out.println("ID: " + i + ", STATUS: " + orders.get(i).getStatus() + " Restaurant : " + orders.get(i).getRestaurant() + ", PRICE: " + getPrice(orders.get(i).getItems()) + " Delivery price : " + orders.get(i).getDeliveryPrice());
     }
     public void selectRestaurant(int restaurantID) {
         if (loggedInAdmin == -1 && loggedInUser == -1) {
@@ -755,6 +779,13 @@ public class Core {
         }
         if (cart.getRestaurant() == -1) {
             cart.setRestaurant(selectedRestaurant);
+            int price = map.getDistance(cart.getUserLocation(), restaurants.get(selectedRestaurant).getLocation()) + 5000;
+            cart.setDeliveryPrice(price);
+            System.out.println("cart selected restaurant : " + selectedRestaurant + " price of delivery : " + price);
+        }
+        if (!foods.get(selectedFood).getActive()) {
+            System.out.println("this food is not active sorry");
+            return;
         }
         cart.addItem(selectedFood, count);
         System.out.println("added successfully.");
@@ -785,6 +816,10 @@ public class Core {
             return;
         }
         cart.removeItem(selectedFood, count);
+        if (cart.getItems().size() == 0) {
+            cart.setRestaurant(-1);
+            cart.setDeliveryPrice(0);
+        }
         System.out.println("items removed successfully successfully.");
     }
     public void selectOrder(int id) {
@@ -819,7 +854,7 @@ public class Core {
         selectedOrder = id;
         System.out.println("order " + id + " selected successfully");
     }
-    public void unselectOrder(int id) {
+    public void unselectOrder() {
         if (selectedOrder == -1) {
             System.out.println("there is no seleceted order !");
             return;
@@ -839,6 +874,7 @@ public class Core {
             for(Map.Entry<Integer, Integer> item : ((User) accounts.get(loggedInUser)).getCart().getItems().entrySet()) {
                 System.out.println("food name: " + foods.get(item.getKey()).getName() +  " count: " + item.getValue() + " discount: %" + foods.get(item.getValue()).getDiscount() + " total-price: " + foods.get(item.getValue()).getPrice() * item.getValue());
             }
+            System.out.println(" Delivery price : " + ((User)accounts.get(loggedInUser)).getCart().getDeliveryPrice());
         }
     }
     public void confirmOrder() {
@@ -849,20 +885,32 @@ public class Core {
             System.out.println("you have not chosen anything!!!");
         }
         else {
-            if (((User)accounts.get(loggedInUser)).getBalance() < getPrice(((User)accounts.get(loggedInUser)).getCart().getItems())) {
+            if (((User)accounts.get(loggedInUser)).getBalance() < getPrice(((User)accounts.get(loggedInUser)).getCart().getItems()) + ((User)accounts.get(loggedInUser)).getCart().getDeliveryPrice()) {
                 System.out.println("not enough balance !");
                 return;
             }
-            double price = getPrice(((User)accounts.get(loggedInUser)).getCart().getItems());
-            ((User)accounts.get(loggedInUser)).addBalance(-price);
-            System.out.println("Order has been confirmed and sent to restaurant");
             Order tmp = ((User)accounts.get(loggedInUser)).getCart();
+            boolean koft = false;
+            for (int i : tmp.getItems().keySet()) {
+                if (!foods.get(i).getActive()) {
+                    System.out.println("food with foodId : " + i + " is no longer active!");
+                    koft = true;
+                }
+            }
+            if (koft) {
+                System.out.println("remove non active food from your cart");
+                return;
+            }
+            double price = getPrice(((User)accounts.get(loggedInUser)).getCart().getItems());
+            ((User)accounts.get(loggedInUser)).addBalance(- price - ((User)accounts.get(loggedInUser)).getCart().getDeliveryPrice());
+            System.out.println("Order has been confirmed and sent to restaurant");
             tmp.setStatus("inr");
             Order cart = new Order();
             cart.setId((-(loggedInAccount + 1)));
             cart.setUser(loggedInAccount);
             cart.setStatus("pend");
             cart.setRestaurant(-1);
+            cart.setUserLocation(tmp.getUserLocation());
             ((User)accounts.get(loggedInUser)).setCart(cart);
             tmp.setId(orders.size());
             restaurants.get(tmp.getRestaurant()).addBalance(price);
@@ -1115,9 +1163,17 @@ public class Core {
             System.out.println("this location is not in your locations list, please add it first!");
             return;
         }
+        tmp.getCart().setUserLocation(id);
         tmp.setSelectedLocation(id);
         System.out.println("location set successfully");
 
+    }
+    public void showSelectedLocation() {
+        if (loggedInUser == -1) {
+            System.out.println("you should login as User!");
+            return;
+        }
+        System.out.println("selected location node id : " + ((User)accounts.get(loggedInUser)).getSelectedLocation());
     }
     public void addRestaurant(String name, String type, int locationId) {
         if (loggedInAdmin == -1) {
@@ -1136,5 +1192,66 @@ public class Core {
         restaurants.put(tmp.getId(), tmp);
         tmp.save();
         tmp.setAdmin(loggedInAdmin);
+    }
+    public ArrayList<Integer> nearRestaurant() {
+        ArrayList<Integer> tmp2 = new ArrayList<>();
+        if (loggedInUser == -1) {
+            System.out.println("login as User!");
+            return tmp2;
+        }
+        ArrayList<Integer> tmp = new ArrayList<>(restaurants.keySet());
+        User acc = (User) accounts.get(loggedInUser);
+        for (int i = 0; i < tmp.size(); i++) {
+            for (int j = 0; j < tmp.size() - 1; j++) {
+                int loc1 = restaurants.get(tmp.get(j)).getLocation(), loc2 = restaurants.get(tmp.get(j + 1)).getLocation();
+                if (map.getDistance(loc1, acc.getSelectedLocation()) > map.getDistance(loc2, acc.getSelectedLocation()))
+                    Collections.swap(tmp, j, j + 1);
+            }
+        }
+        System.out.println("Near Restaurants : ");
+
+        for (int i = 0; i < min(tmp.size(), 5); i++){
+            tmp2.add(tmp.get(i));
+            System.out.println();
+            System.out.println("id : " + tmp.get(i) + "location : " + restaurants.get(tmp.get(i)).getLocation() + " name : " + restaurants.get(tmp.get(i)).getName());
+        }
+        return tmp2;
+    }
+    public void getFood() {
+        if (loggedInDeliveryman == -1) {
+            System.out.println("login az deliverymen!");
+            return;
+        }
+        Deliveryman acc = (Deliveryman) accounts.get(loggedInDeliveryman);
+        if (acc.getActiveOrder() == -1) {
+            System.out.println("you don;t have any active orders!");
+            return;
+        }
+        Order ord = orders.get(acc.getActiveOrder());
+        if (restaurants.get(ord.getRestaurant()).getLocation() != acc.getLocation()) {
+            System.out.println("you need to be at restaurant location!");
+            return;
+        }
+        ord.setStatus("ind");
+        System.out.println("order is now in ind mode");
+    }
+    public void giveFood() {
+        if (loggedInDeliveryman == -1) {
+            System.out.println("login az deliverymen!");
+            return;
+        }
+        Deliveryman acc = (Deliveryman) accounts.get(loggedInDeliveryman);
+        if (acc.getActiveOrder() == -1) {
+            System.out.println("you don;t have any active orders!");
+            return;
+        }
+        Order ord = orders.get(acc.getActiveOrder());
+        if (ord.getUserLocation() != acc.getLocation()) {
+            System.out.println("you need to be at User location!");
+            return;
+        }
+        ord.setStatus("Done");
+        acc.addBalance(ord.getDeliveryPrice());
+        System.out.println("order is now in ind mode");
     }
 }
