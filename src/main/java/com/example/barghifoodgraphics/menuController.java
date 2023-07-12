@@ -18,7 +18,7 @@ public class menuController {
     @FXML Button CommentsButton, addButton;
     @FXML Label  averageRatingLabel, BackLabel;
     @FXML ChoiceBox<Integer> quantity;
-    public List<TableView<List<Object>>> tableViews = new ArrayList<>();
+    public List<TableView<List<StringProperty>>> tableViews = new ArrayList<>();
     public void initialize()
     {
         int available = 5;
@@ -27,29 +27,32 @@ public class menuController {
         List<String> foodTypes = Arrays.asList("Appetizers", "Entrees", "Desserts", "Pizza", "Pasta", "Drinks", "Chicken", "Steak", "Coffee");
         for(String FoodType : foodTypes)
         {
-            TableView<List<Object>> tableView = new TableView<>();
+            TableView<List<StringProperty>> tableView = new TableView<>();
             TableColumn<List<StringProperty>,String> FoodNameColumn = new TableColumn<>("Name");
             TableColumn<List<StringProperty>,String> FoodPriceColumn = new TableColumn<>("Price");
             TableColumn<List<StringProperty>,String> FoodAverageRatingColumn = new TableColumn<>("Rating");
             TableColumn<List<StringProperty>,String> DiscountColumn = new TableColumn<>("Discount");
+            tableView.getColumns().add(FoodNameColumn);
+            tableView.getColumns().add(FoodPriceColumn);
+            tableView.getColumns().add(FoodAverageRatingColumn);
+            tableView.getColumns().add(DiscountColumn);
             FoodNameColumn.setCellValueFactory(data -> data.getValue().get(0));
             FoodPriceColumn.setCellValueFactory(data -> data.getValue().get(1));
             FoodAverageRatingColumn.setCellValueFactory(data -> data.getValue().get(2));
             DiscountColumn.setCellValueFactory(data -> data.getValue().get(3));
-            ObservableList<List<Object>> data = FXCollections.observableArrayList();
+            ObservableList<List<StringProperty>> data = FXCollections.observableArrayList();
             for(int i = 1;i < 7;i++)
             {
                 Random random = new Random();
-                List<Object>row = new ArrayList<>();
+                List<StringProperty>row = new ArrayList<>();
                 row.add(new SimpleStringProperty("Food" + i));
-                row.add(new SimpleIntegerProperty(100 * i + 230));
-                row.add(new SimpleIntegerProperty(random.nextInt(5)+1));
+                row.add(new SimpleStringProperty(String. valueOf(100 * i + 230)));
+                row.add(new SimpleStringProperty(String.valueOf(random.nextInt(5)+1)));
                 row.add(new SimpleStringProperty("%" + random.nextInt(20)));
                 data.add(row);
             }
             tableView.setItems(data);
-            Tab tab = new Tab(FoodType);
-            tab.setContent(tableView);
+            Tab tab = new Tab(FoodType, tableView);
             myTabPane.getTabs().add(tab);
             tableViews.add(tableView);
         }
@@ -57,7 +60,7 @@ public class menuController {
     }
     public void addToCart()
     {
-        TableView<List<Object>> tmp = tableViews.get(myTabPane.getSelectionModel().getSelectedIndex());
+        TableView<List<StringProperty>> tmp = tableViews.get(myTabPane.getSelectionModel().getSelectedIndex());
         if(tmp.getSelectionModel().getSelectedItem() == null)
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
