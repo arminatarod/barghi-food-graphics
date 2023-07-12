@@ -1,6 +1,5 @@
 package com.example.barghifoodgraphics;
 
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalTime;
 import java.io.File;
@@ -51,7 +50,6 @@ public class Core {
         File fd = new File("src/data/foods/");
         // Reading users accounts
         ObjectMapper mapper = new ObjectMapper();
-        //mapper.configure(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS, false);
         for (int i = 0; i < getFileCount(use); i++) {
             int koft = 0;
             try {
@@ -440,12 +438,9 @@ public class Core {
     public void activateFood(int foodID) {
         if (selectedRestaurant == -1) {
             System.out.println("No restaurant has been selected!");
-            return;
-        }
-        else if (restaurants.get(selectedRestaurant).getAdmin() != loggedInAdmin) {
+        } else if (restaurants.get(selectedRestaurant).getAdmin() != loggedInAdmin) {
             System.out.println("You are not the owner !");
-        }
-        else if (!restaurants.get(selectedRestaurant).getMenu().contains(foodID)) {
+        } else if (!restaurants.get(selectedRestaurant).getMenu().contains(foodID)) {
             System.out.println("The selected restaurant does not have a food with the given ID!");
         } else {
             foods.get(foodID).setActive(true);
@@ -455,11 +450,9 @@ public class Core {
     public void deactivateFood(int foodID) {
         if (selectedRestaurant == -1) {
             System.out.println("No restaurant has been selected!");
-            return;
-        }
-        else if (restaurants.get(selectedRestaurant).getAdmin() != loggedInAdmin) {
+        } else if (restaurants.get(selectedRestaurant).getAdmin() != loggedInAdmin) {
             System.out.println("You are not the owner !");
-        }else if (!restaurants.get(selectedRestaurant).getMenu().contains(foodID)) {
+        } else if (!restaurants.get(selectedRestaurant).getMenu().contains(foodID)) {
             System.out.println("The selected restaurant does not have a food with the given ID!");
         } else {
             foods.get(foodID).setActive(false);
@@ -469,15 +462,11 @@ public class Core {
     public void discountFood(int foodID, int discountPercentage, int timestamp) {
         if (selectedRestaurant == -1) {
             System.out.println("No restaurant has been selected!");
-            return;
-        }
-        else if (restaurants.get(selectedRestaurant).getAdmin() != loggedInAdmin) {
+        } else if (restaurants.get(selectedRestaurant).getAdmin() != loggedInAdmin) {
             System.out.println("You are not the owner !");
-        }
-        else if (!restaurants.get(selectedRestaurant).getMenu().contains(foodID)) {
+        } else if (!restaurants.get(selectedRestaurant).getMenu().contains(foodID)) {
             System.out.println("The selected restaurant does not have a food with the given ID!");
-        }
-        else {
+        } else {
             if (discountPercentage > 100 || discountPercentage < 1) {
                 System.out.println("wrong discount percentage amount !");
                 return;
