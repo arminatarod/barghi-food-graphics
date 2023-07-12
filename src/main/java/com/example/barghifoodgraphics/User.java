@@ -18,12 +18,8 @@ public class User extends Account {
         locations = new HashSet<>();
         orders = new HashSet<>();
         comments = new HashSet<>();
-        cart = new Order();
-        cart.setId((-(this.getId() + 1)));
-        cart.setUser(id);
+        cart = new Order(-(this.getId() + 1), -1, id, -1, 1);
         cart.setStatus("pend");
-        cart.setRestaurant(-1);
-        cart.setUserLocation(1);
         locations.add(1);
         selectedLocation = 1;
     }

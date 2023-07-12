@@ -8,27 +8,25 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainApplication extends Application {
+    static Core core;
     static Stage stage;
     static Scene login, signup, userPage, forgotPassword, supermarket, cart, restaurant, comment, edit, add, adminPageOne, adminPageTwo, menu, deliverymanPage;
     static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword, fxmlLoaderSupermarket, fxmlLoaderCart, fxmlLoaderRestaurant, fxmlLoaderComment, fxmlLoaderAdminPageOne, fxmlLoaderAdminPageTwo, fxmlLoaderEdit, fxmlLoaderAdd, fxmlLoaderMenu, fxmlLoaderDeliverymanPage;
     @Override
     public void start(Stage mainStage) throws IOException {
+        core = new Core();
         fxmlLoaderLogin = new FXMLLoader(MainApplication.class.getResource("login.fxml"));
         login = new Scene(fxmlLoaderLogin.load(), 400, 600);
         fxmlLoaderSignup = new FXMLLoader(MainApplication.class.getResource("signup.fxml"));
         signup = new Scene(fxmlLoaderSignup.load(), 400, 600);
-        fxmlLoaderUserPage = new FXMLLoader(MainApplication.class.getResource("userPage.fxml"));
-        userPage = new Scene(fxmlLoaderUserPage.load(), 400, 600);
         fxmlLoaderForgotPassword = new FXMLLoader(MainApplication.class.getResource("forgotPassword.fxml"));
         forgotPassword = new Scene(fxmlLoaderForgotPassword.load(), 400, 500);
         fxmlLoaderSupermarket = new FXMLLoader(MainApplication.class.getResource("supermarket.fxml"));
         supermarket = new Scene(fxmlLoaderSupermarket.load(), 400, 600);
-        fxmlLoaderCart = new FXMLLoader(MainApplication.class.getResource("cart.fxml"));
-        cart = new Scene(fxmlLoaderCart.load(), 600, 600);
         fxmlLoaderRestaurant = new FXMLLoader(MainApplication.class.getResource("restaurant.fxml"));
         restaurant = new Scene(fxmlLoaderRestaurant.load(), 400, 600);
-        fxmlLoaderComment = new FXMLLoader(MainApplication.class.getResource("comment.fxml"));
-        comment = new Scene(fxmlLoaderComment.load(), 400, 600);
+        /*fxmlLoaderComment = new FXMLLoader(MainApplication.class.getResource("comment.fxml"));
+        comment = new Scene(fxmlLoaderComment.load(), 400, 600);*/
         fxmlLoaderAdd = new FXMLLoader(MainApplication.class.getResource("add.fxml"));
         add = new Scene(fxmlLoaderAdd.load(), 400, 250);
         fxmlLoaderEdit = new FXMLLoader(MainApplication.class.getResource("edit.fxml"));

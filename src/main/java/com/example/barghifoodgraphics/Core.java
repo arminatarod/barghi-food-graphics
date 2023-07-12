@@ -68,16 +68,16 @@ public class Core {
                 accounts.put(i, mapper.readValue(new File("src/data/accounts/" + i + "d.json"), Deliveryman.class));
             } catch (Exception e) {koft++;}
             if (koft == 3)
-                System.out.println("there is an missing file with id : " + i + " in accounts database");
+                System.out.println("there is a missing file with id : " + i + " in accounts database");
         }
-        // Reading orderss
+        // Reading orders
         for (int i = 0; i < getFileCount(ord); i++) {
             Order result;
             try {
                 result = mapper.readValue(new File("src/data/orders/" + i + ".json"), Order.class);
                 orders.put(result.getId(), result);
             } catch (Exception e) {
-                System.out.println("there is an missing file in orders data base");
+                System.out.println("there is a missing file in orders data base");
             }
         }
         // Reading restaurants
@@ -87,7 +87,7 @@ public class Core {
                 result = mapper.readValue(new File("src/data/restaurants/" + i + ".json"), Restaurant.class);
                 restaurants.put(result.getId(), result);
             } catch (Exception e) {
-                System.out.println("there is an missing file in restaurants database");
+                System.out.println("there is a missing file in restaurants database");
             }
         }
         // Reading comments
@@ -97,44 +97,50 @@ public class Core {
                 result = mapper.readValue(new File("src/data/comments/" + i + ".json"), Comment.class);
                 comments.put(result.getId(), result);
             } catch (Exception e) {
-                System.out.println("there is an missing file in comments database");
+                System.out.println("there is a missing file in comments database");
             }
         }
-        // Reading users
+        // Reading foods
         for (int i = 0; i < getFileCount(fd); i++) {
             Food result;
             try {
                 result = mapper.readValue(new File("src/data/foods/" + i + ".json"), Food.class);
                 foods.put(result.getId(), result);
             } catch (Exception e) {
-                System.out.println("there is an missing file in foods database");
+                System.out.println("there is a missing file in foods database");
             }
         }
     }
     
-    public void login(String userName, String password) {
+    public int login(String userName, String password) {
         if (loggedInAccount != -1) {
             System.out.println("You are already logged in.");
-            return;
+            return 3;
         }
         for (Account acc : accounts.values()) {
             if (userName.equals(acc.getUsername())) {
                 if (password.equals(acc.getPassword())) {
                     System.out.println("Logged in successfully.");
-                    if (acc.getType().equals("User"))
-                        loggedInUser = acc.getId();
-                    else if (acc.getType().equals("Admin"))
-                        loggedInAdmin = acc.getId();
-                    else
-                        loggedInDeliveryman = acc.getId();
                     loggedInAccount = acc.getId();
-                    return;
+                    if (acc.getType().equals("User")) {
+                        loggedInUser = acc.getId();
+                        return 0;
+                    }
+                    else if (acc.getType().equals("Admin")) {
+                        loggedInAdmin = acc.getId();
+                        return 1;
+                    }
+                    else {
+                        loggedInDeliveryman = acc.getId();
+                        return 2;
+                    }
                 }
                 System.out.println("Incorrect password!");
-                return;
+                return 4;
             }
         }
         System.out.println("There is no account with this username!");
+        return 5;
     }
     public void logout() {
         if (loggedInAccount == -1) {
@@ -156,58 +162,56 @@ public class Core {
         selectedFood = -1;
         selectedOrder = -1;
     }
-    public void addUser(String username, String password, String recoveryQuestion, String recoveryQuestionAnswer) {
+    public int addUser(String username, String password, String recoveryQuestion, String recoveryQuestionAnswer) {
         if (loggedInAccount != -1) {
-            System.out.println("pls logout first !");
-            return;
+            System.out.println("Please logout first!");
+            return 1;
         }
-        for (Account i : accounts.values()) {
+        for (Account i : accounts.values())
             if (i.getUsername().equals(username)) {
-                System.out.println("select different username");
-                return;
+                System.out.println("Username taken!");
+                return 2;
             }
-        }
         User tmp = new User(username, password, recoveryQuestion, recoveryQuestionAnswer, accounts.size());
         tmp.setType("User");
         tmp.save();
         accounts.put(tmp.getId(), tmp);
-        System.out.println("User has benn registered");
+        System.out.println("User has been registered successfully.");
+        return 0;
     }
-    public void addDelivery(String username, String password, String recoveryQuestion, String recoveryQuestionAnswer) {
+    public int addDeliveryman(String username, String password, String recoveryQuestion, String recoveryQuestionAnswer) {
         if (loggedInAccount != -1) {
-            System.out.println("pls logout first !");
-            return;
+            System.out.println("Please logout first!");
+            return 1;
         }
-        for (Account i : accounts.values()) {
+        for (Account i : accounts.values())
             if (i.getUsername().equals(username)) {
-                System.out.println("select different username");
-                return;
+                System.out.println("Username taken!");
+                return 2;
             }
-        }
         Deliveryman tmp = new Deliveryman(username, password, recoveryQuestion, recoveryQuestionAnswer, accounts.size());
-        tmp.setType("Deliverymen");
+        tmp.setType("Deliveryman");
         tmp.save();
         accounts.put(tmp.getId(), tmp);
-        System.out.println("Delivery has benn registered");
-
+        System.out.println("Deliveryman has been registered successfully.");
+        return 0;
     }
-    public void addAdmin(String username, String password, String recoveryQuestion, String recoveryQuestionAnswer) {
+    public int addAdmin(String username, String password, String recoveryQuestion, String recoveryQuestionAnswer) {
         if (loggedInAccount != -1) {
-            System.out.println("pls logout first !");
-            return;
+            System.out.println("Please logout first!");
+            return 1;
         }
-        for (Account i : accounts.values()) {
+        for (Account i : accounts.values())
             if (i.getUsername().equals(username)) {
-                System.out.println("select different username");
-                return;
+                System.out.println("Username taken!");
+                return 2;
             }
-        }
         Admin tmp = new Admin(username, password, recoveryQuestion, recoveryQuestionAnswer, accounts.size());
         tmp.setType("Admin");
         tmp.save();
         accounts.put(tmp.getId(), tmp);
-        System.out.println("Admin has benn registered");
-
+        System.out.println("Admin has been registered successfully.");
+        return 0;
     }
     public void showLocation() {
         if (selectedRestaurant == -1) {
@@ -894,40 +898,35 @@ public class Core {
             System.out.println(" Delivery price : " + ((User)accounts.get(loggedInUser)).getCart().getDeliveryPrice());
         }
     }
-    public void confirmOrder() {
-        if(loggedInUser == -1) {
-            System.out.println("No one has logged in!!!");
-        }
-        else if(((User)accounts.get(loggedInUser)).getCart().getItems().size() == 0) {
-            System.out.println("you have not chosen anything!!!");
-        }
-        else {
+    public int confirmOrder() {
+        if (loggedInUser == -1) {
+            System.out.println("No one has logged in!");
+            return 1;
+        } else if(((User)accounts.get(loggedInUser)).getCart().getItems() == null || ((User)accounts.get(loggedInUser)).getCart().getItems().isEmpty()) {
+            System.out.println("You have not chosen anything!");
+            return 2;
+        } else {
             if (((User)accounts.get(loggedInUser)).getBalance() < getPrice(((User)accounts.get(loggedInUser)).getCart().getItems()) + ((User)accounts.get(loggedInUser)).getCart().getDeliveryPrice()) {
-                System.out.println("not enough balance !");
-                return;
+                System.out.println("Insufficient balance!");
+                return 3;
             }
             Order tmp = ((User)accounts.get(loggedInUser)).getCart();
             boolean koft = false;
-            for (int i : tmp.getItems().keySet()) {
+            for (int i : tmp.getItems().keySet())
                 if (!foods.get(i).getActive()) {
-                    System.out.println("food with foodId : " + i + " is no longer active!");
+                    System.out.println("Food with ID : " + i + " is no longer active!");
                     koft = true;
                 }
-            }
             if (koft) {
-                System.out.println("remove non active food from your cart");
-                return;
+                System.out.println("Please remove the non-active food(s) from your cart.");
+                return 4;
             }
             double price = getPrice(((User)accounts.get(loggedInUser)).getCart().getItems());
             ((User)accounts.get(loggedInUser)).addBalance(- price - ((User)accounts.get(loggedInUser)).getCart().getDeliveryPrice());
-            System.out.println("Order has been confirmed and sent to restaurant");
+            System.out.println("The order has been confirmed and sent to the restaurant.");
             tmp.setStatus("inr");
-            Order cart = new Order();
-            cart.setId((-(loggedInAccount + 1)));
-            cart.setUser(loggedInAccount);
+            Order cart = new Order(-(loggedInAccount + 1), -1, loggedInAccount, -1, tmp.getUserLocation());
             cart.setStatus("pend");
-            cart.setRestaurant(-1);
-            cart.setUserLocation(tmp.getUserLocation());
             ((User)accounts.get(loggedInUser)).setCart(cart);
             tmp.setId(orders.size());
             restaurants.get(tmp.getRestaurant()).addBalance(price);
@@ -936,6 +935,7 @@ public class Core {
             tmp.setId(orders.size());
             orders.put(tmp.getId(), tmp);
             tmp.save();
+            return 0;
         }
     }
     public void showEstimatedDeliveryTime() {

@@ -44,7 +44,7 @@ public class Main {
                 String password = matcher.group("password");
                 String recoveryQuestion = matcher.group("recoveryQuestion");
                 String recoveryQuestionAnswer = matcher.group("recoveryQuestionAnswer");
-                core.addDelivery(name, password, recoveryQuestion, recoveryQuestionAnswer);
+                core.addDeliveryman(name, password, recoveryQuestion, recoveryQuestionAnswer);
             }
             else if ((matcher = getMatcher(command, "^-REGISTER DELIVERY (?<name>[a-zA-Z]+) (?<password>\\S+) *")) != null) {
                 String name = matcher.group("name");

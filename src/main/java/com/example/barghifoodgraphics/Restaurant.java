@@ -1,8 +1,10 @@
 package com.example.barghifoodgraphics;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Restaurant {
@@ -10,16 +12,20 @@ public class Restaurant {
     private String name,type;
     private HashSet<Integer> orders, menu;
     private HashSet<String> foodType;
-    private double balance;
+    private HashMap<Integer, Integer> ratings;
+    private double averageRating, balance;
+    private HashSet<Integer> comments;
 
     public Restaurant(int location, String name, String type, int id) {
         this.location = location;
         this.name = name;
         this.type = type;
         this.id = id;
+        ratings = new HashMap<>();
         orders = new HashSet<>();
         menu = new HashSet<>();
         foodType = new HashSet<>();
+        comments = new HashSet<>();
     }
 
     public int getAdminID() {
@@ -32,6 +38,16 @@ public class Restaurant {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public HashMap<Integer, Integer> getRatings() {
+        return ratings;
+    }
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
+    }
+    public void setRatings(HashMap<Integer, Integer> ratings) {
+        this.ratings = ratings;
     }
 
     public void setOrders(HashSet<Integer> orders) {
@@ -50,7 +66,18 @@ public class Restaurant {
         this.balance = balance;
     }
 
-    public Restaurant(@JsonProperty("location")int location, @JsonProperty("adminID") int adminID, @JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("type") String type, @JsonProperty("orders") HashSet<Integer> orders, @JsonProperty("menu") HashSet<Integer> menu, @JsonProperty("foodType") HashSet<String> foodType, @JsonProperty("balance") double balance) {
+    public void setComments(HashSet<Integer> comments) {
+        this.comments = comments;
+    }
+    public HashSet<Integer> getComments() {
+        return comments;
+    }
+    public void addComment(int commentId) {
+        comments.add(commentId);
+    }
+
+    @JsonCreator
+    public Restaurant(@JsonProperty("location")int location, @JsonProperty("adminID") int adminID, @JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("type") String type, @JsonProperty("orders") HashSet<Integer> orders, @JsonProperty("menu") HashSet<Integer> menu, @JsonProperty("averageRating") double averageRating, @JsonProperty("ratings") HashMap<Integer, Integer> ratings, @JsonProperty("foodType") HashSet<String> foodType, @JsonProperty("balance") double balance, @JsonProperty("comments") HashSet<Integer> comments) {
         this.location = location;
         this.adminID = adminID;
         this.id = id;
@@ -60,8 +87,30 @@ public class Restaurant {
         this.menu = menu;
         this.foodType = foodType;
         this.balance = balance;
+        this.averageRating = averageRating;
+        this.ratings = ratings;
+        this.comments = comments;
     }
 
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+    public int getRatingCount() {
+        return ratings.size();
+    }
+    public void addRating(int raterID, int rating) {
+        averageRating = (averageRating * ratings.size() + rating) / (ratings.size() + 1);
+        ratings.put(raterID, rating);
+    }
+    public void editRating(int raterId, int newRating) {
+        averageRating = (averageRating * ratings.size() - ratings.get(raterId) + newRating) / ratings.size();
+        ratings.replace(raterId, newRating);
+        save();
+    }
+    public HashMap<Integer, Integer> getRaters() {
+        return ratings;
+    }
     public int getId() {
         return id;
     }

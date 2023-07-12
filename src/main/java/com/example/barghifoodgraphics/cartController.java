@@ -1,7 +1,5 @@
 package com.example.barghifoodgraphics;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -19,7 +17,7 @@ public class cartController {
     @FXML
     private TableColumn<List<StringProperty>, String> number, itemID, itemName, unitPrice, quantity, totalPrice, discount, finalPrice;
     @FXML
-    private TableView<List<Object>> cartTable;
+    private TableView<List<StringProperty>> cartTable;
     public void changeToUserPage() {
         MainApplication.stage.setScene(MainApplication.userPage);
     }
@@ -27,50 +25,65 @@ public class cartController {
         if (cartTable.getSelectionModel().getSelectedItem() == null)
             selectedRow = -1;
         else
-            selectedRow = ((IntegerProperty)cartTable.getSelectionModel().getSelectedItem().get(0)).getValue();
+            selectedRow = Integer.parseInt((cartTable.getSelectionModel().getSelectedItem().get(0)).getValue());
     }
-    public void increaseRow() {
+    public boolean checkSelection() {
         if (selectedRow == -1) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("No row selected");
             a.setContentText("You must select a row from the table.");
             a.show();
-            return;
+            return false;
         }
-        int foodID = ((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue();
-        //((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().addItem(foodID, 1);*/
+        return true;
+    }
+    public void increaseRow() {
+        if (checkSelection()) {
+            int foodID = Integer.parseInt((cartTable.getItems().get(selectedRow - 1).get(1)).getValue());
+            ((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().addItem(foodID, 1);
+        }
         initialize();
     }
     public void decreaseRow() {
-        if (selectedRow == -1) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("No row selected");
-            a.setContentText("You must select a row from the table.");
-            a.show();
-            return;
+        if (checkSelection()) {
+            int foodID = Integer.parseInt((cartTable.getItems().get(selectedRow - 1).get(1)).getValue());
+            ((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().removeItem(foodID, 1);
         }
-        int foodID = ((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue();
-        //((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().removeItem(foodID, 1);*/
         initialize();
     }
     public void deleteRow() {
-        if (selectedRow == -1) {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("No row selected");
-            a.setContentText("You must select a row from the table.");
-            a.show();
-            return;
+        if (checkSelection()) {
+            int foodID = Integer.parseInt((cartTable.getItems().get(selectedRow - 1).get(1)).getValue());
+            ((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().removeItem(foodID, ((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().getItems().get(foodID));
         }
-        int foodID = ((IntegerProperty)cartTable.getItems().get(selectedRow - 1).get(1)).getValue();
-        //((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().removeItem(foodID, ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(foodID));
         initialize();
     }
     public void addOrder() {
-        int done = /*Main.core.confirmOrder()*/0;
-        if (done != 0) {
+        int done = MainApplication.core.confirmOrder();
+        if (done == 1) {
             Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("Order wasn't submitted");
-            a.setContentText("A problem occurred while finalizing this order.");
+            a.setHeaderText("No one has logged in");
+            a.setContentText("You must first log in.");
+            a.show();
+        } else if (done == 2) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Empty cart");
+            a.setContentText("You cannot submit an empty order.");
+            a.show();
+        } else if (done == 3) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Insufficient balance");
+            a.setContentText("The order exceeds your balance amount.");
+            a.show();
+        } else if (done == 4) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("Inactive food");
+            a.setContentText("There are items in your cart that are no longer active.");
+            a.show();
+        } else {
+            Alert a = new Alert(Alert.AlertType.INFORMATION);
+            a.setHeaderText("Order added successfully.");
+            a.setContentText("The order has been confirmed and sent to the restaurant");
             a.show();
         }
         initialize();
@@ -85,21 +98,22 @@ public class cartController {
         totalPrice.setCellValueFactory(data -> data.getValue().get(5));
         discount.setCellValueFactory(data -> data.getValue().get(6));
         finalPrice.setCellValueFactory(data -> data.getValue().get(7));
-        ObservableList<List<Object>> data = FXCollections.observableArrayList();
-        int index = 1;
-        //for (int i : ((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().keySet()) {
-        for (int i = 1; i <= 30; i++) {
-            List<Object> row = new ArrayList<>();
-            row.add(new SimpleIntegerProperty(index++));
-            row.add(new SimpleIntegerProperty(i));
-            row.add(new SimpleStringProperty(/*Main.core.foods.get(i).getName()*/));
-            row.add(new SimpleIntegerProperty(/*(int)Main.core.foods.get(i).getPrice()*/));
-            row.add(new SimpleIntegerProperty(/*((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(i)*/));
-            row.add(new SimpleIntegerProperty(/*(int)(Main.core.foods.get(i).getPrice() * (double)((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(i) * (1.0 / (1.0 - Main.core.foods.get(i).getDiscount())))*/));
-            row.add(new SimpleIntegerProperty(/*Main.core.foods.get(i).getDiscount()*/));
-            row.add(new SimpleIntegerProperty(/*(int)(Main.core.foods.get(i).getPrice() * (double)((User)Main.core.accounts.get(Main.core.loggedInUser)).getCart().getItems().get(i))*/));
-            data.add(row);
+        if (((User)MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().getItems() != null) {
+            ObservableList<List<StringProperty>> data = FXCollections.observableArrayList();
+            int index = 1;
+            for (int i : ((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().getItems().keySet()) {
+                List<StringProperty> row = new ArrayList<>();
+                row.add(new SimpleStringProperty(String.valueOf(index++)));
+                row.add(new SimpleStringProperty(String.valueOf(i)));
+                row.add(new SimpleStringProperty(MainApplication.core.foods.get(i).getName()));
+                row.add(new SimpleStringProperty(String.valueOf(MainApplication.core.foods.get(i).getPrice())));
+                row.add(new SimpleStringProperty(String.valueOf(((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().getItems().get(i))));
+                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getPrice() * (double) ((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().getItems().get(i) * (1.0 / (1.0 - MainApplication.core.foods.get(i).getDiscount()))))));
+                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getDiscount() * 100.0))));
+                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getPrice() * (double) ((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().getItems().get(i)))));
+                data.add(row);
+            }
+            cartTable.setItems(data);
         }
-        cartTable.setItems(data);
     }
 }

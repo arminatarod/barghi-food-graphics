@@ -1,13 +1,16 @@
 package com.example.barghifoodgraphics;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -100,7 +103,9 @@ public class userPageController {
         a.setContentText("This section will soon be available for use.");
         a.show();
     }
-    public void initialize() {
+    public void initialize() throws IOException {
+        MainApplication.fxmlLoaderCart = new FXMLLoader(MainApplication.class.getResource("cart.fxml"));
+        MainApplication.cart = new Scene(MainApplication.fxmlLoaderCart.load(), 600, 600);
         /*idLabel.setText(String.valueOf(Main.core.loggedInUser));
         usernameLabel.setText(Main.core.accounts.get(Main.core.loggedInUser).getUsername());
         passwordLabel.setText(Main.core.accounts.get(Main.core.loggedInUser).getPassword());

@@ -2,10 +2,14 @@ package com.example.barghifoodgraphics;
 
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.IOException;
 
 public class loginController {
     @FXML
@@ -17,7 +21,7 @@ public class loginController {
     @FXML
     private StackPane captchaPane;
     public void forgotPressed() {
-        String result = "Where are you from?"/*Main.core.forgetPasswordPressed(usernameField.getText())*/;
+        String result = MainApplication.core.forgetPasswordPressed(usernameField.getText());
         if (result == null) {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Invalid username");
@@ -44,9 +48,28 @@ public class loginController {
             ft.play();
         }
     }
-    public void loginPressed() {
+    public void loginPressed() throws IOException {
         if (captchaBox.isSelected()) {
-            //Main.core.login(usernameField.getText(), passwordField.getText());
+            int result = MainApplication.core.login(usernameField.getText(), passwordField.getText());
+            if (result == 0) {
+                MainApplication.fxmlLoaderUserPage = new FXMLLoader(MainApplication.class.getResource("userPage.fxml"));
+                MainApplication.userPage = new Scene(MainApplication.fxmlLoaderUserPage.load(), 400, 600);
+                MainApplication.stage.setScene(MainApplication.userPage);
+            } else if (result == 1) {
+                MainApplication.stage.setScene(MainApplication.adminPageOne);
+            } else if (result == 3) {
+                MainApplication.stage.setScene(MainApplication.deliverymanPage);
+            } else if (result == 4) {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setHeaderText("Incorrect password!");
+                a.setContentText("The entered password is not correct.");
+                a.show();
+            } else {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setHeaderText("Invalid username!");
+                a.setContentText("No account with this username exists.");
+                a.show();
+            }
         } else {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Captcha error!");

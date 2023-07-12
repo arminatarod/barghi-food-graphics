@@ -13,8 +13,6 @@ public class Food {
     private LocalTime discountTimestamp;
     private double averageRating, discount;
     private HashMap<Integer, Integer> ratings;
-    //String imageUrl;
-    // baraye bakhsh graphic khobe aksesham dashte bashim !? ye string url
     private String name;
     private boolean isActive;
     private HashSet<Integer> comments;

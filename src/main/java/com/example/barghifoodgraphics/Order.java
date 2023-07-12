@@ -1,5 +1,6 @@
 package com.example.barghifoodgraphics;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
@@ -8,40 +9,14 @@ import java.util.HashMap;
 public class Order {
     private int id, restaurantId, userId, deliverymanId, userLocation, deliveryPrice;
     private String status;
-    // orders status :
-    // pend
-    // inr :  in resturant
-    // ind : in delivery
-    // done : done
+    /*
+    orders status :
+    pend
+    inr :  in restaurant
+    ind : in delivery
+    done : done
+    */
     private HashMap<Integer, Integer> items;
-
-    public int getRestaurantId() {
-        return restaurantId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public int getDeliverymanId() {
-        return deliverymanId;
-    }
-
-    public void setRestaurantId(int restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public void setDeliverymanId(int deliverymanId) {
-        this.deliverymanId = deliverymanId;
-    }
-
-    public void setItems(HashMap<Integer, Integer> items) {
-        this.items = items;
-    }
 
     public Order(int id, int restaurant, int user, int deliveryman, int userLocation) {
         this.id = id;
@@ -49,9 +24,9 @@ public class Order {
         this.userId = user;
         this.deliverymanId = deliveryman;
         this.userLocation = userLocation;
-        items = new HashMap<>();
+        this.items = new HashMap<>();
     }
-
+    @JsonCreator
     public Order(@JsonProperty("id")int id,@JsonProperty("restaurantId") int restaurantId,@JsonProperty("userId") int userId,@JsonProperty("deliverymanId") int deliverymanId,@JsonProperty("userLocation") int userLocation,@JsonProperty("deliveryPrice") int deliveryPrice,@JsonProperty("status") String status,@JsonProperty("items") HashMap<Integer, Integer> items) {
         this.id = id;
         this.restaurantId = restaurantId;
@@ -63,9 +38,6 @@ public class Order {
         this.items = items;
     }
 
-    public Order(){
-        deliverymanId = -1;
-    }
     public void setDeliveryPrice(int deliveryPrice) {
         this.deliveryPrice = deliveryPrice;
         save();
@@ -139,14 +111,12 @@ public class Order {
         }
         save();
     }
+    public void setItems(HashMap<Integer, Integer> newItems) {
+        this.items = newItems;
+        save();
+    }
     public void save() {
         ObjectMapper mapper = new ObjectMapper();
-        //if (id < 0) {
-            //try {
-              //  mapper.writeValue(new File("src/data/carts/" + userId + ".json"), this);
-            //} catch (Exception ignored) {}
-
-        //}
         if (id >= 0) {
             try {
                 mapper.writeValue(new File("src/data/orders/" + id + ".json"), this);

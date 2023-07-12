@@ -41,7 +41,7 @@ public class commentController {
                 ((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().add(new TextArea());
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent())
-                    /*Main.core.addResponse(Integer.parseInt(((Label)((VBox)commentContainer.getChildren().get(selectedComment)).getChildren().get(0)).getText().substring(4)), ((TextArea)((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().get(1)).getText())*/;
+                    MainApplication.core.addResponse(Integer.parseInt(((Label)((VBox)commentContainer.getChildren().get(selectedComment)).getChildren().get(0)).getText().substring(4)), ((TextArea)((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().get(1)).getText());
             }
         } else {
             TextInputDialog dialog = new TextInputDialog();
@@ -51,7 +51,7 @@ public class commentController {
             ((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().add(new TextArea());
             Optional<String> result = dialog.showAndWait();
             if (result.isPresent())
-                /*Main.core.addComment(((TextArea)((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().get(1)).getText())*/;
+                MainApplication.core.addComment(((TextArea)((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().get(1)).getText());
         }
         initialize();
     }
@@ -69,7 +69,7 @@ public class commentController {
             ((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().add(new TextArea());
             Optional<String> result = dialog.showAndWait();
             if (result.isPresent())
-                /*Main.core.editResponse(Integer.parseInt(((Label)((VBox)commentContainer.getChildren().get(selectedComment)).getChildren().get(0)).getText().substring(4)), ((TextArea)((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().get(1)).getText())*/;
+                MainApplication.core.editResponse(Integer.parseInt(((Label)((VBox)commentContainer.getChildren().get(selectedComment)).getChildren().get(0)).getText().substring(4)), ((TextArea)((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().get(1)).getText());
         } else {
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("Edit comment");
@@ -78,7 +78,7 @@ public class commentController {
             ((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().add(new TextArea());
             Optional<String> result = dialog.showAndWait();
             if (result.isPresent())
-                /*Main.core.editComment(Integer.parseInt(((Label)((VBox)commentContainer.getChildren().get(selectedComment)).getChildren().get(0)).getText().substring(4)), ((TextArea)((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().get(1)).getText())*/;
+                MainApplication.core.editComment(Integer.parseInt(((Label)((VBox)commentContainer.getChildren().get(selectedComment)).getChildren().get(0)).getText().substring(4)), ((TextArea)((GridPane) dialog.getDialogPane().getChildren().get(3)).getChildren().get(1)).getText());
         }
         initialize();
     }
@@ -105,19 +105,18 @@ public class commentController {
         }
         commentContainer.getChildren().clear();
         if (isFood)
-            comments = null/*Main.core.foods.get(objectID).getComments()*/;
+            comments = MainApplication.core.foods.get(objectID).getComments();
         else
-            comments = null/*Main.core.restaurants.get(objectID).getComments()*/;
+            comments = MainApplication.core.restaurants.get(objectID).getComments();
         int index = 0;
-        //for (int i : comments) {
-        for (int i = 0; i < 10; i++) {
+        for (int i : comments) {
             Label idLabel = new Label("ID: " + i);
             idLabel.setFont(Font.font("System", FontWeight.NORMAL, 12));
             idLabel.setTextFill(Color.color(0.8,0.8,0.8));
-            Label userLabel = new Label("User: "/* + Main.core.accounts.get(Main.core.comments.get(i).getCommenter()).getUsername()*/);
+            Label userLabel = new Label("User: " + MainApplication.core.accounts.get(MainApplication.core.comments.get(i).getCommenter()).getUsername());
             userLabel.setFont(Font.font("System", FontWeight.NORMAL, 16));
             userLabel.setTextFill(Color.WHITE);
-            Label contentLabel = new Label(/*Main.core.comments.get(i).getContent()*/);
+            Label contentLabel = new Label(MainApplication.core.comments.get(i).getContent());
             contentLabel.setFont(Font.font("System", FontWeight.NORMAL, 12));
             contentLabel.setTextFill(Color.WHITE);
             contentLabel.setWrapText(true);
@@ -126,7 +125,7 @@ public class commentController {
             answerTitleLabel.setFont(Font.font("System", FontWeight.NORMAL, 16));
             answerTitleLabel.setTextFill(Color.color(0.8,0.8,0.8));
             VBox.setMargin(answerTitleLabel, new Insets(20, 0, 0, 0));
-            Label answerLabel = new Label(/*Main.core.comments.get(i).getAnswer().isEmpty()? "No response submitted." : Main.core.comments.get(i).getAnswer()*/);
+            Label answerLabel = new Label(MainApplication.core.comments.get(i).getAnswer().isEmpty()? "No response submitted." : MainApplication.core.comments.get(i).getAnswer());
             answerLabel.setFont(Font.font("System", FontWeight.NORMAL, 12));
             answerLabel.setTextFill(Color.color(0.8,0.8,0.8));
             answerLabel.setWrapText(true);
