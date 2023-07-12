@@ -1,12 +1,14 @@
 package com.example.barghifoodgraphics;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import java.util.ArrayList;
 
 public class adminController {
     @FXML
     ListView restaurantListView;
+    @FXML Button AddNewRestaurantButton;
     public void initialize()
     {
         ArrayList<String> restaurants= new ArrayList<>();
@@ -26,5 +28,9 @@ public class adminController {
             System.out.println(restaurantListView.getSelectionModel().getSelectedIndex());
             MainApplication.stage.setScene(MainApplication.adminPageTwo);
         }
+    }
+    public void addNewRestaurant()
+    {
+        //TODO add new restaurant
     }
 }

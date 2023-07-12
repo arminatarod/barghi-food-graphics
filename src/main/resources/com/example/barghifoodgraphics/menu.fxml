@@ -59,7 +59,7 @@
       <TabPane fx:id="myTabPane" prefHeight="330.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" />
       <HBox alignment="CENTER" prefHeight="39.0" prefWidth="400.0" style="-fx-border-color: black; -fx-border-width: 2;">
          <children>
-            <Button fx:id="addButton" mnemonicParsing="false" text="Add to cart">
+            <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addToCart" text="Add to cart">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>

@@ -69,16 +69,12 @@ public class menuController {
             a.setContentText("You should choose an item");
             a.show();
         }
-        else if(quantity.getValue() == null)
-        {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setContentText("You should at least picking one of the item");
-            a.show();
-        }
         else
         {
-
-
+            int j = tmp.getSelectionModel().getSelectedIndex();
+            System.out.println(tmp.getColumns().get(0).getCellData(j));
+            System.out.println(tmp.getColumns().get(1).getCellData(j));
+            //TODO add krdn be cart
         }
     }
 }

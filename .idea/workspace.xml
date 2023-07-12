@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f42fa66c-eb4f-4057-bbed-7b6c1c515121" name="Changes" comment="supermarket update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/adminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/adminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/menuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/menuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/adminPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/adminPage.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/menu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
