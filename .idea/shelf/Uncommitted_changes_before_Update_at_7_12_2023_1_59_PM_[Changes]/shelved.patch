@@ -1,0 +1,514 @@
+Index: src/main/java/com/example/barghifoodgraphics/MainApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.barghifoodgraphics;\r\n\r\nimport javafx.application.Application;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Scene;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\n\r\npublic class MainApplication extends Application {\r\n    static Stage stage;\r\n    static Scene login, signup, userPage, forgotPassword, supermarket, cart, restaurant, comment, edit, add, adminPageOne, adminPageTwo, menu, deliverymanPage;\r\n    static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword, fxmlLoaderSupermarket, fxmlLoaderCart, fxmlLoaderRestaurant, fxmlLoaderComment, fxmlLoaderAdminPageOne, fxmlLoaderAdminPageTwo, fxmlLoaderEdit, fxmlLoaderAdd, fxmlLoaderMenu, fxmlLoaderDeliverymanPage;\r\n    @Override\r\n    public void start(Stage mainStage) throws IOException {\r\n        fxmlLoaderLogin = new FXMLLoader(MainApplication.class.getResource(\"login.fxml\"));\r\n        login = new Scene(fxmlLoaderLogin.load(), 400, 600);\r\n        fxmlLoaderSignup = new FXMLLoader(MainApplication.class.getResource(\"signup.fxml\"));\r\n        signup = new Scene(fxmlLoaderSignup.load(), 400, 600);\r\n        fxmlLoaderUserPage = new FXMLLoader(MainApplication.class.getResource(\"userPage.fxml\"));\r\n        userPage = new Scene(fxmlLoaderUserPage.load(), 400, 600);\r\n        fxmlLoaderForgotPassword = new FXMLLoader(MainApplication.class.getResource(\"forgotPassword.fxml\"));\r\n        forgotPassword = new Scene(fxmlLoaderForgotPassword.load(), 400, 500);\r\n        fxmlLoaderSupermarket = new FXMLLoader(MainApplication.class.getResource(\"supermarket.fxml\"));\r\n        supermarket = new Scene(fxmlLoaderSupermarket.load(), 400, 600);\r\n        fxmlLoaderCart = new FXMLLoader(MainApplication.class.getResource(\"cart.fxml\"));\r\n        cart = new Scene(fxmlLoaderCart.load(), 600, 600);\r\n        fxmlLoaderRestaurant = new FXMLLoader(MainApplication.class.getResource(\"restaurant.fxml\"));\r\n        restaurant = new Scene(fxmlLoaderRestaurant.load(), 400, 600);\r\n        fxmlLoaderComment = new FXMLLoader(MainApplication.class.getResource(\"comment.fxml\"));\r\n        comment = new Scene(fxmlLoaderComment.load(), 400, 600);\r\n        fxmlLoaderAdd = new FXMLLoader(MainApplication.class.getResource(\"add.fxml\"));\r\n        add = new Scene(fxmlLoaderAdd.load(), 400, 250);\r\n        fxmlLoaderEdit = new FXMLLoader(MainApplication.class.getResource(\"edit.fxml\"));\r\n        edit = new Scene(fxmlLoaderEdit.load(), 400, 250);\r\n        fxmlLoaderAdminPageOne = new FXMLLoader(MainApplication.class.getResource(\"adminPage.fxml\"));\r\n        adminPageOne = new Scene(fxmlLoaderAdminPageOne.load(), 600, 400);\r\n        fxmlLoaderAdminPageTwo = new FXMLLoader(MainApplication.class.getResource(\"adminPage2.fxml\"));\r\n        adminPageTwo = new Scene(fxmlLoaderAdminPageTwo.load(), 600, 400);\r\n        fxmlLoaderMenu = new FXMLLoader(MainApplication.class.getResource(\"menu.fxml\"));\r\n        menu = new Scene(fxmlLoaderMenu.load(), 400, 600);\r\n        fxmlLoaderDeliverymanPage = new FXMLLoader(MainApplication.class.getResource(\"deliverymanPage.fxml\"));\r\n        deliverymanPage = new Scene(fxmlLoaderDeliverymanPage.load(), 400, 600);\r\n        stage = mainStage;\r\n        stage.setTitle(\"Barghi Food\");\r\n        stage.setMinWidth(410);\r\n        stage.setMinHeight(640);\r\n        stage.setScene(menu);\r\n        stage.show();\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        launch();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/MainApplication.java b/src/main/java/com/example/barghifoodgraphics/MainApplication.java
+--- a/src/main/java/com/example/barghifoodgraphics/MainApplication.java	(revision 9a735060e11c4097ba635bf49d13b7b1aab06f44)
++++ b/src/main/java/com/example/barghifoodgraphics/MainApplication.java	(date 1689157393899)
+@@ -45,7 +45,7 @@
+         stage.setTitle("Barghi Food");
+         stage.setMinWidth(410);
+         stage.setMinHeight(640);
+-        stage.setScene(menu);
++        stage.setScene(signup);
+         stage.show();
+     }
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"f42fa66c-eb4f-4057-bbed-7b6c1c515121\" name=\"Changes\" comment=\"supermarket update\">\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Core.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Core.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Order.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Order.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/User.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/User.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n        <option value=\"FxmlFile\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"PREVIOUS_COMMIT_AUTHORS\">\r\n      <list>\r\n        <option value=\"Armin Atarod &lt;armin.atarod@gmail.com&gt;\" />\r\n      </list>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2SKzP1kv464TcHhH0pxCKHnK7YY\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;E:/Documents/Java codes/barghi-food-graphics/src/main/resources/com/example/barghifoodgraphics&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\Documents\\Java codes\\barghi-food-graphics\\src\\main\\resources\\com\\example\\barghifoodgraphics\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"com.example.barghifoodgraphics\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"MainApplication\" type=\"Application\" factoryName=\"Application\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.barghifoodgraphics.MainApplication\" />\r\n      <module name=\"barghi-food-graphics\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"f42fa66c-eb4f-4057-bbed-7b6c1c515121\" name=\"Changes\" comment=\"\" />\r\n      <created>1688910036363</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1688910036363</updated>\r\n      <workItem from=\"1688910038556\" duration=\"185000\" />\r\n      <workItem from=\"1688910237606\" duration=\"3721000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"update\">\r\n      <created>1688910303191</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1688910303191</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"update\">\r\n      <created>1688910351730</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1688910351730</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"supermarket update\">\r\n      <created>1689009185447</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689009185447</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"supermarket update\">\r\n      <created>1689064754709</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689064754709</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"supermarket update\">\r\n      <created>1689064877179</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689064877179</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"supermarket update\">\r\n      <created>1689064921879</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689064921879</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"update\" />\r\n    <MESSAGE value=\"supermarket update\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"supermarket update\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 9a735060e11c4097ba635bf49d13b7b1aab06f44)
++++ b/.idea/workspace.xml	(date 1689157678447)
+@@ -4,11 +4,23 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="f42fa66c-eb4f-4057-bbed-7b6c1c515121" name="Changes" comment="supermarket update">
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Core.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Core.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Main.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/Order.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/User.java" afterDir="false" />
++    <list default="true" id="f42fa66c-eb4f-4057-bbed-7b6c1c515121" name="Changes" comment="update">
++      <change afterPath="$PROJECT_DIR$/src/main/resources/restaurantLogos/3.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_10_2023_2_59_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_10_2023_2_59_PM__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_7_2023_11_49_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_7_2023_11_49_AM__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_11_07_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_11_07_PM__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_1_37_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_1_37_PM__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/deliverymanPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/deliverymanPageController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/restaurantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/restaurantController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/restaurant.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/restaurant.fxml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/restaurantLogos/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/restaurantLogos/1.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/restaurantLogos/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/restaurantLogos/2.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/restaurantLogos/3.jpg" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/restaurantLogos/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/restaurantLogos/4.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/restaurantLogos/5.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/restaurantLogos/5.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/signup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/signup.fxml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -52,21 +64,25 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;E:/Documents/Java codes/barghi-food-graphics/src/main/resources/com/example/barghifoodgraphics&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "ASKED_ADD_EXTERNAL_FILES": "true",
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "WebServerToolWindowFactoryState": "false",
++    "last_opened_file_path": "E:/Documents/Java codes/barghi-food-graphics/src/main/resources/com/example/barghifoodgraphics",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "project.structure.last.edited": "Libraries",
++    "project.structure.proportion": "0.0",
++    "project.structure.side.proportion": "0.0"
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="E:\Documents\Java codes\barghi-food-graphics\src\main\resources\com\example\barghifoodgraphics" />
++    </key>
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="E:\Documents\Java codes\barghi-food-graphics\src\main\resources" />
+     </key>
+     <key name="CopyClassDialog.RECENTS_KEY">
+       <recent name="com.example.barghifoodgraphics" />
+@@ -134,7 +150,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1689064921879</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL-00007" summary="supermarket update">
++      <created>1689076477601</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1689076477601</updated>
++    </task>
++    <option name="localTasksCounter" value="8" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -152,6 +175,7 @@
+     </option>
+   </component>
+   <component name="VcsManagerConfiguration">
++    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+     <MESSAGE value="update" />
+     <MESSAGE value="supermarket update" />
+     <option name="LAST_COMMIT_MESSAGE" value="supermarket update" />
+Index: src/main/resources/com/example/barghifoodgraphics/signup.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.geometry.Insets?>\r\n<?import javafx.scene.control.Button?>\r\n<?import javafx.scene.control.CheckBox?>\r\n<?import javafx.scene.control.ComboBox?>\r\n<?import javafx.scene.control.Label?>\r\n<?import javafx.scene.control.PasswordField?>\r\n<?import javafx.scene.control.TextField?>\r\n<?import javafx.scene.layout.HBox?>\r\n<?import javafx.scene.layout.StackPane?>\r\n<?import javafx.scene.layout.VBox?>\r\n<?import javafx.scene.text.Font?>\r\n\r\n<VBox alignment=\"TOP_CENTER\" maxHeight=\"-Infinity\" maxWidth=\"-Infinity\" minHeight=\"-Infinity\" minWidth=\"-Infinity\" prefHeight=\"600.0\" prefWidth=\"400.0\" style=\"-fx-background-color: rgb(30,120,30);\" xmlns=\"http://javafx.com/javafx/20.0.1\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"com.example.barghifoodgraphics.signupController\">\r\n   <children>\r\n      <Label text=\"Barghi Food\" textFill=\"#dcc8aa\">\r\n         <font>\r\n            <Font size=\"48.0\" />\r\n         </font>\r\n         <padding>\r\n            <Insets top=\"30.0\" />\r\n         </padding>\r\n      </Label>\r\n      <Label text=\"Sign up\" textAlignment=\"CENTER\" textFill=\"WHITE\">\r\n         <font>\r\n            <Font size=\"36.0\" />\r\n         </font>\r\n         <VBox.margin>\r\n            <Insets top=\"30.0\" />\r\n         </VBox.margin>\r\n      </Label>\r\n      <HBox>\r\n         <children>\r\n            <TextField fx:id=\"usernameField\" prefWidth=\"1000.0\" promptText=\"Username\">\r\n               <font>\r\n                  <Font size=\"18.0\" />\r\n               </font>\r\n               <HBox.margin>\r\n                  <Insets right=\"10.0\" />\r\n               </HBox.margin>\r\n            </TextField>\r\n            <PasswordField fx:id=\"passwordField\" prefWidth=\"1000.0\" promptText=\"Password\">\r\n               <font>\r\n                  <Font size=\"18.0\" />\r\n               </font>\r\n               <HBox.margin>\r\n                  <Insets left=\"10.0\" />\r\n               </HBox.margin>\r\n            </PasswordField>\r\n         </children>\r\n         <VBox.margin>\r\n            <Insets left=\"20.0\" right=\"20.0\" top=\"20.0\" />\r\n         </VBox.margin>\r\n      </HBox>\r\n      <HBox alignment=\"CENTER\">\r\n         <VBox.margin>\r\n            <Insets top=\"20.0\" />\r\n         </VBox.margin>\r\n         <children>\r\n            <Label text=\"Account Type:\" textFill=\"WHITE\">\r\n               <HBox.margin>\r\n                  <Insets right=\"20.0\" />\r\n               </HBox.margin>\r\n               <font>\r\n                  <Font size=\"16.0\" />\r\n               </font>\r\n            </Label>\r\n            <ComboBox fx:id=\"typeChooser\" prefWidth=\"150.0\" promptText=\"Select account type\" />\r\n         </children>\r\n      </HBox>\r\n      <TextField fx:id=\"recoveryQuestion\" promptText=\"Recovery question\">\r\n         <VBox.margin>\r\n            <Insets left=\"20.0\" right=\"20.0\" top=\"20.0\" />\r\n         </VBox.margin>\r\n         <padding>\r\n            <Insets bottom=\"5.0\" left=\"10.0\" right=\"10.0\" top=\"5.0\" />\r\n         </padding>\r\n      </TextField>\r\n      <TextField fx:id=\"recoveryAnswer\" promptText=\"Recovery answer\">\r\n         <VBox.margin>\r\n            <Insets left=\"20.0\" right=\"20.0\" top=\"20.0\" />\r\n         </VBox.margin>\r\n         <padding>\r\n            <Insets bottom=\"5.0\" left=\"10.0\" right=\"10.0\" top=\"5.0\" />\r\n         </padding>\r\n      </TextField>\r\n      <StackPane fx:id=\"captchaPane\" prefHeight=\"150.0\" prefWidth=\"200.0\">\r\n         <children>\r\n            <Label prefHeight=\"50.0\" prefWidth=\"1000.0\" style=\"-fx-background-color: WHITE; -fx-background-radius: 5;\" />\r\n            <CheckBox fx:id=\"captchaBox\" alignment=\"CENTER\" contentDisplay=\"CENTER\" mnemonicParsing=\"false\" onMouseClicked=\"#captchaPressed\" prefWidth=\"200.0\" text=\"I'm not a robot\">\r\n               <font>\r\n                  <Font size=\"16.0\" />\r\n               </font>\r\n               <padding>\r\n                  <Insets bottom=\"10.0\" left=\"30.0\" right=\"30.0\" top=\"10.0\" />\r\n               </padding>\r\n               <StackPane.margin>\r\n                  <Insets />\r\n               </StackPane.margin>\r\n            </CheckBox>\r\n         </children>\r\n         <VBox.margin>\r\n            <Insets left=\"75.0\" right=\"75.0\" />\r\n         </VBox.margin>\r\n      </StackPane>\r\n      <Button mnemonicParsing=\"false\" onMouseClicked=\"#signupPressed\" text=\"Sign up\">\r\n         <font>\r\n            <Font size=\"16.0\" />\r\n         </font>\r\n         <VBox.margin>\r\n            <Insets top=\"20.0\" />\r\n         </VBox.margin>\r\n         <padding>\r\n            <Insets bottom=\"5.0\" left=\"40.0\" right=\"40.0\" top=\"5.0\" />\r\n         </padding>\r\n      </Button>\r\n      <Label onMouseClicked=\"#changeToLogin\" style=\"-fx-cursor: hand;\" text=\"Already have an account? Login!\" textFill=\"WHITE\">\r\n         <VBox.margin>\r\n            <Insets bottom=\"20.0\" top=\"20.0\" />\r\n         </VBox.margin>\r\n         <font>\r\n            <Font size=\"16.0\" />\r\n         </font>\r\n      </Label>\r\n   </children>\r\n</VBox>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/example/barghifoodgraphics/signup.fxml b/src/main/resources/com/example/barghifoodgraphics/signup.fxml
+--- a/src/main/resources/com/example/barghifoodgraphics/signup.fxml	(revision 9a735060e11c4097ba635bf49d13b7b1aab06f44)
++++ b/src/main/resources/com/example/barghifoodgraphics/signup.fxml	(date 1689157760004)
+@@ -12,14 +12,14 @@
+ <?import javafx.scene.layout.VBox?>
+ <?import javafx.scene.text.Font?>
+ 
+-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: rgb(30,120,30);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.signupController">
++<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: rgb(75,120,75);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.signupController">
+    <children>
+       <Label text="Barghi Food" textFill="#dcc8aa">
+          <font>
+-            <Font size="48.0" />
++            <Font name="Papyrus" size="48.0" />
+          </font>
+          <padding>
+-            <Insets top="30.0" />
++            <Insets top="20.0" />
+          </padding>
+       </Label>
+       <Label text="Sign up" textAlignment="CENTER" textFill="WHITE">
+Index: src/main/resources/com/example/barghifoodgraphics/login.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.geometry.Insets?>\r\n<?import javafx.scene.control.Button?>\r\n<?import javafx.scene.control.CheckBox?>\r\n<?import javafx.scene.control.Label?>\r\n<?import javafx.scene.control.PasswordField?>\r\n<?import javafx.scene.control.TextField?>\r\n<?import javafx.scene.layout.StackPane?>\r\n<?import javafx.scene.layout.VBox?>\r\n<?import javafx.scene.text.Font?>\r\n\r\n<VBox alignment=\"TOP_CENTER\" maxHeight=\"-Infinity\" maxWidth=\"-Infinity\" minHeight=\"-Infinity\" minWidth=\"-Infinity\" prefHeight=\"600.0\" prefWidth=\"400.0\" style=\"-fx-background-color: rgb(30,120,30);\" xmlns=\"http://javafx.com/javafx/20.0.1\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"com.example.barghifoodgraphics.loginController\">\r\n   <children>\r\n      <Label text=\"Barghi Food\" textFill=\"#dcc8aa\">\r\n         <font>\r\n            <Font size=\"48.0\" />\r\n         </font>\r\n         <padding>\r\n            <Insets top=\"50.0\" />\r\n         </padding>\r\n      </Label>\r\n      <Label text=\"Login\" textAlignment=\"CENTER\" textFill=\"WHITE\">\r\n         <font>\r\n            <Font size=\"36.0\" />\r\n         </font>\r\n         <VBox.margin>\r\n            <Insets top=\"30.0\" />\r\n         </VBox.margin>\r\n      </Label>\r\n      <TextField fx:id=\"usernameField\" promptText=\"Username\">\r\n         <VBox.margin>\r\n            <Insets left=\"50.0\" right=\"50.0\" top=\"20.0\" />\r\n         </VBox.margin>\r\n         <font>\r\n            <Font size=\"18.0\" />\r\n         </font>\r\n      </TextField>\r\n      <PasswordField fx:id=\"passwordField\" promptText=\"Password\">\r\n         <VBox.margin>\r\n            <Insets left=\"50.0\" right=\"50.0\" top=\"20.0\" />\r\n         </VBox.margin>\r\n         <font>\r\n            <Font size=\"18.0\" />\r\n         </font>\r\n      </PasswordField>\r\n      <Label onMouseClicked=\"#forgotPressed\" style=\"-fx-cursor: hand;\" text=\"Forgot your password?\" textFill=\"#c7c7c7\">\r\n         <font>\r\n            <Font size=\"14.0\" />\r\n         </font>\r\n         <VBox.margin>\r\n            <Insets top=\"10.0\" />\r\n         </VBox.margin>\r\n      </Label>\r\n      <StackPane fx:id=\"captchaPane\" prefHeight=\"150.0\" prefWidth=\"200.0\">\r\n         <children>\r\n            <Label prefHeight=\"50.0\" prefWidth=\"1000.0\" style=\"-fx-background-color: WHITE; -fx-background-radius: 5;\" />\r\n            <CheckBox fx:id=\"captchaBox\" alignment=\"CENTER\" contentDisplay=\"CENTER\" mnemonicParsing=\"false\" onMouseClicked=\"#captchaPressed\" prefWidth=\"200.0\" text=\"I'm not a robot\">\r\n               <font>\r\n                  <Font size=\"16.0\" />\r\n               </font>\r\n               <padding>\r\n                  <Insets bottom=\"10.0\" left=\"30.0\" right=\"30.0\" top=\"10.0\" />\r\n               </padding>\r\n               <StackPane.margin>\r\n                  <Insets />\r\n               </StackPane.margin>\r\n            </CheckBox>\r\n         </children>\r\n         <VBox.margin>\r\n            <Insets left=\"75.0\" right=\"75.0\" top=\"20.0\" />\r\n         </VBox.margin>\r\n      </StackPane>\r\n      <Button mnemonicParsing=\"false\" onMouseClicked=\"#loginPressed\" text=\"Login\">\r\n         <font>\r\n            <Font size=\"16.0\" />\r\n         </font>\r\n         <VBox.margin>\r\n            <Insets top=\"50.0\" />\r\n         </VBox.margin>\r\n         <padding>\r\n            <Insets bottom=\"5.0\" left=\"40.0\" right=\"40.0\" top=\"5.0\" />\r\n         </padding>\r\n      </Button>\r\n      <Label onMouseClicked=\"#changeToSignup\" style=\"-fx-cursor: hand;\" text=\"Don't have an account? Sign up!\" textFill=\"WHITE\">\r\n         <VBox.margin>\r\n            <Insets bottom=\"40.0\" top=\"30.0\" />\r\n         </VBox.margin>\r\n         <font>\r\n            <Font size=\"16.0\" />\r\n         </font>\r\n      </Label>\r\n   </children>\r\n</VBox>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/example/barghifoodgraphics/login.fxml b/src/main/resources/com/example/barghifoodgraphics/login.fxml
+--- a/src/main/resources/com/example/barghifoodgraphics/login.fxml	(revision 9a735060e11c4097ba635bf49d13b7b1aab06f44)
++++ b/src/main/resources/com/example/barghifoodgraphics/login.fxml	(date 1689157733494)
+@@ -10,14 +10,14 @@
+ <?import javafx.scene.layout.VBox?>
+ <?import javafx.scene.text.Font?>
+ 
+-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: rgb(30,120,30);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.loginController">
++<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: rgb(75,120,75);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.loginController">
+    <children>
+       <Label text="Barghi Food" textFill="#dcc8aa">
+          <font>
+-            <Font size="48.0" />
++            <Font name="Papyrus" size="48.0" />
+          </font>
+          <padding>
+-            <Insets top="50.0" />
++            <Insets top="20.0" />
+          </padding>
+       </Label>
+       <Label text="Login" textAlignment="CENTER" textFill="WHITE">
+Index: src/main/java/com/example/barghifoodgraphics/deliverymanPageController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.barghifoodgraphics;\r\n\r\nimport javafx.beans.property.IntegerProperty;\r\nimport javafx.beans.property.SimpleIntegerProperty;\r\nimport javafx.beans.property.StringProperty;\r\nimport javafx.collections.FXCollections;\r\nimport javafx.collections.ObservableList;\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.*;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class deliverymanPageController {\r\n    ArrayList<Integer> availableOrders;\r\n    int currentDelivery, selectedRow;\r\n    @FXML\r\n    private TableColumn<List<StringProperty>, String> startingPoint, destinationPoint, estimatedDuration;\r\n    @FXML\r\n    private TableView<List<Object>> availableOrdersTable;\r\n    @FXML\r\n    private Label currentDeliveryLabel, startLabel, destinationLabel, estimationLabel;\r\n    @FXML\r\n    private Label idLabel, usernameLabel, passwordLabel, recoveryQuestionLabel, recoveryAnswerLabel, balanceLabel;\r\n    @FXML\r\n    private TextField balanceTextField;\r\n    public void tableClicked() {\r\n        if (availableOrdersTable.getSelectionModel().getSelectedItem() == null)\r\n            selectedRow = -1;\r\n        else\r\n            selectedRow = availableOrdersTable.getSelectionModel().selectedIndexProperty().get();\r\n        System.out.println(selectedRow);\r\n    }\r\n    public void accept() {\r\n        if (selectedRow == -1) {\r\n            Alert a = new Alert(Alert.AlertType.ERROR);\r\n            a.setHeaderText(\"No row selected\");\r\n            a.setContentText(\"You must select a row from the table.\");\r\n            a.show();\r\n            return;\r\n        } else if (currentDelivery != -1) {\r\n            Alert a = new Alert(Alert.AlertType.ERROR);\r\n            a.setHeaderText(\"Currently delivering\");\r\n            a.setContentText(\"You must finish your current delivery first.\");\r\n            a.show();\r\n            return;\r\n        }\r\n        //Main.core.acceptOrder(availableOrders.get(selectedRow));\r\n        initialize();\r\n    }\r\n    public void setBalance() {\r\n        if (!balanceTextField.getText().matches(\"^([0-9]+)$\")) {\r\n            Alert a = new Alert(Alert.AlertType.ERROR);\r\n            a.setHeaderText(\"Invalid number\");\r\n            a.setContentText(\"Please enter a valid, non-negative, integer number.\");\r\n            a.show();\r\n        } else {\r\n            //((User)Main.core.accounts.get(Main.core.loggedInUser)).setBalance(Integer.parseInt(balanceTextField.getText()));\r\n        }\r\n    }\r\n    public void withdraw() {\r\n        //Main.core.withdraw();\r\n    }\r\n    public void logout() {\r\n        /*Main.core.logout();\r\n        MainApplication.stage.setScene(MainApplication.login);*/\r\n    }\r\n    public void initialize() {\r\n        selectedRow = -1;\r\n        /*idLabel.setText(String.valueOf(Main.core.loggedInDeliveryman));\r\n        usernameLabel.setText(Main.core.accounts.get(Main.core.loggedInDeliveryman).getUsername());\r\n        passwordLabel.setText(Main.core.accounts.get(Main.core.loggedInDeliveryman).getPassword());\r\n        recoveryQuestionLabel.setText(Main.core.accounts.get(Main.core.loggedInDeliveryman).getRecoveryQuestion());\r\n        recoveryAnswerLabel.setText(Main.core.accounts.get(Main.core.loggedInDeliveryman).getRecoveryQuestionAnswer());\r\n        balanceLabel.setText(String.valueOf(((User)Main.core.accounts.get(Main.core.loggedInDeliveryman)).getBalance()));*/\r\n        currentDelivery = -1/*((Deliveryman)Main.core.accounts.get(Main.core.loggedInDeliveryman)).getActiveOrder()*/;\r\n        if (currentDelivery == -1) {\r\n            currentDeliveryLabel.setText(\"No current delivery\");\r\n            startLabel.setText(\"Starting point: -\");\r\n            destinationLabel.setText(\"Destination point: -\");\r\n            estimationLabel.setText(\"Estimated time left: -\");\r\n        } else {\r\n            currentDeliveryLabel.setText(\"Current delivery ID: \" + currentDelivery);\r\n            startLabel.setText(\"Starting point: \"/* + Main.core.restaurants.get(Main.core.orders.get(currentDelivery).getRestaurant()).getLocation()*/);\r\n            destinationLabel.setText(\"Destination point: \"/* + Main.core.restaurants.get(Main.core.orders.get(currentDelivery).getUserLocation())*/);\r\n            estimationLabel.setText(\"Estimated time left: \"/* + Main.core.showEstimatedDeliveryTime()*/);\r\n        }\r\n        startingPoint.setCellValueFactory(data -> data.getValue().get(0));\r\n        destinationPoint.setCellValueFactory(data -> data.getValue().get(1));\r\n        estimatedDuration.setCellValueFactory(data -> data.getValue().get(2));\r\n        ObservableList<List<Object>> data = FXCollections.observableArrayList();\r\n        //TODO: get data\r\n        availableOrders = /*Main.core.showAvailableOrders()*/null;\r\n        int deliverymanLocation = 0/*((Deliveryman)Main.core.accounts.get(Main.core.loggedInDeliveryman)).getLocation()*/;\r\n        //for (int i : availableOrders) {\r\n        for (int i = 1; i <= 30; i++) {\r\n            int userLocation = i/*Main.core.orders.get(i).getUserLocation()*/;\r\n            int restaurantLocation = i/*Main.core.restaurants.get(Main.core.orders.get(i).getRestaurant()).getLocation()*/;\r\n            int toRestaurantTime = i/*Main.core.map.getShortestPath(deliverymanLocation, restaurantLocation).getTime()*/;\r\n            int toUserTime = i/*Main.core.map.getShortestPath(restaurantLocation, userLocation).getTime()*/;\r\n            List<Object> row = new ArrayList<>();\r\n            row.add(new SimpleIntegerProperty(restaurantLocation));\r\n            row.add(new SimpleIntegerProperty(userLocation));\r\n            row.add(new SimpleIntegerProperty(toRestaurantTime + toUserTime));\r\n            data.add(row);\r\n        }\r\n        availableOrdersTable.setItems(data);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/deliverymanPageController.java b/src/main/java/com/example/barghifoodgraphics/deliverymanPageController.java
+--- a/src/main/java/com/example/barghifoodgraphics/deliverymanPageController.java	(revision 9a735060e11c4097ba635bf49d13b7b1aab06f44)
++++ b/src/main/java/com/example/barghifoodgraphics/deliverymanPageController.java	(date 1689151345317)
+@@ -29,7 +29,6 @@
+             selectedRow = -1;
+         else
+             selectedRow = availableOrdersTable.getSelectionModel().selectedIndexProperty().get();
+-        System.out.println(selectedRow);
+     }
+     public void accept() {
+         if (selectedRow == -1) {
+@@ -89,7 +88,6 @@
+         destinationPoint.setCellValueFactory(data -> data.getValue().get(1));
+         estimatedDuration.setCellValueFactory(data -> data.getValue().get(2));
+         ObservableList<List<Object>> data = FXCollections.observableArrayList();
+-        //TODO: get data
+         availableOrders = /*Main.core.showAvailableOrders()*/null;
+         int deliverymanLocation = 0/*((Deliveryman)Main.core.accounts.get(Main.core.loggedInDeliveryman)).getLocation()*/;
+         //for (int i : availableOrders) {
+Index: src/main/java/com/example/barghifoodgraphics/restaurantController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.barghifoodgraphics;\r\n\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.ListView;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.layout.VBox;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class restaurantController {\r\n    @FXML\r\n    private TextField searchBox;\r\n    @FXML\r\n    private ListView<String> searchResultsRestaurant;\r\n    @FXML\r\n    private VBox searchVbox;\r\n    public void changeToUserPage() {\r\n        MainApplication.stage.setScene(MainApplication.userPage);\r\n    }\r\n    public void refreshSearch() {\r\n        ArrayList<String> results = new ArrayList<>();\r\n        //results.addAll(Arrays.asList(Main.core.searchRestaurantName(searchBox.getText()).split(\"\\n\")));\r\n        results.add(\"Restaurant1\");\r\n        results.add(\"Restaurant2\");\r\n        results.add(\"Restaurant3\");\r\n        results.add(\"Restaurant4\");\r\n        results.add(\"Restaurant5\");\r\n        results.add(\"Restaurant6\");\r\n        results.add(\"Restaurant7\");\r\n        results.add(\"Restaurant8\");\r\n        results.add(\"Restaurant9\");\r\n        results.add(\"Restaurant10\");\r\n        searchResultsRestaurant.getItems().clear();\r\n        searchResultsRestaurant.getItems().addAll(results);\r\n        searchVbox.setVisible(!searchBox.getText().isEmpty());\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/restaurantController.java b/src/main/java/com/example/barghifoodgraphics/restaurantController.java
+--- a/src/main/java/com/example/barghifoodgraphics/restaurantController.java	(revision 9a735060e11c4097ba635bf49d13b7b1aab06f44)
++++ b/src/main/java/com/example/barghifoodgraphics/restaurantController.java	(date 1689157326471)
+@@ -1,10 +1,19 @@
+ package com.example.barghifoodgraphics;
+ 
+ import javafx.fxml.FXML;
++import javafx.geometry.Insets;
++import javafx.geometry.Pos;
++import javafx.scene.control.Label;
+ import javafx.scene.control.ListView;
+ import javafx.scene.control.TextField;
++import javafx.scene.image.Image;
++import javafx.scene.image.ImageView;
++import javafx.scene.layout.Region;
+ import javafx.scene.layout.VBox;
++import javafx.scene.text.Font;
+ 
++import java.io.FileInputStream;
++import java.io.FileNotFoundException;
+ import java.util.ArrayList;
+ 
+ public class restaurantController {
+@@ -13,7 +22,7 @@
+     @FXML
+     private ListView<String> searchResultsRestaurant;
+     @FXML
+-    private VBox searchVbox;
++    private VBox searchVbox, restaurantsBox;
+     public void changeToUserPage() {
+         MainApplication.stage.setScene(MainApplication.userPage);
+     }
+@@ -34,4 +43,36 @@
+         searchResultsRestaurant.getItems().addAll(results);
+         searchVbox.setVisible(!searchBox.getText().isEmpty());
+     }
++    public void initialize() throws FileNotFoundException {
++        //ArrayList<Integer> restaurants = Main.core.getNearestRestaurants();
++        //for (int i : restaurants) {
++        for (int i = 1; i <= 5; i++) {
++            VBox restaurantBox = new VBox();
++            VBox.setMargin(restaurantBox, new Insets(20, 0, 20, 0));
++            restaurantBox.setPadding(new Insets(20, 20, 20, 20));
++            restaurantBox.setPrefSize(10000, Region.USE_COMPUTED_SIZE);
++            restaurantBox.setAlignment(Pos.TOP_CENTER);
++            restaurantBox.setStyle("-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;");
++            ImageView restaurantLogo = new ImageView(new Image(new FileInputStream("src/main/resources/restaurantLogos/" + i + ".png")));
++            restaurantLogo.setFitWidth(200);
++            restaurantLogo.setFitHeight(150);
++            restaurantLogo.setPreserveRatio(true);
++            Label restaurantTitle = new Label("ASDF"/*Main.core.restaurants.get(i).getName()*/);
++            restaurantTitle.setFont(Font.font("System", 24));
++            restaurantTitle.setPadding(new Insets(5, 5, 5, 5));
++            Label rating = new Label("Rating: " + "★".repeat(3/*Math.round(Main.core.restaurants.get(i).getAverageRating())*/) + "☆".repeat(5 - 3/*Math.round(Main.core.restaurants.get(i).getAverageRating())*/));
++            rating.setPadding(new Insets(5, 5, 5, 5));
++            /*StringBuilder foodTypes = new StringBuilder();
++            for (String foodType : Main.core.restaurants.get(i).getFoodType())
++                foodTypes.append(foodType).append("-");
++            foodTypes.deleteCharAt(foodTypes.length() - 1);*/
++            Label foodTypesLabel = new Label("A-B-C-D"/*foodTypes.toString()*/);
++            foodTypesLabel.setPadding(new Insets(5, 5, 5, 5));
++            Label deliveryPrice = new Label("Delivery price: " + 1000/*Main.core.getDeliveryPrice(i)*/);
++            deliveryPrice.setPadding(new Insets(5, 5, 5, 5));
++            VBox.setMargin(deliveryPrice, new Insets(20, 0, 10, 0));
++            restaurantBox.getChildren().addAll(restaurantLogo, restaurantTitle, rating, foodTypesLabel, deliveryPrice);
++            restaurantsBox.getChildren().add(restaurantBox);
++        }
++    }
+ }
+\ No newline at end of file
+Index: src/main/resources/com/example/barghifoodgraphics/restaurant.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.geometry.Insets?>\r\n<?import javafx.scene.control.Label?>\r\n<?import javafx.scene.control.ListView?>\r\n<?import javafx.scene.control.ScrollPane?>\r\n<?import javafx.scene.control.TextField?>\r\n<?import javafx.scene.image.Image?>\r\n<?import javafx.scene.image.ImageView?>\r\n<?import javafx.scene.layout.AnchorPane?>\r\n<?import javafx.scene.layout.HBox?>\r\n<?import javafx.scene.layout.VBox?>\r\n<?import javafx.scene.text.Font?>\r\n\r\n<AnchorPane xmlns=\"http://javafx.com/javafx/20.0.1\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"com.example.barghifoodgraphics.restaurantController\">\r\n   <children>\r\n      <VBox alignment=\"TOP_CENTER\" maxHeight=\"-Infinity\" maxWidth=\"-Infinity\" minHeight=\"-Infinity\" minWidth=\"-Infinity\" prefHeight=\"600.0\" prefWidth=\"400.0\" style=\"-fx-background-color: rgb(100,100,100);\" AnchorPane.bottomAnchor=\"0.0\" AnchorPane.leftAnchor=\"0.0\" AnchorPane.rightAnchor=\"0.0\" AnchorPane.topAnchor=\"0.0\">\r\n         <children>\r\n            <HBox alignment=\"CENTER_LEFT\" prefWidth=\"10000.0\">\r\n               <children>\r\n                  <Label onMouseClicked=\"#changeToUserPage\" style=\"-fx-cursor: hand;\" text=\"← Back\" textFill=\"#cbefff\">\r\n                     <font>\r\n                        <Font size=\"15.0\" />\r\n                     </font>\r\n                  </Label>\r\n               </children>\r\n               <VBox.margin>\r\n                  <Insets left=\"20.0\" right=\"20.0\" top=\"20.0\" />\r\n               </VBox.margin>\r\n            </HBox>\r\n            <Label text=\"Restaurants\" textFill=\"WHITE\">\r\n               <font>\r\n                  <Font size=\"24.0\" />\r\n               </font>\r\n               <padding>\r\n                  <Insets bottom=\"10.0\" left=\"10.0\" right=\"10.0\" top=\"10.0\" />\r\n               </padding>\r\n               <VBox.margin>\r\n                  <Insets />\r\n               </VBox.margin>\r\n            </Label>\r\n            <TextField fx:id=\"searchBox\" focusTraversable=\"false\" onKeyTyped=\"#refreshSearch\" promptText=\"Search restaurant or food\">\r\n               <VBox.margin>\r\n                  <Insets left=\"20.0\" right=\"20.0\" top=\"20.0\" />\r\n               </VBox.margin>\r\n            </TextField>\r\n            <Label prefWidth=\"10000.0\" style=\"-fx-border-color: rgb(200,200,200); -fx-border-width: 1 0 0 0;\" text=\"Restaurants near your location:\" textFill=\"WHITE\">\r\n               <VBox.margin>\r\n                  <Insets left=\"20.0\" right=\"20.0\" top=\"20.0\" />\r\n               </VBox.margin>\r\n               <font>\r\n                  <Font size=\"14.0\" />\r\n               </font>\r\n               <padding>\r\n                  <Insets bottom=\"10.0\" top=\"10.0\" />\r\n               </padding>\r\n            </Label>\r\n            <ScrollPane fitToWidth=\"true\" focusTraversable=\"false\" prefHeight=\"10000.0\" prefWidth=\"10000.0\" style=\"-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-background-color: transparent;\" stylesheets=\"@restaurant.css\">\r\n               <content>\r\n                  <VBox>\r\n                     <children>\r\n                        <VBox alignment=\"TOP_CENTER\" prefWidth=\"10000.0\" style=\"-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;\">\r\n                           <children>\r\n                              <ImageView fitHeight=\"150.0\" fitWidth=\"200.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\r\n                                 <image>\r\n                                    <Image url=\"@restaurantLogos/1.png\" />\r\n                                 </image>\r\n                              </ImageView>\r\n                              <Label alignment=\"CENTER\" contentDisplay=\"CENTER\" text=\"Kassab\" textAlignment=\"CENTER\">\r\n                                 <font>\r\n                                    <Font size=\"24.0\" />\r\n                                 </font>\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Rating: ★★★★☆\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Steak-Kebab-Burger\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Delivery price: 1000\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                                 <VBox.margin>\r\n                                    <Insets bottom=\"10.0\" top=\"20.0\" />\r\n                                 </VBox.margin>\r\n                              </Label>\r\n                           </children>\r\n                           <padding>\r\n                              <Insets bottom=\"20.0\" left=\"20.0\" right=\"20.0\" top=\"20.0\" />\r\n                           </padding>\r\n                           <VBox.margin>\r\n                              <Insets bottom=\"20.0\" top=\"20.0\" />\r\n                           </VBox.margin>\r\n                        </VBox>\r\n                        <VBox alignment=\"TOP_CENTER\" prefWidth=\"10000.0\" style=\"-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;\">\r\n                           <children>\r\n                              <ImageView fitHeight=\"150.0\" fitWidth=\"200.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\r\n                                 <image>\r\n                                    <Image url=\"@restaurantLogos/2.png\" />\r\n                                 </image>\r\n                              </ImageView>\r\n                              <Label alignment=\"CENTER\" contentDisplay=\"CENTER\" text=\"Shandiz\" textAlignment=\"CENTER\">\r\n                                 <font>\r\n                                    <Font size=\"24.0\" />\r\n                                 </font>\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Rating: ★★★★☆\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Kebab\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Delivery price: 1100\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                                 <VBox.margin>\r\n                                    <Insets bottom=\"10.0\" top=\"20.0\" />\r\n                                 </VBox.margin>\r\n                              </Label>\r\n                           </children>\r\n                           <padding>\r\n                              <Insets bottom=\"20.0\" left=\"20.0\" right=\"20.0\" top=\"20.0\" />\r\n                           </padding>\r\n                           <VBox.margin>\r\n                              <Insets bottom=\"20.0\" top=\"20.0\" />\r\n                           </VBox.margin>\r\n                        </VBox>\r\n                        <VBox alignment=\"TOP_CENTER\" prefWidth=\"10000.0\" style=\"-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;\">\r\n                           <children>\r\n                              <ImageView fitHeight=\"150.0\" fitWidth=\"200.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\r\n                                 <image>\r\n                                    <Image url=\"@restaurantLogos/3.jpg\" />\r\n                                 </image>\r\n                              </ImageView>\r\n                              <Label alignment=\"CENTER\" contentDisplay=\"CENTER\" text=\"Nakhl\" textAlignment=\"CENTER\">\r\n                                 <font>\r\n                                    <Font size=\"24.0\" />\r\n                                 </font>\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Rating: ★★★★☆\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Pizza-Pasta\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Delivery price: 1200\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                                 <VBox.margin>\r\n                                    <Insets bottom=\"10.0\" top=\"20.0\" />\r\n                                 </VBox.margin>\r\n                              </Label>\r\n                           </children>\r\n                           <padding>\r\n                              <Insets bottom=\"20.0\" left=\"20.0\" right=\"20.0\" top=\"20.0\" />\r\n                           </padding>\r\n                           <VBox.margin>\r\n                              <Insets bottom=\"20.0\" top=\"20.0\" />\r\n                           </VBox.margin>\r\n                        </VBox>\r\n                        <VBox alignment=\"TOP_CENTER\" prefWidth=\"10000.0\" style=\"-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;\">\r\n                           <children>\r\n                              <ImageView fitHeight=\"150.0\" fitWidth=\"200.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\r\n                                 <image>\r\n                                    <Image url=\"@restaurantLogos/4.png\" />\r\n                                 </image>\r\n                              </ImageView>\r\n                              <Label alignment=\"CENTER\" contentDisplay=\"CENTER\" text=\"McDonalds\" textAlignment=\"CENTER\">\r\n                                 <font>\r\n                                    <Font size=\"24.0\" />\r\n                                 </font>\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Rating: ★★★★☆\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Burger\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Delivery price: 1300\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                                 <VBox.margin>\r\n                                    <Insets bottom=\"10.0\" top=\"20.0\" />\r\n                                 </VBox.margin>\r\n                              </Label>\r\n                           </children>\r\n                           <padding>\r\n                              <Insets bottom=\"20.0\" left=\"20.0\" right=\"20.0\" top=\"20.0\" />\r\n                           </padding>\r\n                           <VBox.margin>\r\n                              <Insets bottom=\"20.0\" top=\"20.0\" />\r\n                           </VBox.margin>\r\n                        </VBox>\r\n                        <VBox alignment=\"TOP_CENTER\" prefWidth=\"10000.0\" style=\"-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;\">\r\n                           <children>\r\n                              <ImageView fitHeight=\"150.0\" fitWidth=\"200.0\" pickOnBounds=\"true\" preserveRatio=\"true\">\r\n                                 <image>\r\n                                    <Image url=\"@restaurantLogos/5.png\" />\r\n                                 </image>\r\n                              </ImageView>\r\n                              <Label alignment=\"CENTER\" contentDisplay=\"CENTER\" text=\"KFC\" textAlignment=\"CENTER\">\r\n                                 <font>\r\n                                    <Font size=\"24.0\" />\r\n                                 </font>\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Rating: ★★★★☆\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Fried chicken\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                              </Label>\r\n                              <Label text=\"Delivery price: 1400\">\r\n                                 <padding>\r\n                                    <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n                                 </padding>\r\n                                 <VBox.margin>\r\n                                    <Insets bottom=\"10.0\" top=\"20.0\" />\r\n                                 </VBox.margin>\r\n                              </Label>\r\n                           </children>\r\n                           <padding>\r\n                              <Insets bottom=\"20.0\" left=\"20.0\" right=\"20.0\" top=\"20.0\" />\r\n                           </padding>\r\n                           <VBox.margin>\r\n                              <Insets bottom=\"20.0\" top=\"20.0\" />\r\n                           </VBox.margin>\r\n                        </VBox>\r\n                     </children>\r\n                  </VBox>\r\n               </content>\r\n               <padding>\r\n                  <Insets left=\"20.0\" right=\"20.0\" />\r\n               </padding>\r\n            </ScrollPane>\r\n         </children>\r\n      </VBox>\r\n      <VBox fx:id=\"searchVbox\" prefHeight=\"200.0\" prefWidth=\"100.0\" visible=\"false\" AnchorPane.leftAnchor=\"0.0\" AnchorPane.rightAnchor=\"0.0\" AnchorPane.topAnchor=\"145.0\">\r\n         <children>\r\n            <Label prefWidth=\"1000.0\" style=\"-fx-background-color: rgb(150,150,150); -fx-border-width: 1 2 1 2; -fx-border-color: rgb(150,150,150);\" text=\"Restaurants:\" textFill=\"WHITE\">\r\n               <font>\r\n                  <Font size=\"14.0\" />\r\n               </font>\r\n               <VBox.margin>\r\n                  <Insets left=\"20.0\" right=\"20.0\" />\r\n               </VBox.margin>\r\n               <padding>\r\n                  <Insets bottom=\"5.0\" left=\"5.0\" right=\"5.0\" top=\"5.0\" />\r\n               </padding>\r\n            </Label>\r\n            <ListView fx:id=\"searchResultsRestaurant\" prefHeight=\"150.0\" prefWidth=\"1000.0\" style=\"-fx-border-color: rgb(150,150,150); -fx-border-width: 0 2 2 2;\">\r\n               <VBox.margin>\r\n                  <Insets left=\"20.0\" right=\"20.0\" />\r\n               </VBox.margin>\r\n            </ListView>\r\n         </children>\r\n      </VBox>\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/example/barghifoodgraphics/restaurant.fxml b/src/main/resources/com/example/barghifoodgraphics/restaurant.fxml
+--- a/src/main/resources/com/example/barghifoodgraphics/restaurant.fxml	(revision 9a735060e11c4097ba635bf49d13b7b1aab06f44)
++++ b/src/main/resources/com/example/barghifoodgraphics/restaurant.fxml	(date 1689155004115)
+@@ -5,8 +5,6 @@
+ <?import javafx.scene.control.ListView?>
+ <?import javafx.scene.control.ScrollPane?>
+ <?import javafx.scene.control.TextField?>
+-<?import javafx.scene.image.Image?>
+-<?import javafx.scene.image.ImageView?>
+ <?import javafx.scene.layout.AnchorPane?>
+ <?import javafx.scene.layout.HBox?>
+ <?import javafx.scene.layout.VBox?>
+@@ -57,215 +55,7 @@
+             </Label>
+             <ScrollPane fitToWidth="true" focusTraversable="false" prefHeight="10000.0" prefWidth="10000.0" style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-background-color: transparent;" stylesheets="@restaurant.css">
+                <content>
+-                  <VBox>
+-                     <children>
+-                        <VBox alignment="TOP_CENTER" prefWidth="10000.0" style="-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;">
+-                           <children>
+-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+-                                 <image>
+-                                    <Image url="@restaurantLogos/1.png" />
+-                                 </image>
+-                              </ImageView>
+-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Kassab" textAlignment="CENTER">
+-                                 <font>
+-                                    <Font size="24.0" />
+-                                 </font>
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Rating: ★★★★☆">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Steak-Kebab-Burger">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Delivery price: 1000">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                                 <VBox.margin>
+-                                    <Insets bottom="10.0" top="20.0" />
+-                                 </VBox.margin>
+-                              </Label>
+-                           </children>
+-                           <padding>
+-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+-                           </padding>
+-                           <VBox.margin>
+-                              <Insets bottom="20.0" top="20.0" />
+-                           </VBox.margin>
+-                        </VBox>
+-                        <VBox alignment="TOP_CENTER" prefWidth="10000.0" style="-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;">
+-                           <children>
+-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+-                                 <image>
+-                                    <Image url="@restaurantLogos/2.png" />
+-                                 </image>
+-                              </ImageView>
+-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Shandiz" textAlignment="CENTER">
+-                                 <font>
+-                                    <Font size="24.0" />
+-                                 </font>
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Rating: ★★★★☆">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Kebab">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Delivery price: 1100">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                                 <VBox.margin>
+-                                    <Insets bottom="10.0" top="20.0" />
+-                                 </VBox.margin>
+-                              </Label>
+-                           </children>
+-                           <padding>
+-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+-                           </padding>
+-                           <VBox.margin>
+-                              <Insets bottom="20.0" top="20.0" />
+-                           </VBox.margin>
+-                        </VBox>
+-                        <VBox alignment="TOP_CENTER" prefWidth="10000.0" style="-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;">
+-                           <children>
+-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+-                                 <image>
+-                                    <Image url="@restaurantLogos/3.jpg" />
+-                                 </image>
+-                              </ImageView>
+-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Nakhl" textAlignment="CENTER">
+-                                 <font>
+-                                    <Font size="24.0" />
+-                                 </font>
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Rating: ★★★★☆">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Pizza-Pasta">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Delivery price: 1200">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                                 <VBox.margin>
+-                                    <Insets bottom="10.0" top="20.0" />
+-                                 </VBox.margin>
+-                              </Label>
+-                           </children>
+-                           <padding>
+-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+-                           </padding>
+-                           <VBox.margin>
+-                              <Insets bottom="20.0" top="20.0" />
+-                           </VBox.margin>
+-                        </VBox>
+-                        <VBox alignment="TOP_CENTER" prefWidth="10000.0" style="-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;">
+-                           <children>
+-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+-                                 <image>
+-                                    <Image url="@restaurantLogos/4.png" />
+-                                 </image>
+-                              </ImageView>
+-                              <Label alignment="CENTER" contentDisplay="CENTER" text="McDonalds" textAlignment="CENTER">
+-                                 <font>
+-                                    <Font size="24.0" />
+-                                 </font>
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Rating: ★★★★☆">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Burger">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Delivery price: 1300">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                                 <VBox.margin>
+-                                    <Insets bottom="10.0" top="20.0" />
+-                                 </VBox.margin>
+-                              </Label>
+-                           </children>
+-                           <padding>
+-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+-                           </padding>
+-                           <VBox.margin>
+-                              <Insets bottom="20.0" top="20.0" />
+-                           </VBox.margin>
+-                        </VBox>
+-                        <VBox alignment="TOP_CENTER" prefWidth="10000.0" style="-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;">
+-                           <children>
+-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+-                                 <image>
+-                                    <Image url="@restaurantLogos/5.png" />
+-                                 </image>
+-                              </ImageView>
+-                              <Label alignment="CENTER" contentDisplay="CENTER" text="KFC" textAlignment="CENTER">
+-                                 <font>
+-                                    <Font size="24.0" />
+-                                 </font>
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Rating: ★★★★☆">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Fried chicken">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                              </Label>
+-                              <Label text="Delivery price: 1400">
+-                                 <padding>
+-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+-                                 </padding>
+-                                 <VBox.margin>
+-                                    <Insets bottom="10.0" top="20.0" />
+-                                 </VBox.margin>
+-                              </Label>
+-                           </children>
+-                           <padding>
+-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+-                           </padding>
+-                           <VBox.margin>
+-                              <Insets bottom="20.0" top="20.0" />
+-                           </VBox.margin>
+-                        </VBox>
+-                     </children>
+-                  </VBox>
++                  <VBox fx:id="restaurantsBox" />
+                </content>
+                <padding>
+                   <Insets left="20.0" right="20.0" />

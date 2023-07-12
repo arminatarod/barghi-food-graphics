@@ -1,0 +1,34 @@
+<changelist name="Uncommitted_changes_before_Update_at_7_12_2023_1_59_PM_[Changes]" date="1689157793408" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_12_2023_1_59_PM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 7/12/2023 1:59 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/com/example/barghifoodgraphics/restaurantLogos/1.png" />
+    <option name="AFTER_PATH" value="src/main/resources/restaurantLogos/1.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_12_2023_1_59_PM_[Changes]/1.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/com/example/barghifoodgraphics/restaurantLogos/2.png" />
+    <option name="AFTER_PATH" value="src/main/resources/restaurantLogos/2.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_12_2023_1_59_PM_[Changes]/2.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/com/example/barghifoodgraphics/restaurantLogos/5.png" />
+    <option name="AFTER_PATH" value="src/main/resources/restaurantLogos/5.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_12_2023_1_59_PM_[Changes]/5.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="src/main/resources/restaurantLogos/3.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_12_2023_1_59_PM_[Changes]/3.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/com/example/barghifoodgraphics/restaurantLogos/3.jpg" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/main/resources/com/example/barghifoodgraphics/restaurantLogos/4.png" />
+    <option name="AFTER_PATH" value="src/main/resources/restaurantLogos/4.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_12_2023_1_59_PM_[Changes]/4.png" />
+  </binary>
+</changelist>
