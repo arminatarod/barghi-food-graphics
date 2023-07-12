@@ -1,5 +1,7 @@
 package com.example.barghifoodgraphics;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -15,6 +17,23 @@ public class Comment {
         this.receptionType = receptionType;
         this.content = content;
         // type 1  :  for food, type 2 for restaurant
+    }
+    @JsonCreator
+    public Comment(@JsonProperty("id")int id,@JsonProperty("commenterID") int commenterID,@JsonProperty("receptionId") int receptionId,@JsonProperty("receptionType") int receptionType,@JsonProperty("content") String content,@JsonProperty("answer") String answer) {
+        this.id = id;
+        this.commenterID = commenterID;
+        this.receptionId = receptionId;
+        this.receptionType = receptionType;
+        this.content = content;
+        this.answer = answer;
+    }
+
+    public int getCommenterID() {
+        return commenterID;
+    }
+
+    public void setCommenterID(int commenterID) {
+        this.commenterID = commenterID;
     }
 
     public int getReceptionId() {

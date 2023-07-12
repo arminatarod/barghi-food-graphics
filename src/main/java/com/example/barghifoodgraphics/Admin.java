@@ -1,5 +1,7 @@
 package com.example.barghifoodgraphics;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -11,6 +13,16 @@ public class Admin extends Account {
     public Admin(String userName, String password, String recoveryQuestion, String recoveryQuestionAnswer, int id) {
         super(userName, password, recoveryQuestion, recoveryQuestionAnswer, id);
     }
+    @JsonCreator
+    public Admin(@JsonProperty("username") String username,@JsonProperty("password") String password,@JsonProperty("type") String type,@JsonProperty("recoveryQuestion") String recoveryQuestion,@JsonProperty("recoveryQuestionAnswer") String recoveryQuestionAnswer, @JsonProperty("id") int id,@JsonProperty("restaurants") HashSet<Integer> restaurants) {
+        super(username, password, type, recoveryQuestion, recoveryQuestionAnswer, id);
+        this.restaurants = restaurants;
+    }
+
+    public void setRestaurants(HashSet<Integer> restaurants) {
+        this.restaurants = restaurants;
+    }
+
     public void addRestaurant (int restaurantID) {
         restaurants.add(restaurantID);
         save();

@@ -1,5 +1,6 @@
 package com.example.barghifoodgraphics;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.util.HashSet;
@@ -21,7 +22,45 @@ public class Restaurant {
         foodType = new HashSet<>();
     }
 
+    public int getAdminID() {
+        return adminID;
+    }
 
+    public void setAdminID(int adminID) {
+        this.adminID = adminID;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setOrders(HashSet<Integer> orders) {
+        this.orders = orders;
+    }
+
+    public void setMenu(HashSet<Integer> menu) {
+        this.menu = menu;
+    }
+
+    public void setFoodType(HashSet<String> foodType) {
+        this.foodType = foodType;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public Restaurant(@JsonProperty("location")int location, @JsonProperty("adminID") int adminID, @JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("type") String type, @JsonProperty("orders") HashSet<Integer> orders, @JsonProperty("menu") HashSet<Integer> menu, @JsonProperty("foodType") HashSet<String> foodType, @JsonProperty("balance") double balance) {
+        this.location = location;
+        this.adminID = adminID;
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.orders = orders;
+        this.menu = menu;
+        this.foodType = foodType;
+        this.balance = balance;
+    }
 
     public int getId() {
         return id;

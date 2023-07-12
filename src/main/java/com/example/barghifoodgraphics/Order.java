@@ -1,5 +1,6 @@
 package com.example.barghifoodgraphics;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.util.HashMap;
@@ -14,13 +15,54 @@ public class Order {
     // done : done
     private HashMap<Integer, Integer> items;
 
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public int getDeliverymanId() {
+        return deliverymanId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setDeliverymanId(int deliverymanId) {
+        this.deliverymanId = deliverymanId;
+    }
+
+    public void setItems(HashMap<Integer, Integer> items) {
+        this.items = items;
+    }
+
     public Order(int id, int restaurant, int user, int deliveryman, int userLocation) {
         this.id = id;
         this.restaurantId = restaurant;
         this.userId = user;
         this.deliverymanId = deliveryman;
         this.userLocation = userLocation;
+        items = new HashMap<>();
     }
+
+    public Order(@JsonProperty("id")int id,@JsonProperty("restaurantId") int restaurantId,@JsonProperty("userId") int userId,@JsonProperty("deliverymanId") int deliverymanId,@JsonProperty("userLocation") int userLocation,@JsonProperty("deliveryPrice") int deliveryPrice,@JsonProperty("status") String status,@JsonProperty("items") HashMap<Integer, Integer> items) {
+        this.id = id;
+        this.restaurantId = restaurantId;
+        this.userId = userId;
+        this.deliverymanId = deliverymanId;
+        this.userLocation = userLocation;
+        this.deliveryPrice = deliveryPrice;
+        this.status = status;
+        this.items = items;
+    }
+
     public Order(){
         deliverymanId = -1;
     }

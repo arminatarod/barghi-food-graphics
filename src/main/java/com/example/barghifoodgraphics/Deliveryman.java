@@ -1,5 +1,7 @@
 package com.example.barghifoodgraphics;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -16,6 +18,23 @@ public class Deliveryman extends Account {
         orders = new HashSet<>();
         location = 1;
     }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public void setOrders(HashSet<Integer> orders) {
+        this.orders = orders;
+    }
+    @JsonCreator
+    public Deliveryman(@JsonProperty("username") String username, @JsonProperty("password") String password, @JsonProperty("type") String type, @JsonProperty("recoveryQuestion") String recoveryQuestion, @JsonProperty("recoveryQuestionAnswer") String recoveryQuestionAnswer, @JsonProperty("id") int id, @JsonProperty("location")int location, @JsonProperty("balance")int balance, @JsonProperty("orders")HashSet<Integer> orders, @JsonProperty("activeOrder")int activeOrder) {
+        super(username, password, type, recoveryQuestion, recoveryQuestionAnswer, id);
+        this.location = location;
+        this.balance = balance;
+        this.orders = orders;
+        this.activeOrder = activeOrder;
+    }
+
     public int getLocation() {
         return location;
     }

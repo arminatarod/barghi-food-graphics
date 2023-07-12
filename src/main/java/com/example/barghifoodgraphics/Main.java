@@ -27,7 +27,7 @@ public class Main {
                 String recoveryQuestionAnswer = matcher.group("recoveryQuestionAnswer");
                 core.addAdmin(name, password, recoveryQuestion, recoveryQuestionAnswer);
             }
-            if ((matcher = getMatcher(command, "^-LOGIN (?<name>[a-zA-Z]+) (?<password>\\S+) *")) != null) {
+            else if ((matcher = getMatcher(command, "^-LOGIN (?<name>[a-zA-Z]+) (?<password>\\S+) *")) != null) {
                 String name = matcher.group("name");
                 String password = matcher.group("password");
                 core.login(name, password);

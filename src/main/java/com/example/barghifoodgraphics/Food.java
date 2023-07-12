@@ -1,5 +1,6 @@
 package com.example.barghifoodgraphics;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -26,6 +27,55 @@ public class Food {
         ratings = new HashMap<>();
         isActive = false;
         comments = new HashSet<>();
+    }
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public HashMap<Integer, Integer> getRatings() {
+        return ratings;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public void setDiscountTimestamp(LocalTime discountTimestamp) {
+        this.discountTimestamp = discountTimestamp;
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public void setRatings(HashMap<Integer, Integer> ratings) {
+        this.ratings = ratings;
+    }
+
+    public void setComments(HashSet<Integer> comments) {
+        this.comments = comments;
+    }
+
+    public Food(@JsonProperty("id")int id, @JsonProperty("price") int price, @JsonProperty("restaurantId") int restaurantId, @JsonProperty("discountTimestamp") LocalTime discountTimestamp, @JsonProperty("averageRating") double averageRating, @JsonProperty("discount") double discount, @JsonProperty("ratings") HashMap<Integer, Integer> ratings, @JsonProperty("name") String name, @JsonProperty("isActive") boolean isActive, @JsonProperty("comments") HashSet<Integer> comments) {
+        this.id = id;
+        this.price = price;
+        this.restaurantId = restaurantId;
+        this.discountTimestamp = discountTimestamp;
+        this.averageRating = averageRating;
+        this.discount = discount;
+        this.ratings = ratings;
+        this.name = name;
+        this.isActive = isActive;
+        this.comments = comments;
     }
 
     public void setRestaurant(int restaurant) {

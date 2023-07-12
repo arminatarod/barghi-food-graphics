@@ -1,5 +1,7 @@
 package com.example.barghifoodgraphics;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -25,6 +27,28 @@ public class User extends Account {
         locations.add(1);
         selectedLocation = 1;
     }
+    @JsonCreator
+    public User(@JsonProperty("username") String username, @JsonProperty("password") String password, @JsonProperty("type") String type, @JsonProperty("recoveryQuestion") String recoveryQuestion, @JsonProperty("recoveryQuestionAnswer") String recoveryQuestionAnswer, @JsonProperty("id") int id,@JsonProperty("locations") HashSet<Integer> locations,@JsonProperty("orders") HashSet<Integer> orders,@JsonProperty("comments") HashSet<Integer> comments,@JsonProperty("cart") Order cart,@JsonProperty("selectedLocation") int selectedLocation, @JsonProperty("balance")double balance) {
+        super(username, password, type, recoveryQuestion, recoveryQuestionAnswer, id);
+        this.locations = locations;
+        this.orders = orders;
+        this.comments = comments;
+        this.cart = cart;
+        this.selectedLocation = selectedLocation;
+        this.balance = balance;
+    }
+    public void setLocations(HashSet<Integer> locations) {
+        this.locations = locations;
+    }
+
+    public void setOrders(HashSet<Integer> orders) {
+        this.orders = orders;
+    }
+
+    public void setComments(HashSet<Integer> comments) {
+        this.comments = comments;
+    }
+
     public void setCart(Order cart) {
         this.cart = cart;
         save();

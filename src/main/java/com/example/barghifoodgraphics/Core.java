@@ -1,5 +1,6 @@
 package com.example.barghifoodgraphics;
 
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalTime;
 import java.io.File;
@@ -22,6 +23,12 @@ public class Core {
             ans += items.get(i) * foods.get(i).getPrice();
         return ans;
     }
+    public int getFileCount(File f) {
+        File[] koft = f.listFiles();
+        if (koft == null)
+            return 0;
+        return koft.length;
+    }
     public Core() throws FileNotFoundException {
         map = new MapG();
         map.readGraphFromFile("src/data/graph.txt");
@@ -43,60 +50,61 @@ public class Core {
         File com = new File("src/data/comments/");
         File fd = new File("src/data/foods/");
         // Reading users accounts
-        for (int i = 0; i < use.listFiles().length; i++) {
+        ObjectMapper mapper = new ObjectMapper();
+        //mapper.configure(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS, false);
+        for (int i = 0; i < getFileCount(use); i++) {
             int koft = 0;
-            ObjectMapper mapper = new ObjectMapper();
             try {
-                accounts.put(i, mapper.readValue("src/data/accounts/" + i + "a.json", Admin.class));
-            } catch (Exception e) {koft++;}
+                accounts.put(i, mapper.readValue(new File("src/data/accounts/" + i + "a.json"), Admin.class));
+            } catch (Exception e) {
+                koft++;
+            }
             try {
-                accounts.put(i, mapper.readValue("src/data/accounts/" + i + "u.json", User.class));
-            } catch (Exception e) {koft++;}
+                accounts.put(i, mapper.readValue(new File("src/data/accounts/" + i + "u.json"), User.class));
+            } catch (Exception e) {
+                koft++;
+            }
             try {
-                accounts.put(i, mapper.readValue("src/data/accounts/" + i + "d.json", Deliveryman.class));
+                accounts.put(i, mapper.readValue(new File("src/data/accounts/" + i + "d.json"), Deliveryman.class));
             } catch (Exception e) {koft++;}
             if (koft == 3)
                 System.out.println("there is an missing file with id : " + i + " in accounts database");
         }
         // Reading orderss
-        for (int i = 0; i < ord.listFiles().length; i++) {
+        for (int i = 0; i < getFileCount(ord); i++) {
             Order result;
-            ObjectMapper mapper = new ObjectMapper();
             try {
-                result = mapper.readValue("src/data/orders/" + i + ".json", Order.class);
+                result = mapper.readValue(new File("src/data/orders/" + i + ".json"), Order.class);
                 orders.put(result.getId(), result);
             } catch (Exception e) {
                 System.out.println("there is an missing file in orders data base");
             }
         }
         // Reading restaurants
-        for (int i = 0; i < rest.listFiles().length; i++) {
+        for (int i = 0; i < getFileCount(rest); i++) {
             Restaurant result;
-            ObjectMapper mapper = new ObjectMapper();
             try {
-                result = mapper.readValue("src/data/restaurants/" + i + ".json", Restaurant.class);
+                result = mapper.readValue(new File("src/data/restaurants/" + i + ".json"), Restaurant.class);
                 restaurants.put(result.getId(), result);
             } catch (Exception e) {
                 System.out.println("there is an missing file in restaurants database");
             }
         }
         // Reading comments
-        for (int i = 0; i < com.listFiles().length; i++) {
+        for (int i = 0; i < getFileCount(com); i++) {
             Comment result;
-            ObjectMapper mapper = new ObjectMapper();
             try {
-                result = mapper.readValue("src/data/comments/" + i + ".json", Comment.class);
+                result = mapper.readValue(new File("src/data/comments/" + i + ".json"), Comment.class);
                 comments.put(result.getId(), result);
             } catch (Exception e) {
                 System.out.println("there is an missing file in comments database");
             }
         }
         // Reading users
-        for (int i = 0; i < fd.listFiles().length; i++) {
+        for (int i = 0; i < getFileCount(fd); i++) {
             Food result;
-            ObjectMapper mapper = new ObjectMapper();
             try {
-                result = mapper.readValue("src/data/foods/" + i + ".json", Food.class);
+                result = mapper.readValue(new File("src/data/foods/" + i + ".json"), Food.class);
                 foods.put(result.getId(), result);
             } catch (Exception e) {
                 System.out.println("there is an missing file in foods database");
@@ -160,8 +168,10 @@ public class Core {
             }
         }
         User tmp = new User(username, password, recoveryQuestion, recoveryQuestionAnswer, accounts.size());
+        tmp.setType("User");
         tmp.save();
         accounts.put(tmp.getId(), tmp);
+        System.out.println("User has benn registered");
     }
     public void addDelivery(String username, String password, String recoveryQuestion, String recoveryQuestionAnswer) {
         if (loggedInAccount != -1) {
@@ -175,8 +185,11 @@ public class Core {
             }
         }
         Deliveryman tmp = new Deliveryman(username, password, recoveryQuestion, recoveryQuestionAnswer, accounts.size());
+        tmp.setType("Deliverymen");
         tmp.save();
         accounts.put(tmp.getId(), tmp);
+        System.out.println("Delivery has benn registered");
+
     }
     public void addAdmin(String username, String password, String recoveryQuestion, String recoveryQuestionAnswer) {
         if (loggedInAccount != -1) {
@@ -190,8 +203,11 @@ public class Core {
             }
         }
         Admin tmp = new Admin(username, password, recoveryQuestion, recoveryQuestionAnswer, accounts.size());
+        tmp.setType("Admin");
         tmp.save();
         accounts.put(tmp.getId(), tmp);
+        System.out.println("Admin has benn registered");
+
     }
     public void showLocation() {
         if (selectedRestaurant == -1) {
@@ -658,7 +674,7 @@ public class Core {
             boolean check = false;
             Admin admin = (Admin) accounts.get(loggedInAdmin);
             for(Integer restaurantId : admin.getRestaurants()) {
-                if(restaurants.get(restaurantId).getName().substring(0,name.length()-1).equals(name)) {
+                if(restaurants.get(restaurantId).getName().startsWith(name)) {
                     System.out.println("Restaurant name : "+ restaurants.get(restaurantId).getName()+ " Restaurant ID: "+ restaurantId);
                     check = true;
                 }
@@ -670,7 +686,7 @@ public class Core {
         else if(loggedInUser != -1) {
             boolean check = false;
             for(int id : restaurants.keySet()) {
-                if(restaurants.get(id).getName().substring(0,name.length()-1).equals(name)){
+                if(restaurants.get(id).getName().startsWith(name)){
                     System.out.println("Restaurant name : "+ restaurants.get(id).getName()+ " Restaurant ID: "+ id);
                     check = true;
                 }
@@ -692,7 +708,7 @@ public class Core {
         }
         else {
             for(Integer foodId : restaurants.get(selectedRestaurant).getMenu()) {
-                if(name.equals(foods.get(foodId).getName().substring(0,name.length()))) {
+                if(foods.get(foodId).getName().startsWith(name)) {
                     System.out.println("food name: "+foods.get(foodId).getName()+" food price: "+ foods.get(foodId).getPrice());
                 }
             }
@@ -1193,6 +1209,7 @@ public class Core {
         restaurants.put(tmp.getId(), tmp);
         tmp.save();
         tmp.setAdmin(loggedInAdmin);
+        System.out.println("restaurant added successfully");
     }
     public ArrayList<Integer> nearRestaurant() {
         ArrayList<Integer> tmp2 = new ArrayList<>();
