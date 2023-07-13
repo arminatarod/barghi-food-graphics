@@ -1,0 +1,223 @@
+Index: src/main/java/com/example/barghifoodgraphics/menuController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.barghifoodgraphics;\r\n\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.*;\r\n\r\nimport java.util.Arrays;\r\nimport java.util.List;\r\n\r\npublic class menuController {\r\n    @FXML TabPane myTabPane;\r\n    @FXML Button CommentsButton;\r\n    @FXML Label  averageRatingLabel, BackLabel;\r\n    public void initialize()\r\n    {\r\n        List<String> foodTypes = Arrays.asList(\"Appetizers\", \"Entrees\", \"Desserts\", \"Pizza\", \"Pasta\", \"Drinks\", \"Chicken\", \"Steak\", \"Coffee\");\r\n        for(String FoodType : foodTypes)\r\n        {\r\n            Tab tab = new Tab(FoodType);\r\n            ListView<String> listView = new ListView<>();\r\n            for(int i=1;i<16;i++)\r\n            {\r\n                listView.getItems().add(\"Food\" + i);\r\n            }\r\n            listView.setPrefSize(400,402);\r\n            tab.setContent(listView);\r\n            myTabPane.getTabs().add(tab);\r\n        }\r\n        averageRatingLabel.setText(Double.toString(4.8));\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/menuController.java b/src/main/java/com/example/barghifoodgraphics/menuController.java
+--- a/src/main/java/com/example/barghifoodgraphics/menuController.java	(revision c96f982d06ae21067eeef69b28e1ae6289610a02)
++++ b/src/main/java/com/example/barghifoodgraphics/menuController.java	(date 1689145603460)
+@@ -1,30 +1,78 @@
+ package com.example.barghifoodgraphics;
+ 
++import javafx.beans.property.SimpleIntegerProperty;
++import javafx.beans.property.SimpleStringProperty;
++import javafx.beans.property.StringProperty;
++import javafx.collections.FXCollections;
++import javafx.collections.ObservableList;
+ import javafx.fxml.FXML;
+ import javafx.scene.control.*;
+ 
++import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.List;
++import java.util.Random;
+ 
+ public class menuController {
+     @FXML TabPane myTabPane;
+-    @FXML Button CommentsButton;
++    @FXML Button CommentsButton, addButton;
+     @FXML Label  averageRatingLabel, BackLabel;
++    @FXML ChoiceBox<Integer> quantity;
++    public List<TableView<List<Object>>> tableViews = new ArrayList<>();
+     public void initialize()
+     {
++        int available = 5;
++        for(int i=0;i<available;i++)
++            quantity.getItems().add(i+1);
+         List<String> foodTypes = Arrays.asList("Appetizers", "Entrees", "Desserts", "Pizza", "Pasta", "Drinks", "Chicken", "Steak", "Coffee");
+         for(String FoodType : foodTypes)
+         {
++            TableView<List<Object>> tableView = new TableView<>();
++            TableColumn<List<StringProperty>,String> FoodNameColumn = new TableColumn<>("Name");
++            TableColumn<List<StringProperty>,String> FoodPriceColumn = new TableColumn<>("Price");
++            TableColumn<List<StringProperty>,String> FoodAverageRatingColumn = new TableColumn<>("Rating");
++            TableColumn<List<StringProperty>,String> DiscountColumn = new TableColumn<>("Discount");
++            FoodNameColumn.setCellValueFactory(data -> data.getValue().get(0));
++            FoodPriceColumn.setCellValueFactory(data -> data.getValue().get(1));
++            FoodAverageRatingColumn.setCellValueFactory(data -> data.getValue().get(2));
++            DiscountColumn.setCellValueFactory(data -> data.getValue().get(3));
++            ObservableList<List<Object>> data = FXCollections.observableArrayList();
++            for(int i = 1;i < 7;i++)
++            {
++                Random random = new Random();
++                List<Object>row = new ArrayList<>();
++                row.add(new SimpleStringProperty("Food" + i));
++                row.add(new SimpleIntegerProperty(100 * i + 230));
++                row.add(new SimpleIntegerProperty(random.nextInt(5)+1));
++                row.add(new SimpleStringProperty("%" + random.nextInt(20)));
++                data.add(row);
++            }
++            tableView.setItems(data);
+             Tab tab = new Tab(FoodType);
+-            ListView<String> listView = new ListView<>();
+-            for(int i=1;i<16;i++)
+-            {
+-                listView.getItems().add("Food" + i);
+-            }
+-            listView.setPrefSize(400,402);
+-            tab.setContent(listView);
++            tab.setContent(tableView);
+             myTabPane.getTabs().add(tab);
++            tableViews.add(tableView);
+         }
+         averageRatingLabel.setText(Double.toString(4.8));
+     }
++    public void addToCart()
++    {
++        TableView<List<Object>> tmp = tableViews.get(myTabPane.getSelectionModel().getSelectedIndex());
++        if(tmp.getSelectionModel().getSelectedItem() == null)
++        {
++            Alert a = new Alert(Alert.AlertType.ERROR);
++            a.setContentText("You should choose an item");
++            a.show();
++        }
++        else if(quantity.getValue() == null)
++        {
++            Alert a = new Alert(Alert.AlertType.ERROR);
++            a.setContentText("You should at least picking one of the item");
++            a.show();
++        }
++        else
++        {
++
++        }
++    }
+ }
+Index: src/main/java/com/example/barghifoodgraphics/MainApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.barghifoodgraphics;\r\n\r\nimport javafx.application.Application;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Scene;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\n\r\npublic class MainApplication extends Application {\r\n    static Stage stage;\r\n    static Scene login, signup, userPage, forgotPassword, supermarket, cart, restaurant, comment, edit, add, adminPageOne, adminPageTwo, menu, deliverymanPage;\r\n    static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword, fxmlLoaderSupermarket, fxmlLoaderCart, fxmlLoaderRestaurant, fxmlLoaderComment, fxmlLoaderAdminPageOne, fxmlLoaderAdminPageTwo, fxmlLoaderEdit, fxmlLoaderAdd, fxmlLoaderMenu, fxmlLoaderDeliverymanPage;\r\n    @Override\r\n    public void start(Stage mainStage) throws IOException {\r\n        fxmlLoaderLogin = new FXMLLoader(MainApplication.class.getResource(\"login.fxml\"));\r\n        login = new Scene(fxmlLoaderLogin.load(), 400, 600);\r\n        fxmlLoaderSignup = new FXMLLoader(MainApplication.class.getResource(\"signup.fxml\"));\r\n        signup = new Scene(fxmlLoaderSignup.load(), 400, 600);\r\n        fxmlLoaderUserPage = new FXMLLoader(MainApplication.class.getResource(\"userPage.fxml\"));\r\n        userPage = new Scene(fxmlLoaderUserPage.load(), 400, 600);\r\n        fxmlLoaderForgotPassword = new FXMLLoader(MainApplication.class.getResource(\"forgotPassword.fxml\"));\r\n        forgotPassword = new Scene(fxmlLoaderForgotPassword.load(), 400, 500);\r\n        fxmlLoaderSupermarket = new FXMLLoader(MainApplication.class.getResource(\"supermarket.fxml\"));\r\n        supermarket = new Scene(fxmlLoaderSupermarket.load(), 400, 600);\r\n        fxmlLoaderCart = new FXMLLoader(MainApplication.class.getResource(\"cart.fxml\"));\r\n        cart = new Scene(fxmlLoaderCart.load(), 600, 600);\r\n        fxmlLoaderRestaurant = new FXMLLoader(MainApplication.class.getResource(\"restaurant.fxml\"));\r\n        restaurant = new Scene(fxmlLoaderRestaurant.load(), 400, 600);\r\n        fxmlLoaderComment = new FXMLLoader(MainApplication.class.getResource(\"comment.fxml\"));\r\n        comment = new Scene(fxmlLoaderComment.load(), 400, 600);\r\n        fxmlLoaderAdd = new FXMLLoader(MainApplication.class.getResource(\"add.fxml\"));\r\n        add = new Scene(fxmlLoaderAdd.load(), 400, 250);\r\n        fxmlLoaderEdit = new FXMLLoader(MainApplication.class.getResource(\"edit.fxml\"));\r\n        edit = new Scene(fxmlLoaderEdit.load(), 400, 250);\r\n        fxmlLoaderAdminPageOne = new FXMLLoader(MainApplication.class.getResource(\"adminPage.fxml\"));\r\n        adminPageOne = new Scene(fxmlLoaderAdminPageOne.load(), 600, 400);\r\n        fxmlLoaderAdminPageTwo = new FXMLLoader(MainApplication.class.getResource(\"adminPage2.fxml\"));\r\n        adminPageTwo = new Scene(fxmlLoaderAdminPageTwo.load(), 600, 400);\r\n        fxmlLoaderMenu = new FXMLLoader(MainApplication.class.getResource(\"menu.fxml\"));\r\n        menu = new Scene(fxmlLoaderMenu.load(), 400, 600);\r\n        fxmlLoaderDeliverymanPage = new FXMLLoader(MainApplication.class.getResource(\"deliverymanPage.fxml\"));\r\n        deliverymanPage = new Scene(fxmlLoaderDeliverymanPage.load(), 400, 600);\r\n        stage = mainStage;\r\n        stage.setTitle(\"Barghi Food\");\r\n        stage.setMinWidth(410);\r\n        stage.setMinHeight(640);\r\n        stage.setScene(adminPageOne);\r\n        stage.show();\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        launch();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/MainApplication.java b/src/main/java/com/example/barghifoodgraphics/MainApplication.java
+--- a/src/main/java/com/example/barghifoodgraphics/MainApplication.java	(revision c96f982d06ae21067eeef69b28e1ae6289610a02)
++++ b/src/main/java/com/example/barghifoodgraphics/MainApplication.java	(date 1689092721136)
+@@ -9,8 +9,8 @@
+ 
+ public class MainApplication extends Application {
+     static Stage stage;
+-    static Scene login, signup, userPage, forgotPassword, supermarket, cart, restaurant, comment, edit, add, adminPageOne, adminPageTwo, menu, deliverymanPage;
+-    static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword, fxmlLoaderSupermarket, fxmlLoaderCart, fxmlLoaderRestaurant, fxmlLoaderComment, fxmlLoaderAdminPageOne, fxmlLoaderAdminPageTwo, fxmlLoaderEdit, fxmlLoaderAdd, fxmlLoaderMenu, fxmlLoaderDeliverymanPage;
++    static Scene login, signup, userPage, forgotPassword, supermarket, cart, restaurant, comment, edit, add, adminPageOne, adminPageTwo, menu;
++    static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword, fxmlLoaderSupermarket, fxmlLoaderCart, fxmlLoaderRestaurant, fxmlLoaderComment, fxmlLoaderAdminPageOne, fxmlLoaderAdminPageTwo, fxmlLoaderEdit, fxmlLoaderAdd, fxmlLoaderMenu;
+     @Override
+     public void start(Stage mainStage) throws IOException {
+         fxmlLoaderLogin = new FXMLLoader(MainApplication.class.getResource("login.fxml"));
+@@ -39,13 +39,11 @@
+         adminPageTwo = new Scene(fxmlLoaderAdminPageTwo.load(), 600, 400);
+         fxmlLoaderMenu = new FXMLLoader(MainApplication.class.getResource("menu.fxml"));
+         menu = new Scene(fxmlLoaderMenu.load(), 400, 600);
+-        fxmlLoaderDeliverymanPage = new FXMLLoader(MainApplication.class.getResource("deliverymanPage.fxml"));
+-        deliverymanPage = new Scene(fxmlLoaderDeliverymanPage.load(), 400, 600);
+         stage = mainStage;
+         stage.setTitle("Barghi Food");
+         stage.setMinWidth(410);
+-        stage.setMinHeight(640);
+-        stage.setScene(adminPageOne);
++        stage.setMinHeight(400);
++        stage.setScene(menu);
+         stage.show();
+     }
+ 
+Index: src/main/resources/com/example/barghifoodgraphics/menu.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.geometry.Insets?>\r\n<?import javafx.scene.control.Button?>\r\n<?import javafx.scene.control.Label?>\r\n<?import javafx.scene.control.TabPane?>\r\n<?import javafx.scene.image.Image?>\r\n<?import javafx.scene.image.ImageView?>\r\n<?import javafx.scene.layout.HBox?>\r\n<?import javafx.scene.layout.VBox?>\r\n<?import javafx.scene.text.Font?>\r\n\r\n\r\n<VBox alignment=\"TOP_CENTER\" maxHeight=\"-Infinity\" maxWidth=\"-Infinity\" minHeight=\"-Infinity\" minWidth=\"-Infinity\" prefHeight=\"600.0\" prefWidth=\"400.0\" xmlns=\"http://javafx.com/javafx/20.0.1\" xmlns:fx=\"http://javafx.com/fxml/1\" fx:controller=\"com.example.barghifoodgraphics.menuController\">\r\n   <children>\r\n      <HBox alignment=\"CENTER\" prefHeight=\"86.0\" prefWidth=\"400.0\">\r\n         <children>\r\n            <Label fx:id=\"BackLabel\" style=\"-fx-cursor: hand;\" text=\"← Back\" textFill=\"#1e78a0\">\r\n               <font>\r\n                  <Font size=\"15.0\" />\r\n               </font>\r\n               <HBox.margin>\r\n                  <Insets bottom=\"95.0\" right=\"100.0\" />\r\n               </HBox.margin>\r\n            </Label>\r\n            <ImageView fitHeight=\"63.0\" fitWidth=\"67.0\">\r\n               <image>\r\n                  <Image url=\"@../../../../../../../../OneDrive/Desktop/images.png\" />\r\n               </image>\r\n               <HBox.margin>\r\n                  <Insets right=\"160.0\" />\r\n               </HBox.margin>\r\n            </ImageView>\r\n         </children>\r\n      </HBox>\r\n      <Label text=\"KFC\" />\r\n      <HBox alignment=\"CENTER\" prefHeight=\"100.0\" prefWidth=\"200.0\" style=\"-fx-border-color: black; -fx-border-width: 2;\">\r\n         <children>\r\n            <Label prefHeight=\"18.0\" prefWidth=\"96.0\" text=\"Average Rating:\">\r\n               <HBox.margin>\r\n                  <Insets left=\"40.0\" right=\"2.0\" />\r\n               </HBox.margin>\r\n            </Label>\r\n            <Label fx:id=\"averageRatingLabel\" prefHeight=\"18.0\" prefWidth=\"31.0\" text=\"Label\">\r\n               <HBox.margin>\r\n                  <Insets left=\"2.0\" right=\"40.0\" />\r\n               </HBox.margin>\r\n            </Label>\r\n            <Button fx:id=\"CommentsButton\" mnemonicParsing=\"false\" text=\"Comments\">\r\n               <HBox.margin>\r\n                  <Insets left=\"40.0\" right=\"40.0\" />\r\n               </HBox.margin>\r\n            </Button>\r\n         </children>\r\n         <VBox.margin>\r\n            <Insets />\r\n         </VBox.margin>\r\n      </HBox>\r\n      <TabPane fx:id=\"myTabPane\" prefHeight=\"402.0\" prefWidth=\"400.0\" tabClosingPolicy=\"UNAVAILABLE\" />\r\n   </children>\r\n</VBox>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/example/barghifoodgraphics/menu.fxml b/src/main/resources/com/example/barghifoodgraphics/menu.fxml
+--- a/src/main/resources/com/example/barghifoodgraphics/menu.fxml	(revision c96f982d06ae21067eeef69b28e1ae6289610a02)
++++ b/src/main/resources/com/example/barghifoodgraphics/menu.fxml	(date 1689093346242)
+@@ -2,6 +2,7 @@
+ 
+ <?import javafx.geometry.Insets?>
+ <?import javafx.scene.control.Button?>
++<?import javafx.scene.control.ChoiceBox?>
+ <?import javafx.scene.control.Label?>
+ <?import javafx.scene.control.TabPane?>
+ <?import javafx.scene.image.Image?>
+@@ -10,7 +11,6 @@
+ <?import javafx.scene.layout.VBox?>
+ <?import javafx.scene.text.Font?>
+ 
+-
+ <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.menuController">
+    <children>
+       <HBox alignment="CENTER" prefHeight="86.0" prefWidth="400.0">
+@@ -56,6 +56,20 @@
+             <Insets />
+          </VBox.margin>
+       </HBox>
+-      <TabPane fx:id="myTabPane" prefHeight="402.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" />
++      <TabPane fx:id="myTabPane" prefHeight="310.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE" />
++      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="400.0">
++         <children>
++            <Button fx:id="addButton" mnemonicParsing="false" text="Add to cart">
++               <HBox.margin>
++                  <Insets left="50.0" />
++               </HBox.margin>
++            </Button>
++            <ChoiceBox fx:id="quantity" prefHeight="15.0" prefWidth="34.0">
++               <HBox.margin>
++                  <Insets left="30.0" />
++               </HBox.margin>
++            </ChoiceBox>
++         </children>
++      </HBox>
+    </children>
+ </VBox>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"f42fa66c-eb4f-4057-bbed-7b6c1c515121\" name=\"Changes\" comment=\"supermarket update\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_10_2023_2_59_PM__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_10_2023_2_59_PM__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_7_2023_11_49_AM__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_7_2023_11_49_AM__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_11_07_PM__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_11_07_PM__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_1_37_PM__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_1_37_PM__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n        <option value=\"FxmlFile\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"PREVIOUS_COMMIT_AUTHORS\">\r\n      <list>\r\n        <option value=\"Armin Atarod &lt;armin.atarod@gmail.com&gt;\" />\r\n      </list>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2SKzP1kv464TcHhH0pxCKHnK7YY\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;E:/Documents/Java codes/barghi-food-graphics/src/main/resources/com/example/barghifoodgraphics&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\Documents\\Java codes\\barghi-food-graphics\\src\\main\\resources\\com\\example\\barghifoodgraphics\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"com.example.barghifoodgraphics\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"MainApplication\" type=\"Application\" factoryName=\"Application\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.barghifoodgraphics.MainApplication\" />\r\n      <module name=\"barghi-food-graphics\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"f42fa66c-eb4f-4057-bbed-7b6c1c515121\" name=\"Changes\" comment=\"\" />\r\n      <created>1688910036363</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1688910036363</updated>\r\n      <workItem from=\"1688910038556\" duration=\"185000\" />\r\n      <workItem from=\"1688910237606\" duration=\"3721000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"update\">\r\n      <created>1688910303191</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1688910303191</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"update\">\r\n      <created>1688910351730</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1688910351730</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"supermarket update\">\r\n      <created>1689009185447</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689009185447</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"supermarket update\">\r\n      <created>1689064754709</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689064754709</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"supermarket update\">\r\n      <created>1689064877179</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689064877179</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"supermarket update\">\r\n      <created>1689064921879</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689064921879</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"update\" />\r\n    <MESSAGE value=\"supermarket update\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"supermarket update\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision c96f982d06ae21067eeef69b28e1ae6289610a02)
++++ b/.idea/workspace.xml	(date 1689093444044)
+@@ -5,11 +5,10 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="f42fa66c-eb4f-4057-bbed-7b6c1c515121" name="Changes" comment="supermarket update">
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_10_2023_2_59_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_10_2023_2_59_PM__Changes_.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_7_2023_11_49_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_7_2023_11_49_AM__Changes_.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_11_07_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_11_07_PM__Changes_.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_1_37_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_9_2023_1_37_PM__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/menuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/menuController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/menu.fxml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -135,7 +134,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1689064921879</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL-00007" summary="supermarket update">
++      <created>1689076477601</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1689076477601</updated>
++    </task>
++    <option name="localTasksCounter" value="8" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
