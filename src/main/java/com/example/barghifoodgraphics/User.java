@@ -49,6 +49,9 @@ public class User extends Account {
         this.cart = cart;
         save();
     }
+    public void removeComment(int id) {
+        comments.remove(id);
+    }
 
     public Order getCart() {
         return cart;

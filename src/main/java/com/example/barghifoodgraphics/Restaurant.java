@@ -75,6 +75,9 @@ public class Restaurant {
     public void addComment(int commentId) {
         comments.add(commentId);
     }
+    public void removeComment(int id) {
+        comments.remove(id);
+    }
 
     @JsonCreator
     public Restaurant(@JsonProperty("location")int location, @JsonProperty("adminID") int adminID, @JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("type") String type, @JsonProperty("orders") HashSet<Integer> orders, @JsonProperty("menu") HashSet<Integer> menu, @JsonProperty("averageRating") double averageRating, @JsonProperty("ratings") HashMap<Integer, Integer> ratings, @JsonProperty("foodType") HashSet<String> foodType, @JsonProperty("balance") double balance, @JsonProperty("comments") HashSet<Integer> comments) {
@@ -120,6 +123,9 @@ public class Restaurant {
     public void addFoodToMenu(int id) {
         menu.add(id);
         save();
+    }
+    public void removeFood(int id) {
+        menu.remove(id);
     }
     public void addFoodType(String type) {
         foodType.add(type);
@@ -189,6 +195,7 @@ public class Restaurant {
         this.type = type;
         save();
     }
+
     public void withdraw() {
         balance = 0;
         save();

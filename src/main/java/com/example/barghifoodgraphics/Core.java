@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import static java.lang.Integer.compareUnsigned;
 import static java.lang.Integer.min;
 
 public class Core {
@@ -15,7 +16,7 @@ public class Core {
     HashMap<Integer, Restaurant> restaurants;
     HashMap<Integer, Food> foods;
     HashMap<Integer, Comment> comments;
-    int loggedInAccount, loggedInUser, loggedInAdmin, loggedInDeliveryman, selectedRestaurant, selectedFood, selectedOrder;
+    int loggedInAccount, loggedInUser, loggedInAdmin, loggedInDeliveryman, selectedRestaurant, selectedFood, selectedOrder, tmpPassForgot;
     public double getPrice (HashMap<Integer, Integer> items) {
         double ans = 0.0;
         for (int i : items.keySet())
@@ -170,6 +171,10 @@ public class Core {
                 System.out.println("Username taken!");
                 return 2;
             }
+        if (!Account.checkPassword(password)) {
+            System.out.println("wrong password format");
+            return 3;
+        }
         User tmp = new User(username, password, recoveryQuestion, recoveryQuestionAnswer, accounts.size());
         tmp.setType("User");
         tmp.save();
@@ -187,6 +192,10 @@ public class Core {
                 System.out.println("Username taken!");
                 return 2;
             }
+        if (!Account.checkPassword(password)) {
+            System.out.println("wrong password format");
+            return 3;
+        }
         Deliveryman tmp = new Deliveryman(username, password, recoveryQuestion, recoveryQuestionAnswer, accounts.size());
         tmp.setType("Deliveryman");
         tmp.save();
@@ -204,6 +213,10 @@ public class Core {
                 System.out.println("Username taken!");
                 return 2;
             }
+        if (!Account.checkPassword(password)) {
+            System.out.println("wrong password format");
+            return 3;
+        }
         Admin tmp = new Admin(username, password, recoveryQuestion, recoveryQuestionAnswer, accounts.size());
         tmp.setType("Admin");
         tmp.save();
@@ -435,6 +448,25 @@ public class Core {
         System.out.println("The food added successfully.");
 
     }
+    public void removeFood(int id) {
+        if (selectedRestaurant == -1) {
+            System.out.println("No restaurant has been selected!");
+        }
+        else if (restaurants.get(selectedRestaurant).getAdmin() != loggedInAdmin) {
+            System.out.println("You are not the owner !");
+        }
+        for (int i : restaurants.get(selectedRestaurant).getMenu()){
+            if (foods.get(i).getId() == id) {
+                restaurants.get(selectedRestaurant).removeFood(id);
+                System.out.println("food successfullt removed from menu");
+                if (selectedFood == id) {
+                    selectedFood = -1;
+                }
+                return;
+            }
+        }
+        System.out.println("there is not any food with this is in this restaurant!");
+    }
     public void activateFood(int foodID) {
         if (selectedRestaurant == -1) {
             System.out.println("No restaurant has been selected!");
@@ -485,6 +517,14 @@ public class Core {
             System.out.println("Food selected successfully.");
         }
     }
+    public void showRestaurants() {
+        if (loggedInAdmin != -1) {
+            Admin tmp = (Admin) accounts.get(loggedInAdmin);
+            for (int i : tmp.getRestaurants()) {
+                System.out.println("id : " + i + " Name : " + restaurants.get(i).getName() + " food type : " + restaurants.get(i).getType());
+            }
+        }
+    }
     public void displayRating() {
         if (selectedFood == -1) {
             System.out.println("No food has been selected!");
@@ -515,6 +555,21 @@ public class Core {
         }
         else {
             comments.get(commentID).setAnswer(message);
+            System.out.println("Response added successfully.");
+        }
+    }
+    public void removeResponse(int commentID) {
+        if (selectedFood == -1) {
+            System.out.println("No food has been selected!");
+        }
+        else if (restaurants.get(selectedRestaurant).getAdmin() != loggedInAdmin) {
+            System.out.println("You are not the owner !");
+        }
+        else if (!foods.get(selectedFood).getComments().contains(commentID)) {
+            System.out.println("The selected food does not have a comment with the given ID!");
+        }
+        else {
+            comments.get(commentID).setAnswer("");
             System.out.println("Response added successfully.");
         }
     }
@@ -737,6 +792,56 @@ public class Core {
             System.out.println("Comment added successfully.");
         }
     }
+    public void addCommentRestaurant(String content) {
+        if (loggedInUser == -1) {
+            System.out.println("login az user !");
+            return;
+        }
+        if (selectedRestaurant == -1) {
+            System.out.println("No Restuarant has been selected!");
+        }
+        else {
+            Comment tmp = new Comment(comments.size(), loggedInUser, selectedRestaurant, 2, content);
+            ((User)accounts.get(loggedInUser)).addComment(comments.size());
+            restaurants.get(selectedRestaurant).addComment(comments.size());
+            tmp.save();
+            comments.put(tmp.getId(), tmp);
+            System.out.println("Comment added successfully.");
+        }
+    }
+    public void removeComment(int id) {
+        if (loggedInUser == -1) {
+            System.out.println("login az user !");
+            return;
+        }
+        if (!comments.containsKey(id)) {
+            System.out.println("invalid comment id!");
+            return;
+        }
+        Comment cmp = comments.get(id);
+        if (cmp.getReceptionType() == 1) {
+            if (!foods.get(cmp.getReceptionId()).getComments().contains(id)) {
+                System.out.println("invalid comment id!");
+            } else if (!((User) accounts.get(loggedInUser)).getComments().contains(id)) {
+                System.out.println("you are not the owner of the coment !");
+            } else {
+                foods.get(cmp.getReceptionId()).removeComment(id);
+                ((User) accounts.get(loggedInUser)).removeComment(id);
+                System.out.println("comment removed successfully!");
+            }
+        }
+        else {
+            if (!restaurants.get(cmp.getReceptionId()).getComments().contains(id)) {
+                System.out.println("invalid comment id!");
+            } else if (!((User) accounts.get(loggedInUser)).getComments().contains(id)) {
+                System.out.println("you are not the owner of the coment !");
+            } else {
+                restaurants.get(cmp.getReceptionId()).removeComment(id);
+                ((User) accounts.get(loggedInUser)).removeComment(id);
+                System.out.println("comment removed successfully!");
+            }
+        }
+    }
     public void editComment(int commentID, String content) {
         if (loggedInUser == -1) {
             System.out.println("login first !");
@@ -764,7 +869,12 @@ public class Core {
         }
         else if (foods.get(selectedFood).getRaters().containsKey(loggedInUser)) {
             System.out.println("You have already added a rating for this food!");
-        } else {
+        }
+        else if (rating < 0 || rating > 5) {
+            System.out.println("valid range for rating is 0-5!");
+            return;
+        }
+        else {
             foods.get(selectedFood).addRating(loggedInAccount, rating);
             System.out.println("Rating submitted successfully.");
         }
@@ -779,6 +889,10 @@ public class Core {
         }
         else if (!foods.get(selectedFood).getRaters().containsKey(loggedInAccount)) {
             System.out.println("You have not submitted a rating for this food!");
+        }
+        else if (rating < 0 || rating > 5) {
+            System.out.println("valid range for rating is 0-5!");
+            return;
         }
         else {
             foods.get(selectedFood).editRating(loggedInAccount, rating);
@@ -1288,5 +1402,69 @@ public class Core {
             return;
         }
         map.setTraffic(u, v, traffic);
+    }
+    public void setFoodFoodType(String type) {
+        if (loggedInAdmin == -1) {
+            System.out.println("login az admin!");
+            return;
+        }
+        if (selectedRestaurant == -1) {
+            System.out.println("select restuarant first!");
+            return;
+        }
+        if (selectedFood == -1) {
+            System.out.println("select food first");
+            return;
+        }
+        if (restaurants.get(foods.get(selectedFood).getRestaurant()).getAdmin() != loggedInAdmin) {
+            System.out.println("you are not the owner !");
+            return;
+        }
+        foods.get(selectedFood).setFoodType(type);
+    }
+    public void showFoodFoodType(int id) {
+        if (loggedInAccount == -1) {
+            System.out.println("login first!");
+            return;
+        }
+        if (!foods.containsKey(id)) {
+            System.out.println("invalid food id");
+            return;
+        }
+        System.out.println("Food type : " + foods.get(id).getFoodType());
+    }
+    public void forgotPassword(String userName) {
+        if (loggedInAccount != -1) {
+            System.out.println("You are already logged in.");
+            return;
+        }
+        for (Account acc : accounts.values()) {
+            if (userName.equals(acc.getUsername())) {
+                System.out.println("answer to : " + acc.getRecoveryQuestion() + "  plus new password");
+                tmpPassForgot = acc.getId();
+                return;
+            }
+        }
+        System.out.println("There is no account with this username!");
+    }
+    public void resetPassword (String RecovAns, String newPass) {
+        if (loggedInAccount != -1) {
+            System.out.println("You are already logged in.");
+            return;
+        }
+        Account tmp = accounts.get(tmpPassForgot);
+        tmpPassForgot = -1;
+        if (tmp.getRecoveryQuestion().equals(RecovAns)) {
+            if (Account.checkPassword(newPass)) {
+                tmp.setPassword(newPass);
+                System.out.println("password changed successfully");
+                return;
+            }
+            else {
+                System.out.println("Wrong password format !");
+                return;
+            }
+        }
+        System.out.println("Wrong answer !!!");
     }
 }

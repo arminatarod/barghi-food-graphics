@@ -14,7 +14,7 @@ public class Food {
     private LocalTime discountTimestamp;
     private double averageRating, discount;
     private HashMap<Integer, Integer> ratings;
-    private String name;
+    private String name, foodType;
     private boolean isActive;
     private HashSet<Integer> comments;
 
@@ -46,6 +46,14 @@ public class Food {
 
     public void setDiscountTimestamp(LocalTime discountTimestamp) {
         this.discountTimestamp = discountTimestamp;
+    }
+
+    public void setFoodType(String foodType) {
+        this.foodType = foodType;
+    }
+
+    public String getFoodType() {
+        return foodType;
     }
 
     public void setAverageRating(double averageRating) {
@@ -162,5 +170,8 @@ public class Food {
         try {
             mapper.writeValue(new File("src/data/foods/" + id + ".json"), this);
         } catch (Exception ignored) {}
+    }
+    public void removeComment(int id) {
+        comments.remove(id);
     }
 }

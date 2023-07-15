@@ -41,7 +41,7 @@ public class Account {
     public String getRecoveryQuestionAnswer() {
         return recoveryQuestionAnswer;
     }
-    public boolean checkPassword(String password) {
+    static public boolean checkPassword(String password) {
         return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
     }
 
