@@ -9,14 +9,23 @@ import java.util.Scanner;
 public class MapG {
     // ye data structure baraye graph
     private int n, m;
-    private int[] dad, dis;
+    private int[] dad;
+    private double[] dis;
     private boolean[] isInQueue;
     private class edge {
-        public edge(int weight, int u) {
+        public edge(int weight, int u, int i) {
             this.weight = weight;
             this.u = u;
+            traffic = 1.0;
+            index = i;
         }
-        private int weight, u;
+        private int weight, u, index;
+
+        public int getIndex() {
+            return index;
+        }
+
+        private double traffic;
         public void setU(int u) {
             this.u = u;
         }
@@ -29,11 +38,43 @@ public class MapG {
         public int getWeight() {
             return weight;
         }
+
+        public double getTraffic() {
+            return traffic;
+        }
+
+        public void setTraffic(double traffic) {
+            this.traffic = traffic;
+        }
     }
 
     public int getN() {
         return n;
     }
+    public void setTraffic(int index, double traffic) {
+        for (ArrayList<edge> i : graph) {
+            for (edge j : i) {
+                if (j.getIndex() == index){
+                    j.setTraffic(traffic);
+                }
+            }
+        }
+    }
+    public double getTraffic(int index) {
+        for (ArrayList<edge> i : graph) {
+            for (edge j : i) {
+                if (j.getIndex() == index){
+                    return j.getTraffic();
+                }
+            }
+        }
+        return 1.0;
+    }
+
+    public int getM() {
+        return m;
+    }
+
     private ArrayList<ArrayList<edge>> graph;
     public void readGraphFromFile(String address) throws FileNotFoundException {
         File myObj = new File(address);
@@ -47,21 +88,22 @@ public class MapG {
         n = myReader.nextInt();
         m = myReader.nextInt();
         graph = new ArrayList<ArrayList<edge>>();
-        for (int i = 0; i < n + 1; i++)
-                graph.add(new ArrayList<edge>());
+        for (int i = 0; i < n + 1; i++) {
+            graph.add(new ArrayList<edge>());
+        }
         for (int i = 0; i < m; i++) {
             int u = myReader.nextInt(), v = myReader.nextInt(), w = myReader.nextInt();
-            graph.get(u).add(new edge(v, w));
-            graph.get(v).add(new edge(u, w));
+            graph.get(u).add(new edge(v, w, i));
+            graph.get(v).add(new edge(u, w, i));
         }
         myReader.close();
     }
     public int getDistance (int node1, int node2){
-        dis = new int[n];
+        dis = new double[n];
         dad = new int[n];
         isInQueue = new boolean[n];
         for (int i = 0; i < n; i++)
-            dis[i] = 9999;
+            dis[i] = 999999;
         LinkedList<Integer> queue= new LinkedList<Integer>();
         dis[node1] = 0;
         queue.addLast(node1);
@@ -70,8 +112,8 @@ public class MapG {
             queue.removeFirst();
             isInQueue[koft] = false;
             for (edge a : graph.get(koft))
-                if (dis[a.getU()] > dis[koft] + a.getWeight()) {
-                    dis[a.getU()] = dis[koft] + a.getWeight();
+                if (dis[a.getU()] > dis[koft] + a.getWeight() * a.getTraffic()) {
+                    dis[a.getU()] = dis[koft] + a.getWeight() * a.getTraffic();
                     dad[a.getU()] = koft;
                     if (!isInQueue[a.getU()]) {
                         isInQueue[a.getU()] = true;
@@ -79,7 +121,7 @@ public class MapG {
                     }
                 }
         }
-        return dis[node2];
+        return (int)dis[node2];
     }
     private static ArrayList<Integer> decodePath(int node2) {
         ArrayList<Integer> ans = new ArrayList<Integer>();
@@ -87,7 +129,7 @@ public class MapG {
         return ans;
     }
     public Path getShortestPath (int node1, int node2){
-        dis = new int[n];
+        dis = new double[n];
         dad = new int[n];
         isInQueue = new boolean[n];
         for (int i = 0; i < n; i++)
@@ -100,8 +142,8 @@ public class MapG {
             queue.removeFirst();
             isInQueue[koft] = false;
             for (edge a : graph.get(koft))
-                if (dis[a.getU()] > dis[koft] + a.getWeight()) {
-                    dis[a.getU()] = dis[koft] + a.getWeight();
+                if (dis[a.getU()] > dis[koft] + a.getWeight() * a.getTraffic()) {
+                    dis[a.getU()] = dis[koft] + a.getWeight() * a.getTraffic();
                     dad[a.getU()] = koft;
                     if (!isInQueue[a.getU()]) {
                         isInQueue[a.getU()] = true;
@@ -110,7 +152,7 @@ public class MapG {
                 }
         }
         Path ans = new Path();
-        ans.setTime(dis[node2]);
+        ans.setTime((int)dis[node2]);
         ArrayList<Integer> tmp = new ArrayList<Integer>();
         while (node2 != node1) {
             tmp.add(node2);

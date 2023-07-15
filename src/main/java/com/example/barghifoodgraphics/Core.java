@@ -1275,4 +1275,18 @@ public class Core {
         acc.addBalance(ord.getDeliveryPrice());
         System.out.println("order is now in ind mode");
     }
+    public double getTraffic(int edgeId) {
+        if (map.getM() < edgeId) {
+            System.out.println("invalid edge id");
+            return 0;
+        }
+        return map.getTraffic(edgeId);
+    }
+    public void seeTraffic(int edgeId, double traffic) {
+        if (map.getM() < edgeId) {
+            System.out.println("invalid edge id");
+            return;
+        }
+        map.setTraffic(edgeId, traffic);
+    }
 }
