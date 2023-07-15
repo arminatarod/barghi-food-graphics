@@ -30,7 +30,7 @@ public class Core {
     }
     public Core() throws FileNotFoundException {
         map = new MapG();
-        map.readGraphFromFile("src/data/graph.txt");
+        map.readGraphFromFile("src/data/graph2.txt");
         accounts = new HashMap<>();
         orders = new HashMap<>();
         restaurants = new HashMap<>();

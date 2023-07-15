@@ -5,7 +5,10 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,9 @@ public class deliverymanPageController {
     private Label idLabel, usernameLabel, passwordLabel, recoveryQuestionLabel, recoveryAnswerLabel, balanceLabel;
     @FXML
     private TextField balanceTextField;
+    @FXML
+    private Canvas mapCanvas;
+    GraphicsContext graphicsContext;
     public void tableClicked() {
         if (availableOrdersTable.getSelectionModel().getSelectedItem() == null)
             selectedRow = -1;
@@ -64,6 +70,64 @@ public class deliverymanPageController {
         MainApplication.core.logout();
         MainApplication.stage.setScene(MainApplication.login);
     }
+    public void drawLine(int aX, int aY, int bX, int bY, Color color, int width) {
+        graphicsContext.setStroke(color);
+        graphicsContext.setLineWidth(width);
+        graphicsContext.beginPath();
+        graphicsContext.moveTo(aX, aY);
+        graphicsContext.lineTo(bX, bY);
+        graphicsContext.stroke();
+    }
+    public void refreshCanvas() {
+        graphicsContext.setFill(Color.WHITE);
+        graphicsContext.fillRect(0, 0, 360, 360);
+        drawLine(25, 25, 75, 25, Color.BLACK, 1);
+        drawLine(235, 25, 285, 25, Color.BLACK, 1);
+        drawLine(285, 25, 335, 25, Color.BLACK, 1);
+        drawLine(25, 25, 25, 75, Color.BLACK, 1);
+        drawLine(25, 75, 75, 75, Color.BLACK, 1);
+        drawLine(75, 25, 75, 75, Color.BLACK, 1);
+        drawLine(75, 75, 155, 125, Color.BLACK, 1);
+        drawLine(155, 125, 235, 75, Color.BLACK, 1);
+        drawLine(235, 25, 235, 75, Color.BLACK, 1);
+        drawLine(235, 75, 285, 125, Color.BLACK, 1);
+        drawLine(75, 155, 155, 125, Color.BLACK, 1);
+        drawLine(155, 125, 235, 155, Color.BLACK, 1);
+        drawLine(285, 25, 285, 125, Color.BLACK, 1);
+        drawLine(75, 155, 75, 255, Color.BLACK, 1);
+        drawLine(235, 155, 235, 255, Color.BLACK, 1);
+        drawLine(75, 255, 235, 255, Color.BLACK, 1);
+        drawLine(235, 255, 285, 255, Color.BLACK, 1);
+        drawLine(75, 255, 25, 335, Color.BLACK, 1);
+        drawLine(25, 335, 155, 335, Color.BLACK, 1);
+        drawLine(155, 335, 335, 335, Color.BLACK, 1);
+        drawLine(285, 255, 335, 335, Color.BLACK, 1);
+        drawLine(335, 205, 335, 335, Color.BLACK, 1);
+        drawLine(335, 205, 335, 25, Color.BLACK, 1);
+        drawLine(335, 205, 285, 255, Color.BLACK, 1);
+        drawLine(25, 75, 25, 335, Color.BLACK, 1);
+        drawLine(155, 335, 75, 255, Color.BLACK, 1);
+        graphicsContext.setFill(Color.BLACK);
+        graphicsContext.fillOval(20, 20, 10, 10);
+        graphicsContext.fillOval(70, 20, 10, 10);
+        graphicsContext.fillOval(20, 70, 10, 10);
+        graphicsContext.fillOval(70, 70, 10, 10);
+        graphicsContext.fillOval(230, 20, 10, 10);
+        graphicsContext.fillOval(230, 70, 10, 10);
+        graphicsContext.fillOval(70, 150, 10, 10);
+        graphicsContext.fillOval(150, 120, 10, 10);
+        graphicsContext.fillOval(280, 20, 10, 10);
+        graphicsContext.fillOval(330, 20, 10, 10);
+        graphicsContext.fillOval(230, 150, 10, 10);
+        graphicsContext.fillOval(280, 120, 10, 10);
+        graphicsContext.fillOval(330, 200, 10, 10);
+        graphicsContext.fillOval(70, 250, 10, 10);
+        graphicsContext.fillOval(230, 250, 10, 10);
+        graphicsContext.fillOval(280, 250, 10, 10);
+        graphicsContext.fillOval(20, 330, 10, 10);
+        graphicsContext.fillOval(150, 330, 10, 10);
+        graphicsContext.fillOval(330, 330, 10, 10);
+    }
     public void initialize() {
         selectedRow = -1;
         idLabel.setText(String.valueOf(MainApplication.core.loggedInDeliveryman));
@@ -102,5 +166,7 @@ public class deliverymanPageController {
             data.add(row);
         }
         availableOrdersTable.setItems(data);
+        graphicsContext = mapCanvas.getGraphicsContext2D();
+        refreshCanvas();
     }
 }
