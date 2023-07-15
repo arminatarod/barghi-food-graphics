@@ -1135,7 +1135,7 @@ public class Core {
                 }
             }
             System.out.println("suggestions : ");
-            for(int i = 0; i < tmp.size() / 3; i++) {
+            for(int i = 0; i < min(tmp.size() / 3, 5); i++) {
                 Food tmp2 = foods.get(tmp.get(i));
                 System.out.println("id : " + tmp2.getId() + " restuarant id :" + tmp2.getRestaurant() + " ratings :  " + tmp2.getAverageRating() + " price : " + tmp2.getPrice() + " discount : " + tmp2.getDiscount());
             }
@@ -1155,7 +1155,7 @@ public class Core {
                 }
             }
             System.out.println("suggestions : ");
-            for(int i = 0; i < tmp.size() / 3; i++) {
+            for(int i = 0; i < min(tmp.size() / 3, 5); i++) {
                 Food tmp2 = foods.get(tmp.get(i));
                 System.out.println("id : " + tmp2.getId() + " ratings :  " + tmp2.getAverageRating() + " price : " + tmp2.getPrice() + " discount : " + tmp2.getDiscount());
             }
