@@ -21,6 +21,8 @@ public class menuController {
         int available = 5;
         for(int i=0;i<available;i++)
             quantity.getItems().add(i+1);
+        if (MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant) == null)
+            return;
         for(String FoodType : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType())
         {
             TableView<List<StringProperty>> tableView = new TableView<>();

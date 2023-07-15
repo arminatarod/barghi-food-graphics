@@ -40,10 +40,14 @@ public class MainApplication extends Application {
         TimerTask changeTraffic = new TimerTask() {
             @Override
             public void run() {
-                //core.setTraffic(new Random().nextInt(19) + 1, new Random().nextInt(3));
+                int x = new Random().nextInt(19) + 1, y = new Random().nextInt(19) + 1, z = new Random().nextInt(3);
+                core.setTraffic(x, y, z);
+                System.out.println(x + ", " + y + ", " + z);
+                core.setTraffic(14, 15, 0);
+                System.out.println(core.getTraffic(14, 15));
             }
         };
-        timer.schedule(changeTraffic, 0L, 1000 * 20);
+        timer.schedule(changeTraffic, 0L, 500);
         stage = mainStage;
         stage.setTitle("Barghi Food");
         stage.setMinWidth(410);
