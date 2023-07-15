@@ -1121,7 +1121,24 @@ public class Core {
             System.out.println("No one has logged in!!!");
         }
         else if(selectedRestaurant == -1) {
-            System.out.println("No restaurant has been selected!!!");
+            ArrayList<Integer> tmp = new ArrayList<>();
+            for(Food i : foods.values()) {
+                if (i.getActive()) {
+                    tmp.add(i.getId());
+                }
+            }
+            for(int i=0;i<tmp.size();i++) {
+                for(int j=i+1;j<tmp.size();j++) {
+                    if(foods.get(tmp.get(i)).getAverageRating() > foods.get(tmp.get(j)).getAverageRating()) {
+                        Collections.swap(tmp,i,j);
+                    }
+                }
+            }
+            System.out.println("suggestions : ");
+            for(int i = 0; i < tmp.size() / 3; i++) {
+                Food tmp2 = foods.get(tmp.get(i));
+                System.out.println("id : " + tmp2.getId() + " restuarant id :" + tmp2.getRestaurant() + " ratings :  " + tmp2.getAverageRating() + " price : " + tmp2.getPrice() + " discount : " + tmp2.getDiscount());
+            }
         }
         else {
             ArrayList<Integer> tmp = new ArrayList<>();
@@ -1396,7 +1413,7 @@ public class Core {
         }
         return map.getTraffic(u, v);
     }
-    public void seeTraffic(int u, int v, double traffic) {
+    public void setTraffic(int u, int v, double traffic) {
         if (map.getN() < u || map.getN() < v) {
             System.out.println("invalid edge id");
             return;
