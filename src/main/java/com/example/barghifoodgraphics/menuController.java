@@ -8,10 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class menuController {
     @FXML TabPane myTabPane;
@@ -24,8 +21,7 @@ public class menuController {
         int available = 5;
         for(int i=0;i<available;i++)
             quantity.getItems().add(i+1);
-        List<String> foodTypes = Arrays.asList("Appetizers", "Entrees", "Desserts", "Pizza", "Pasta", "Drinks", "Chicken", "Steak", "Coffee");
-        for(String FoodType : foodTypes)
+        for(String FoodType : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType())
         {
             TableView<List<StringProperty>> tableView = new TableView<>();
             TableColumn<List<StringProperty>,String> FoodNameColumn = new TableColumn<>("Name");
@@ -57,7 +53,7 @@ public class menuController {
             myTabPane.getTabs().add(tab);
             tableViews.add(tableView);
         }
-        averageRatingLabel.setText(Double.toString(4.8));
+        averageRatingLabel.setText(Double.toString(MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getAverageRating()));
         quantity.setValue(1);
     }
     public void addToCart()
@@ -71,10 +67,16 @@ public class menuController {
         }
         else
         {
-            int j = tmp.getSelectionModel().getSelectedIndex();
-            System.out.println(tmp.getColumns().get(0).getCellData(j));
-            System.out.println(tmp.getColumns().get(1).getCellData(j));
-            //TODO add krdn be cart
+            String foodName = (String) tmp.getColumns().get(0).getCellData(tmp.getSelectionModel().getSelectedIndex());
+            for(Map.Entry<Integer, Food> food : MainApplication.core.foods.entrySet())
+            {
+                if(food.getValue().getName().equals(foodName))
+                {
+                    MainApplication.core.selectedFood = food.getKey();
+                    MainApplication.core.addToCart(quantity.getValue());
+                    break;
+                }
+            }
         }
     }
 }
