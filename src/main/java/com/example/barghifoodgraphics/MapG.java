@@ -12,7 +12,7 @@ public class MapG {
     private int[] dad;
     private double[] dis;
     private boolean[] isInQueue;
-    private class edge {
+    public static class edge {
         public edge(int weight, int u, int i) {
             this.weight = weight;
             this.u = u;
@@ -83,7 +83,7 @@ public class MapG {
         return m;
     }
 
-    private ArrayList<ArrayList<edge>> graph;
+    public ArrayList<ArrayList<edge>> graph;
     public void readGraphFromFile(String address) throws FileNotFoundException {
         File myObj = new File(address);
         Scanner myReader;

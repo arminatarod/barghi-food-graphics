@@ -11,11 +11,13 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class deliverymanPageController {
     ArrayList<Integer> availableOrders;
     int currentDelivery, selectedRow;
+    HashMap<Integer, ArrayList<Integer>> coordinatesOf = new HashMap<>();
     @FXML
     private TableColumn<List<StringProperty>, String> startingPoint, destinationPoint, estimatedDuration;
     @FXML
@@ -84,54 +86,35 @@ public class deliverymanPageController {
     public void refreshCanvas() {
         graphicsContext.setFill(Color.WHITE);
         graphicsContext.fillRect(0, 0, 360, 360);
-        drawLine(25, 25, 75, 25, getColor(1, 2), 1);
-        drawLine(235, 25, 285, 25, getColor(3, 4), 1);
-        drawLine(285, 25, 335, 25, getColor(4, 5), 1);
-        drawLine(25, 25, 25, 75, getColor(1, 6), 1);
-        drawLine(25, 75, 75, 75, getColor(6, 7), 1);
-        drawLine(75, 25, 75, 75, getColor(2, 7), 1);
-        drawLine(75, 75, 155, 125, getColor(7, 9), 1);
-        drawLine(155, 125, 235, 75, getColor(9, 8), 1);
-        drawLine(235, 25, 235, 75, getColor(3, 8), 1);
-        drawLine(235, 75, 285, 125, getColor(8, 10), 1);
-        drawLine(75, 155, 155, 125, getColor(11, 9), 1);
-        drawLine(155, 125, 235, 155, getColor(9, 12), 1);
-        drawLine(285, 25, 285, 125, getColor(4, 10), 1);
-        drawLine(75, 155, 75, 255, getColor(11, 14), 1);
-        drawLine(235, 155, 235, 255, getColor(12, 15), 1);
-        drawLine(75, 255, 235, 255, getColor(14, 15), 1);
-        drawLine(235, 255, 285, 255, getColor(15, 16), 1);
-        drawLine(75, 255, 25, 335, getColor(14, 17), 1);
-        drawLine(25, 335, 155, 335, getColor(17, 18), 1);
-        drawLine(155, 335, 335, 335, getColor(18, 19), 1);
-        drawLine(285, 255, 335, 335, getColor(16, 19), 1);
-        drawLine(335, 205, 335, 335, getColor(13, 19), 1);
-        drawLine(335, 205, 335, 25, getColor(13, 5), 1);
-        drawLine(335, 205, 285, 255, getColor(13, 16), 1);
-        drawLine(25, 75, 25, 335, getColor(6, 17), 1);
-        drawLine(155, 335, 75, 255, getColor(18, 14), 1);
+        for (ArrayList<MapG.edge> nodeEdges : MainApplication.core.map.graph)
+            for (MapG.edge edge : nodeEdges)
+                drawLine(coordinatesOf.get(edge.getU()).get(0), coordinatesOf.get(edge.getU()).get(1), coordinatesOf.get(edge.getV()).get(0), coordinatesOf.get(edge.getV()).get(1), getColor(edge.getU(), edge.getV()), 1);
         graphicsContext.setFill(Color.BLACK);
-        graphicsContext.fillOval(20, 20, 10, 10);
-        graphicsContext.fillOval(70, 20, 10, 10);
-        graphicsContext.fillOval(20, 70, 10, 10);
-        graphicsContext.fillOval(70, 70, 10, 10);
-        graphicsContext.fillOval(230, 20, 10, 10);
-        graphicsContext.fillOval(230, 70, 10, 10);
-        graphicsContext.fillOval(70, 150, 10, 10);
-        graphicsContext.fillOval(150, 120, 10, 10);
-        graphicsContext.fillOval(280, 20, 10, 10);
-        graphicsContext.fillOval(330, 20, 10, 10);
-        graphicsContext.fillOval(230, 150, 10, 10);
-        graphicsContext.fillOval(280, 120, 10, 10);
-        graphicsContext.fillOval(330, 200, 10, 10);
-        graphicsContext.fillOval(70, 250, 10, 10);
-        graphicsContext.fillOval(230, 250, 10, 10);
-        graphicsContext.fillOval(280, 250, 10, 10);
-        graphicsContext.fillOval(20, 330, 10, 10);
-        graphicsContext.fillOval(150, 330, 10, 10);
-        graphicsContext.fillOval(330, 330, 10, 10);
+        for (int i = 1; i <= 19; i++)
+            graphicsContext.fillOval(coordinatesOf.get(i).get(0) - 5, coordinatesOf.get(i).get(1) - 5, 10, 10);
     }
     public void initialize() {
+        for (int i = 1; i <= 19; i++)
+            coordinatesOf.put(i, new ArrayList<>());
+        coordinatesOf.get(1).add(25); coordinatesOf.get(1).add(25);
+        coordinatesOf.get(2).add(75); coordinatesOf.get(2).add(25);
+        coordinatesOf.get(3).add(235); coordinatesOf.get(3).add(25);
+        coordinatesOf.get(4).add(285); coordinatesOf.get(4).add(25);
+        coordinatesOf.get(5).add(335); coordinatesOf.get(5).add(25);
+        coordinatesOf.get(6).add(25); coordinatesOf.get(6).add(75);
+        coordinatesOf.get(7).add(75); coordinatesOf.get(7).add(75);
+        coordinatesOf.get(8).add(235); coordinatesOf.get(8).add(75);
+        coordinatesOf.get(9).add(155); coordinatesOf.get(9).add(125);
+        coordinatesOf.get(10).add(285); coordinatesOf.get(10).add(125);
+        coordinatesOf.get(11).add(75); coordinatesOf.get(11).add(155);
+        coordinatesOf.get(12).add(235); coordinatesOf.get(12).add(155);
+        coordinatesOf.get(13).add(335); coordinatesOf.get(13).add(205);
+        coordinatesOf.get(14).add(75); coordinatesOf.get(14).add(255);
+        coordinatesOf.get(15).add(235); coordinatesOf.get(15).add(255);
+        coordinatesOf.get(16).add(285); coordinatesOf.get(16).add(255);
+        coordinatesOf.get(17).add(25); coordinatesOf.get(17).add(335);
+        coordinatesOf.get(18).add(155); coordinatesOf.get(18).add(335);
+        coordinatesOf.get(19).add(335); coordinatesOf.get(19).add(335);
         selectedRow = -1;
         idLabel.setText(String.valueOf(MainApplication.core.loggedInDeliveryman));
         usernameLabel.setText(MainApplication.core.accounts.get(MainApplication.core.loggedInDeliveryman).getUsername());
