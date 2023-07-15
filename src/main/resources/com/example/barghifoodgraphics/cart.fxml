@@ -36,14 +36,14 @@
       </Label>
       <TableView fx:id="cartTable" focusTraversable="false" onMouseClicked="#tableClicked" prefHeight="10000.0" prefWidth="10000.0">
         <columns>
-            <TableColumn fx:id="number" editable="false" prefWidth="75.0" text="Number" />
-            <TableColumn fx:id="itemID" editable="false" prefWidth="75.0" text="Item ID" />
-            <TableColumn fx:id="itemName" editable="false" prefWidth="75.0" text="Item name" />
-            <TableColumn fx:id="unitPrice" editable="false" prefWidth="75.0" text="Unit price" />
-            <TableColumn fx:id="quantity" editable="false" prefWidth="75.0" text="Quantity" />
-            <TableColumn fx:id="totalPrice" editable="false" prefWidth="75.0" text="Total price" />
-            <TableColumn fx:id="discount" editable="false" prefWidth="75.0" text="Discount" />
-            <TableColumn fx:id="finalPrice" editable="false" prefWidth="75.0" text="Final price" />
+         <TableColumn fx:id="number" editable="false" prefWidth="75.0" text="Number" />
+         <TableColumn fx:id="itemID" editable="false" prefWidth="75.0" text="Item ID" />
+         <TableColumn fx:id="itemName" editable="false" prefWidth="75.0" text="Item name" />
+         <TableColumn fx:id="unitPrice" editable="false" prefWidth="75.0" text="Unit price" />
+         <TableColumn fx:id="quantity" editable="false" prefWidth="75.0" text="Quantity" />
+         <TableColumn fx:id="totalPrice" editable="false" prefWidth="75.0" text="Total price" />
+         <TableColumn fx:id="discount" editable="false" prefWidth="75.0" text="Discount" />
+         <TableColumn fx:id="finalPrice" editable="false" prefWidth="75.0" text="Final price" />
         </columns>
          <VBox.margin>
             <Insets />

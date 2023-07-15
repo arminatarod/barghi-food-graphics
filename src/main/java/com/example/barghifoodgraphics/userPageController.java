@@ -1,5 +1,7 @@
 package com.example.barghifoodgraphics;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -66,6 +68,13 @@ public class userPageController {
     public void changeToCart() {
         MainApplication.stage.setScene(MainApplication.cart);
     }
+    public void changeToOrderDetails(int orderID) throws IOException {
+        MainApplication.fxmlLoaderOrderDetails = new FXMLLoader(MainApplication.class.getResource("orderDetails.fxml"));
+        MainApplication.orderDetails = new Scene(MainApplication.fxmlLoaderOrderDetails.load(), 400, 600);
+        ((orderDetailsController)MainApplication.fxmlLoaderOrderDetails.getController()).orderID = orderID;
+        ((orderDetailsController)MainApplication.fxmlLoaderOrderDetails.getController()).initialize();
+        MainApplication.stage.setScene(MainApplication.orderDetails);
+    }
     public void refreshSearch() {
         ArrayList<String> results = new ArrayList<>(MainApplication.core.searchRestaurantName(searchBox.getText()));
         searchResultsRestaurant.getItems().clear();
@@ -124,6 +133,13 @@ public class userPageController {
             VBox.setMargin(viewDetailsButton, new Insets(20, 0, 0, 0));
             viewDetailsButton.setFocusTraversable(false);
             viewDetailsButton.setStyle("-fx-cursor: hand;");
+            viewDetailsButton.setOnAction(actionEvent -> {
+                try {
+                    changeToOrderDetails(i);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             newOrder.getChildren().add(viewDetailsButton);
             ordersBox.getChildren().add(newOrder);
         }

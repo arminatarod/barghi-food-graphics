@@ -10,8 +10,8 @@ import java.io.IOException;
 public class MainApplication extends Application {
     static Core core;
     static Stage stage;
-    static Scene login, signup, userPage, forgotPassword, supermarket, cart, restaurant, comment, edit, add, adminPageOne, adminPageTwo, menu, deliverymanPage, addRestaurant;
-    static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword, fxmlLoaderSupermarket, fxmlLoaderCart, fxmlLoaderRestaurant, fxmlLoaderComment, fxmlLoaderAdminPageOne, fxmlLoaderAdminPageTwo, fxmlLoaderEdit, fxmlLoaderAdd, fxmlLoaderMenu, fxmlLoaderDeliverymanPage, fxmlLoaderAddRestaurant;
+    static Scene login, signup, userPage, forgotPassword, supermarket, cart, restaurant, comment, edit, add, adminPageOne, adminPageTwo, menu, deliverymanPage, addRestaurant, orderDetails;
+    static FXMLLoader fxmlLoaderLogin, fxmlLoaderSignup, fxmlLoaderUserPage, fxmlLoaderForgotPassword, fxmlLoaderSupermarket, fxmlLoaderCart, fxmlLoaderRestaurant, fxmlLoaderComment, fxmlLoaderAdminPageOne, fxmlLoaderAdminPageTwo, fxmlLoaderEdit, fxmlLoaderAdd, fxmlLoaderMenu, fxmlLoaderDeliverymanPage, fxmlLoaderAddRestaurant, fxmlLoaderOrderDetails;
     @Override
     public void start(Stage mainStage) throws IOException {
         core = new Core();
