@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class adminController2 {
@@ -112,35 +111,5 @@ public class adminController2 {
     public void goAdd()
     {
         MainApplication.stage.setScene(MainApplication.add);
-    }
-    public void addFoodType()
-    {
-        TextInputDialog inputDialog = new TextInputDialog();
-        inputDialog.setContentText("Please add the new type");
-        inputDialog.setTitle("Add");
-        inputDialog.show();
-        inputDialog.setOnHidden(event -> {
-            MainApplication.core.addFoodType(inputDialog.getResult(),true);
-        });
-    }
-    public void Discount() throws IOException {
-        if(selectedRow == -1)
-        {
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            a.setHeaderText("No row selected");
-            a.setContentText("You must select a row from the table.");
-            a.show();
-        }
-        else
-        {
-            for(Map.Entry<Integer, Food> food : MainApplication.core.foods.entrySet())
-            {
-                if(myTable.getColumns().get(0).getCellData(selectedRow).equals(food.getValue().getName()))
-                    MainApplication.core.selectedFood = food.getKey();
-            }
-            MainApplication.fxmlLoaderAddDiscount = new FXMLLoader(MainApplication.class.getResource("addDiscount.fxml"));
-            MainApplication.comment = new Scene(MainApplication.fxmlLoaderComment.load(), 400, 600);
-            MainApplication.stage.setScene(MainApplication.addDiscount);
-        }
     }
 }
