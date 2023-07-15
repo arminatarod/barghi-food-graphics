@@ -86,6 +86,7 @@ public class Core {
                 result = mapper.readValue(new File("src/data/restaurants/" + i + ".json"), Restaurant.class);
                 restaurants.put(result.getId(), result);
             } catch (Exception e) {
+                System.out.println(e);
                 System.out.println("there is a missing file in restaurants database");
             }
         }

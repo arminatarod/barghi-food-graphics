@@ -28,8 +28,6 @@ public class MainApplication extends Application {
         forgotPassword = new Scene(fxmlLoaderForgotPassword.load(), 400, 500);
         fxmlLoaderSupermarket = new FXMLLoader(MainApplication.class.getResource("supermarket.fxml"));
         supermarket = new Scene(fxmlLoaderSupermarket.load(), 400, 600);
-        fxmlLoaderRestaurant = new FXMLLoader(MainApplication.class.getResource("restaurant.fxml"));
-        restaurant = new Scene(fxmlLoaderRestaurant.load(), 400, 600);
         fxmlLoaderAdd = new FXMLLoader(MainApplication.class.getResource("add.fxml"));
         add = new Scene(fxmlLoaderAdd.load(), 400, 250);
         fxmlLoaderEdit = new FXMLLoader(MainApplication.class.getResource("edit.fxml"));
@@ -40,11 +38,9 @@ public class MainApplication extends Application {
         TimerTask changeTraffic = new TimerTask() {
             @Override
             public void run() {
-                int x = new Random().nextInt(19) + 1, y = new Random().nextInt(19) + 1, z = new Random().nextInt(3);
-                core.setTraffic(x, y, z);
-                System.out.println(x + ", " + y + ", " + z);
-                core.setTraffic(14, 15, 0);
-                System.out.println(core.getTraffic(14, 15));
+                core.setTraffic(new Random().nextInt(19) + 1, new Random().nextInt(19) + 1, new Random().nextDouble(1.0) + 1);
+                if (fxmlLoaderDeliverymanPage != null)
+                    ((deliverymanPageController)fxmlLoaderDeliverymanPage.getController()).refreshCanvas();
             }
         };
         timer.schedule(changeTraffic, 0L, 500);

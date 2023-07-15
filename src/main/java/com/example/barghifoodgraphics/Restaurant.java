@@ -1,6 +1,7 @@
 package com.example.barghifoodgraphics;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
@@ -99,6 +100,7 @@ public class Restaurant {
     public double getAverageRating() {
         return averageRating;
     }
+    @JsonIgnore
     public int getRatingCount() {
         return ratings.size();
     }

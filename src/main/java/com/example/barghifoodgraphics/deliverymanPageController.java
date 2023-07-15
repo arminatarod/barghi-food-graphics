@@ -79,7 +79,7 @@ public class deliverymanPageController {
         graphicsContext.stroke();
     }
     public Color getColor(int x, int y) {
-        return MainApplication.core.getTraffic(x, y) == 0? Color.DODGERBLUE : MainApplication.core.getTraffic(x, y) == 1? Color.ORANGE : Color.RED;
+        return MainApplication.core.getTraffic(x, y) < 1.4? Color.DODGERBLUE : MainApplication.core.getTraffic(x, y) < 1.8? Color.ORANGE : Color.RED;
     }
     public void refreshCanvas() {
         graphicsContext.setFill(Color.WHITE);

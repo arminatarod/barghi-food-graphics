@@ -101,8 +101,8 @@ public class MapG {
         }
         for (int i = 0; i < m; i++) {
             int u = myReader.nextInt(), v = myReader.nextInt(), w = myReader.nextInt();
-            graph.get(u).add(new edge(v, w, u));
-            graph.get(v).add(new edge(u, w, v));
+            graph.get(u).add(new edge(w, v, u));
+            graph.get(v).add(new edge(w, u, v));
         }
         myReader.close();
     }

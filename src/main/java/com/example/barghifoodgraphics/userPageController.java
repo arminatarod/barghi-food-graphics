@@ -94,6 +94,8 @@ public class userPageController {
     public void initialize() throws IOException {
         MainApplication.fxmlLoaderCart = new FXMLLoader(MainApplication.class.getResource("cart.fxml"));
         MainApplication.cart = new Scene(MainApplication.fxmlLoaderCart.load(), 600, 600);
+        MainApplication.fxmlLoaderRestaurant = new FXMLLoader(MainApplication.class.getResource("restaurant.fxml"));
+        MainApplication.restaurant = new Scene(MainApplication.fxmlLoaderRestaurant.load(), 400, 600);
         idLabel.setText(String.valueOf(MainApplication.core.loggedInUser));
         usernameLabel.setText(MainApplication.core.accounts.get(MainApplication.core.loggedInUser).getUsername());
         passwordLabel.setText(MainApplication.core.accounts.get(MainApplication.core.loggedInUser).getPassword());
