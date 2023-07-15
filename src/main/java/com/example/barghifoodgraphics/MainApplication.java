@@ -1,11 +1,16 @@
 package com.example.barghifoodgraphics;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainApplication extends Application {
     static Core core;
@@ -33,11 +38,20 @@ public class MainApplication extends Application {
         edit = new Scene(fxmlLoaderEdit.load(), 400, 250);
         fxmlLoaderMenu = new FXMLLoader(MainApplication.class.getResource("menu.fxml"));
         menu = new Scene(fxmlLoaderMenu.load(), 400, 600);
+        Timer timer = new Timer();
+        TimerTask changeTraffic = new TimerTask() {
+            @Override
+            public void run() {
+                //core.setTraffic(new Random().nextInt(19) + 1, new Random().nextInt(3));
+            }
+        };
+        timer.schedule(changeTraffic, 0L, 1000 * 20);
         stage = mainStage;
         stage.setTitle("Barghi Food");
         stage.setMinWidth(410);
         stage.setMinHeight(640);
         stage.setScene(login);
+        stage.setOnCloseRequest(windowEvent -> System.exit(0));
         stage.show();
     }
 

@@ -58,8 +58,6 @@ public class loginController {
             } else if (result == 1) {
                 MainApplication.fxmlLoaderAdminPageOne = new FXMLLoader(MainApplication.class.getResource("adminPage.fxml"));
                 MainApplication.adminPageOne = new Scene(MainApplication.fxmlLoaderAdminPageOne.load(), 600, 400);
-                MainApplication.fxmlLoaderAdminPageTwo = new FXMLLoader(MainApplication.class.getResource("adminPage2.fxml"));
-                MainApplication.adminPageTwo = new Scene(MainApplication.fxmlLoaderAdminPageTwo.load(), 600, 400);
                 MainApplication.stage.setScene(MainApplication.adminPageOne);
             } else if (result == 2) {
                 MainApplication.fxmlLoaderDeliverymanPage = new FXMLLoader(MainApplication.class.getResource("deliverymanPage.fxml"));

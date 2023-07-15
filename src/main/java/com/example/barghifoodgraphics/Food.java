@@ -1,5 +1,6 @@
 package com.example.barghifoodgraphics;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -63,6 +64,7 @@ public class Food {
         this.comments = comments;
     }
 
+    @JsonCreator
     public Food(@JsonProperty("id")int id, @JsonProperty("price") int price, @JsonProperty("restaurantId") int restaurantId, @JsonProperty("discountTimestamp") LocalTime discountTimestamp, @JsonProperty("averageRating") double averageRating, @JsonProperty("discount") double discount, @JsonProperty("ratings") HashMap<Integer, Integer> ratings, @JsonProperty("name") String name, @JsonProperty("isActive") boolean isActive, @JsonProperty("comments") HashSet<Integer> comments) {
         this.id = id;
         this.price = price;

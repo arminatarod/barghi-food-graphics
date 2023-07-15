@@ -81,10 +81,10 @@ public class deliverymanPageController {
     public void refreshCanvas() {
         graphicsContext.setFill(Color.WHITE);
         graphicsContext.fillRect(0, 0, 360, 360);
-        drawLine(25, 25, 75, 25, Color.BLACK, 1);
-        drawLine(235, 25, 285, 25, Color.BLACK, 1);
-        drawLine(285, 25, 335, 25, Color.BLACK, 1);
-        drawLine(25, 25, 25, 75, Color.BLACK, 1);
+        //drawLine(25, 25, 75, 25, (MainApplication.core.getTraffic(0, 1) == 0? Color.DODGERBLUE : MainApplication.core.getTraffic(0, 1) == 1? Color.ORANGE : Color.RED), 1);
+        drawLine(235, 25, 285, 25, Color.DODGERBLUE, 1);
+        drawLine(285, 25, 335, 25, Color.ORANGE, 1);
+        drawLine(25, 25, 25, 75, Color.RED, 1);
         drawLine(25, 75, 75, 75, Color.BLACK, 1);
         drawLine(75, 25, 75, 75, Color.BLACK, 1);
         drawLine(75, 75, 155, 125, Color.BLACK, 1);
