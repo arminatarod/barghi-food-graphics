@@ -24,29 +24,25 @@ public class adminController2 {
     @FXML ImageView RestaurantPic;
     @FXML Button EditButton, AddButton, RemoveButton, CommentsButton;
     @FXML Label BackLabel;
+    public String selectedFoodType;
     int selectedRow = -1;
     public void initialize()
     {
-        ArrayList<String> foodTypes = new ArrayList<>();
-        foodTypes.add("Pizza");
-        foodTypes.add("Pasta");
-        foodTypes.add("Italian");
-        foodTypes.add("Appetizer");
-        foodTypeListView.getItems().addAll(foodTypes);
+        foodTypeListView.getItems().addAll(MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType());
         FoodNameColumn.setCellValueFactory(data -> data.getValue().get(0));
         FoodPriceColumn.setCellValueFactory(data -> data.getValue().get(1));
         FoodAverageRatingColumn.setCellValueFactory(data -> data.getValue().get(2));
         DiscountColumn.setCellValueFactory(data -> data.getValue().get(3));
         ObservableList<List<Object>> data = FXCollections.observableArrayList();
-        for(int i = 1;i < 7;i++)
+        for(String type : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType())
         {
-            Random random = new Random();
             List<Object>row = new ArrayList<>();
-            row.add(new SimpleStringProperty("Food" + i));
-            row.add(new SimpleIntegerProperty(100 * i + 230));
-            row.add(new SimpleIntegerProperty(random.nextInt(5)+1));
-            row.add(new SimpleStringProperty("%" + random.nextInt(20)));
+            for(Integer foodId : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getMenu())
+            {
+
+            }
             data.add(row);
+            break;
         }
         myTable.setItems(data);
         String css = this.getClass().getResource("style2.css").toExternalForm();
@@ -61,7 +57,7 @@ public class adminController2 {
         else
         {
             //TODO miad liste un ghzhro mide be data ke nmysh bede
-            System.out.println(foodTypeListView.getSelectionModel().getSelectedIndex());
+            selectedFoodType = foodTypeListView.getItems().get(foodTypeListView.getSelectionModel().getSelectedIndex());
         }
     }
     public void goToComments()

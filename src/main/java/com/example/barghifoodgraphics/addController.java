@@ -6,6 +6,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
+import java.util.Map;
 import java.util.Optional;
 
 public class addController {
@@ -30,6 +31,14 @@ public class addController {
             if(result.isPresent() && result.get() == ButtonType.OK)
             {
                 MainApplication.stage.setScene(MainApplication.adminPageTwo);
+                MainApplication.core.addFood(foodNameTextField.getText(), Integer.parseInt(foodPriceTextField.getText()));
+                for(Map.Entry<Integer, Food> tmp : MainApplication.core.foods.entrySet())
+                {
+                    if(tmp.getValue().getName().equals(foodNameTextField.getText())) {
+                        tmp.getValue().setDiscount(Double.parseDouble(discountTextField.getText()));
+                        break;
+                    }
+                }
             }
         }
     }
