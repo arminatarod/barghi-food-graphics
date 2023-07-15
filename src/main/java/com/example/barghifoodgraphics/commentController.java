@@ -98,6 +98,13 @@ public class commentController {
     }
     public void initialize() {
         selectedComment = -1;
+        if(MainApplication.core.loggedInAdmin == -1)
+            isFood = true;
+        else
+        {
+            isAdmin = true;
+            previousScene = MainApplication.adminPageTwo;
+        }
         if (isAdmin) {
             greenButton.setText("Add response");
             yellowButton.setText("Edit response");
@@ -107,7 +114,7 @@ public class commentController {
         if (isFood)
             comments = MainApplication.core.foods.get(objectID).getComments();
         else
-            comments = MainApplication.core.restaurants.get(objectID).getComments();
+            comments = MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getComments();
         int index = 0;
         for (int i : comments) {
             Label idLabel = new Label("ID: " + i);

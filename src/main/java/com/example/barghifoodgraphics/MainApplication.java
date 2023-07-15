@@ -30,8 +30,6 @@ public class MainApplication extends Application {
         supermarket = new Scene(fxmlLoaderSupermarket.load(), 400, 600);
         fxmlLoaderRestaurant = new FXMLLoader(MainApplication.class.getResource("restaurant.fxml"));
         restaurant = new Scene(fxmlLoaderRestaurant.load(), 400, 600);
-        /*fxmlLoaderComment = new FXMLLoader(MainApplication.class.getResource("comment.fxml"));
-        comment = new Scene(fxmlLoaderComment.load(), 400, 600);*/
         fxmlLoaderAdd = new FXMLLoader(MainApplication.class.getResource("add.fxml"));
         add = new Scene(fxmlLoaderAdd.load(), 400, 250);
         fxmlLoaderEdit = new FXMLLoader(MainApplication.class.getResource("edit.fxml"));

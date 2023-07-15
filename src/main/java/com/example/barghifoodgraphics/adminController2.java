@@ -6,10 +6,13 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -60,9 +63,10 @@ public class adminController2 {
             selectedFoodType = foodTypeListView.getItems().get(foodTypeListView.getSelectionModel().getSelectedIndex());
         }
     }
-    public void goToComments()
-    {
-        MainApplication.stage.setScene(MainApplication.login);
+    public void goToComments() throws IOException {
+        MainApplication.fxmlLoaderComment = new FXMLLoader(MainApplication.class.getResource("comment.fxml"));
+        MainApplication.comment = new Scene(MainApplication.fxmlLoaderComment.load(), 400, 600);
+        MainApplication.stage.setScene(MainApplication.comment);
         //TODO inja btye inke bug nkhore zdm login vli byd bere scene comment
     }
     public void back()
@@ -84,6 +88,10 @@ public class adminController2 {
             a.setHeaderText("No row selected");
             a.setContentText("You must select a row from the table.");
             a.show();
+        }
+        else
+        {
+
         }
     }
     public void goEdit()
