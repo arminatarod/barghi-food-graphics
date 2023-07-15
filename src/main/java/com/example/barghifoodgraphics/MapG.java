@@ -107,10 +107,10 @@ public class MapG {
         myReader.close();
     }
     public int getDistance (int node1, int node2){
-        dis = new double[n];
-        dad = new int[n];
-        isInQueue = new boolean[n];
-        for (int i = 0; i < n; i++)
+        dis = new double[n + 1];
+        dad = new int[n + 1];
+        isInQueue = new boolean[n + 1];
+        for (int i = 0; i < n + 1; i++)
             dis[i] = 999999;
         LinkedList<Integer> queue= new LinkedList<Integer>();
         dis[node1] = 0;
@@ -137,9 +137,9 @@ public class MapG {
         return ans;
     }
     public Path getShortestPath (int node1, int node2){
-        dis = new double[n];
-        dad = new int[n];
-        isInQueue = new boolean[n];
+        dis = new double[n + 1];
+        dad = new int[n + 1];
+        isInQueue = new boolean[n + 1];
         for (int i = 0; i < n; i++)
             dis[i] = 9999;
         LinkedList<Integer> queue= new LinkedList<Integer>();

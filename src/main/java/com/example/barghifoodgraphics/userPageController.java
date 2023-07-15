@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -59,13 +60,15 @@ public class userPageController {
         MainApplication.core.logout();
         MainApplication.stage.setScene(MainApplication.login);
     }
-    public void changeToRestaurant() {
+    public void changeToRestaurant() throws FileNotFoundException {
+        ((restaurantController)MainApplication.fxmlLoaderRestaurant.getController()).initialize();
         MainApplication.stage.setScene(MainApplication.restaurant);
     }
     public void changeToSupermarket() {
         MainApplication.stage.setScene(MainApplication.supermarket);
     }
     public void changeToCart() {
+        ((cartController)MainApplication.fxmlLoaderCart.getController()).initialize();
         MainApplication.stage.setScene(MainApplication.cart);
     }
     public void changeToOrderDetails(int orderID) throws IOException {
