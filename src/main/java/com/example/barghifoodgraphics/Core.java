@@ -1,12 +1,13 @@
 package com.example.barghifoodgraphics;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import java.time.LocalTime;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import static java.lang.Integer.compareUnsigned;
 import static java.lang.Integer.min;
 
 public class Core {
@@ -20,7 +21,7 @@ public class Core {
     public double getPrice (HashMap<Integer, Integer> items) {
         double ans = 0.0;
         for (int i : items.keySet())
-            ans += items.get(i) * foods.get(i).getPrice();
+            ans += items.get(i) * foods.get(i).getFoodPrice();
         return ans;
     }
     public int getFileCount(File f) {
@@ -51,6 +52,7 @@ public class Core {
         File fd = new File("src/data/foods/");
         // Reading users accounts
         ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
         for (int i = 0; i < getFileCount(use); i++) {
             int koft = 0;
             try {
@@ -107,6 +109,7 @@ public class Core {
                 result = mapper.readValue(new File("src/data/foods/" + i + ".json"), Food.class);
                 foods.put(result.getId(), result);
             } catch (Exception e) {
+                System.out.println(e);
                 System.out.println("there is a missing file in foods database");
             }
         }
@@ -397,7 +400,7 @@ public class Core {
             return;
         }
         for (int i : restaurants.get(selectedRestaurant).getMenu())
-            System.out.println("ID: " + i + ", NAME: " + foods.get(i).getName() + ", PRICE: " + foods.get(i).getPrice() + ", DISCOUNT: " + foods.get(i).getDiscount() + ", RATING: " + foods.get(i).getAverageRating() + ", IS ACTIVE: " + foods.get(i).getActive());
+            System.out.println("ID: " + i + ", NAME: " + foods.get(i).getName() + ", PRICE: " + foods.get(i).getFoodPrice() + ", DISCOUNT: " + foods.get(i).getFoodDiscount() + ", RATING: " + foods.get(i).getAverageRating() + ", IS ACTIVE: " + foods.get(i).getActive());
     }
     public void editFoodPrice(int foodID, int price) {
         if (selectedRestaurant == -1) {
@@ -429,7 +432,7 @@ public class Core {
             System.out.println("Information updated successfully.");
         }
     }
-    public void addFood(String foodName, int foodPrice) {
+    public void addFood(String foodName, int foodPrice, String foodType) {
         if (selectedRestaurant == -1) {
             System.out.println("No restaurant has been selected!");
         }
@@ -443,7 +446,7 @@ public class Core {
             }
         }
         restaurants.get(selectedRestaurant).addFoodToMenu(foods.size());
-        Food tmp = new Food(foods.size(), foodPrice, selectedRestaurant, foodName);
+        Food tmp = new Food(foods.size(), foodPrice, selectedRestaurant, foodName, foodType);
         tmp.save();
         foods.put(foods.size(), tmp);
         System.out.println("The food added successfully.");
@@ -538,7 +541,7 @@ public class Core {
             System.out.println("No food has been selected!");
         } else {
             for (int i : foods.get(selectedFood).getComments())
-                System.out.println("ID: " + i + ", USER: " + accounts.get(comments.get(i).getCommenter()).getUsername() + ", CONTENT: " + comments.get(i).getContent() + ", RESPONSE: " + comments.get(i).getAnswer());
+                System.out.println("ID: " + i + ", USER: " + accounts.get(comments.get(i).getCommenterID()).getUsername() + ", CONTENT: " + comments.get(i).getContent() + ", RESPONSE: " + comments.get(i).getAnswer());
         }
     }
     public void addResponse(int commentID, String message) {
@@ -624,7 +627,7 @@ public class Core {
                     if (orders.get(orderId).getStatus().equals("done"))
                         continue;
                     i++;
-                    System.out.println("Order  " + i + "  : " + "id : " + orderId + " Restaurant id : " + orders.get(orderId).getRestaurant() + " Status : " + orders.get(orderId).getStatus());
+                    System.out.println("Order  " + i + "  : " + "id : " + orderId + " Restaurant id : " + orders.get(orderId).getRestaurantId() + " Status : " + orders.get(orderId).getStatus());
                 }
             }
         }
@@ -644,7 +647,7 @@ public class Core {
                         continue;
                     }
                     i++;
-                    System.out.println("Order  " + i + "  : " + "id : " + orderId + " Deliverymen id : " + orders.get(orderId).getDeliveryman() + " Price : " + getPrice(orders.get(orderId).getItems()));
+                    System.out.println("Order  " + i + "  : " + "id : " + orderId + " Deliverymen id : " + orders.get(orderId).getDeliverymanId() + " Price : " + getPrice(orders.get(orderId).getItems()));
                 }
             }
         }
@@ -655,7 +658,7 @@ public class Core {
             }
             else {
                 Order tmp2 = orders.get(tmp.getActiveOrder());
-                System.out.println("Order id : " + tmp2.getId() + " Restaurant location : " + restaurants.get(tmp2.getRestaurant()).getLocation() + " User location : " + tmp2.getUserLocation() + " Delivery price :" + tmp2.getDeliveryPrice());
+                System.out.println("Order id : " + tmp2.getId() + " Restaurant location : " + restaurants.get(tmp2.getRestaurantId()).getLocation() + " User location : " + tmp2.getUserLocation() + " Delivery price :" + tmp2.getDeliveryPrice());
             }
         }
     }
@@ -665,12 +668,12 @@ public class Core {
             return;
         }
         Order tmp = orders.get(selectedOrder);
-        if (tmp.getUser() == loggedInUser && status.equals("done") && tmp.getStatus().equals("ind")) {
+        if (tmp.getUserId() == loggedInUser && status.equals("done") && tmp.getStatus().equals("ind")) {
             System.out.println("Order is done, have a nice day");
             tmp.setStatus(status);
             return;
         }
-        else if (tmp.getDeliveryman() == loggedInDeliveryman && status.equals("ind") && tmp.getStatus().equals("inr")) {
+        else if (tmp.getDeliverymanId() == loggedInDeliveryman && status.equals("ind") && tmp.getStatus().equals("inr")) {
             System.out.println("Order is done, have a nice day");
             tmp.setStatus(status);
             return;
@@ -699,7 +702,7 @@ public class Core {
         else
             tmp = restaurants.get(selectedRestaurant).getOrders();
         for (int i : tmp)
-            System.out.println("ID: " + i + ", STATUS: " + orders.get(i).getStatus() + " Restaurant : " + orders.get(i).getRestaurant() + ", PRICE: " + getPrice(orders.get(i).getItems()) + " Delivery price : " + orders.get(i).getDeliveryPrice());
+            System.out.println("ID: " + i + ", STATUS: " + orders.get(i).getStatus() + " Restaurant : " + orders.get(i).getRestaurantId() + ", PRICE: " + getPrice(orders.get(i).getItems()) + " Delivery price : " + orders.get(i).getDeliveryPrice());
     }
     public void selectRestaurant(int restaurantID) {
         if (loggedInAdmin == -1 && loggedInUser == -1) {
@@ -761,7 +764,7 @@ public class Core {
             for (Integer foodId : foods.keySet())
                 if (foods.get(foodId).getName().startsWith(name)) {
                     result.add(foods.get(foodId).getName());
-                    System.out.println("Food name: " + foods.get(foodId).getName() + ", Food price: "+ foods.get(foodId).getPrice());
+                    System.out.println("Food name: " + foods.get(foodId).getName() + ", Food price: "+ foods.get(foodId).getFoodPrice());
                 }
         return result;
     }
@@ -773,7 +776,7 @@ public class Core {
         } else
             for (Integer foodId : restaurants.get(restaurantID).getMenu())
                 if (foods.get(foodId).getName().startsWith(name))
-                    System.out.println("food name: "+foods.get(foodId).getName()+" food price: "+ foods.get(foodId).getPrice());
+                    System.out.println("food name: "+foods.get(foodId).getName()+" food price: "+ foods.get(foodId).getFoodPrice());
     }
     public void addComment(String content) {
         if (loggedInUser == -1) {
@@ -853,7 +856,7 @@ public class Core {
             return;
         }
         Comment tmp = comments.get(commentID);
-        if (tmp.getCommenter() != loggedInUser) {
+        if (tmp.getCommenterID() != loggedInUser) {
             System.out.println("this is not your comment !");
             return;
         }
@@ -868,7 +871,7 @@ public class Core {
         if (selectedFood == -1) {
             System.out.println("No food has been selected!");
         }
-        else if (foods.get(selectedFood).getRaters().containsKey(loggedInUser)) {
+        else if (foods.get(selectedFood).getRatings().containsKey(loggedInUser)) {
             System.out.println("You have already added a rating for this food!");
         }
         else if (rating < 0 || rating > 5) {
@@ -888,7 +891,7 @@ public class Core {
         if (selectedFood == -1) {
             System.out.println("No food has been selected!");
         }
-        else if (!foods.get(selectedFood).getRaters().containsKey(loggedInAccount)) {
+        else if (!foods.get(selectedFood).getRatings().containsKey(loggedInAccount)) {
             System.out.println("You have not submitted a rating for this food!");
         }
         else if (rating < 0 || rating > 5) {
@@ -910,12 +913,12 @@ public class Core {
             return;
         }
         Order cart = ((User)accounts.get(loggedInUser)).getCart();
-        if (cart.getRestaurant() != -1 && cart.getRestaurant() != selectedRestaurant) {
+        if (cart.getRestaurantId() != -1 && cart.getRestaurantId() != selectedRestaurant) {
             System.out.println("you can order food from one restaurant at each time");
             return;
         }
-        if (cart.getRestaurant() == -1) {
-            cart.setRestaurant(selectedRestaurant);
+        if (cart.getRestaurantId() == -1) {
+            cart.setRestaurantId(selectedRestaurant);
             int price = map.getDistance(cart.getUserLocation(), restaurants.get(selectedRestaurant).getLocation()) + 5000;
             cart.setDeliveryPrice(price);
             System.out.println("cart selected restaurant : " + selectedRestaurant + " price of delivery : " + price);
@@ -937,12 +940,12 @@ public class Core {
             return;
         }
         Order cart = ((User)accounts.get(loggedInUser)).getCart();
-        if (cart.getRestaurant() != -1 && cart.getRestaurant() != selectedRestaurant) {
+        if (cart.getRestaurantId() != -1 && cart.getRestaurantId() != selectedRestaurant) {
             System.out.println("you can order food from one restaurant at each time");
             return;
         }
-        if (cart.getRestaurant() == -1) {
-            cart.setRestaurant(selectedRestaurant);
+        if (cart.getRestaurantId() == -1) {
+            cart.setRestaurantId(selectedRestaurant);
         }
         if (!cart.getItems().containsKey(selectedFood)) {
             System.out.println("you don't have any of this food in your cart");
@@ -954,7 +957,7 @@ public class Core {
         }
         cart.removeItem(selectedFood, count);
         if (cart.getItems().size() == 0) {
-            cart.setRestaurant(-1);
+            cart.setRestaurantId(-1);
             cart.setDeliveryPrice(0);
         }
         System.out.println("items removed successfully successfully.");
@@ -973,18 +976,18 @@ public class Core {
                 System.out.println("select your restaurant first !");
                 return;
             }
-            if (orders.get(id).getRestaurant() != selectedRestaurant) {
+            if (orders.get(id).getRestaurantId() != selectedRestaurant) {
                 System.out.println("this order id is not yours !");
                 return;
             }
         }
         else if (loggedInUser != -1){
-            if (orders.get(id).getUser() != loggedInUser) {
+            if (orders.get(id).getUserId() != loggedInUser) {
                 System.out.println("this order id is not yours !");
                 return;
             }
         }
-        else if (orders.get(id).getDeliveryman() != loggedInDeliveryman) {
+        else if (orders.get(id).getDeliverymanId() != loggedInDeliveryman) {
             System.out.println("this order id is not yours !");
             return;
         }
@@ -1009,7 +1012,7 @@ public class Core {
         else  {
             System.out.println("your cart is: ");
             for(Map.Entry<Integer, Integer> item : ((User) accounts.get(loggedInUser)).getCart().getItems().entrySet()) {
-                System.out.println("food name: " + foods.get(item.getKey()).getName() +  " count: " + item.getValue() + " discount: %" + foods.get(item.getValue()).getDiscount() + " total-price: " + foods.get(item.getValue()).getPrice() * item.getValue());
+                System.out.println("food name: " + foods.get(item.getKey()).getName() +  " count: " + item.getValue() + " discount: %" + foods.get(item.getValue()).getFoodDiscount() + " total-price: " + foods.get(item.getValue()).getFoodPrice() * item.getValue());
             }
             System.out.println(" Delivery price : " + ((User)accounts.get(loggedInUser)).getCart().getDeliveryPrice());
         }
@@ -1045,8 +1048,8 @@ public class Core {
             cart.setStatus("pend");
             ((User)accounts.get(loggedInUser)).setCart(cart);
             tmp.setId(orders.size());
-            restaurants.get(tmp.getRestaurant()).addBalance(price);
-            restaurants.get(tmp.getRestaurant()).addOrder(orders.size());
+            restaurants.get(tmp.getRestaurantId()).addBalance(price);
+            restaurants.get(tmp.getRestaurantId()).addOrder(orders.size());
             ((User)accounts.get(loggedInUser)).addOrder(orders.size());
             tmp.setId(orders.size());
             orders.put(tmp.getId(), tmp);
@@ -1071,7 +1074,7 @@ public class Core {
         if (selectedOrder == -1)
             tmp2 = restaurants.get(selectedRestaurant).getLocation();
         else
-            tmp2 = restaurants.get(orders.get(selectedOrder).getRestaurant()).getLocation();
+            tmp2 = restaurants.get(orders.get(selectedOrder).getRestaurantId()).getLocation();
         System.out.println("Estimated Delivery time from restaurant to User selected location : " + map.getDistance(tmp, tmp2));
         return map.getDistance(tmp, tmp2);
     }
@@ -1109,14 +1112,13 @@ public class Core {
         if (selectedOrder == -1)
             tmp2 = restaurants.get(selectedRestaurant).getLocation();
         else
-            tmp2 = restaurants.get(orders.get(selectedOrder).getRestaurant()).getLocation();
+            tmp2 = restaurants.get(orders.get(selectedOrder).getRestaurantId()).getLocation();
         Path path = map.getShortestPath(tmp2, tmp);
         System.out.println("estimated time : " + path.getTime());
         for (int i = 0; i < path.getNodeCount() - 1; i++)
             System.out.print(path.getNode(i) + " -> ");
         System.out.println(path.getNode(path.getNodeCount() - 1) + ".");
     }
-    //TODO : KIR to maghz paiini
     public void suggestFood() {
         if(loggedInUser == -1) {
             System.out.println("No one has logged in!!!");
@@ -1138,7 +1140,7 @@ public class Core {
             System.out.println("suggestions : ");
             for(int i = 0; i < min(tmp.size() / 3, 5); i++) {
                 Food tmp2 = foods.get(tmp.get(i));
-                System.out.println("id : " + tmp2.getId() + " restuarant id :" + tmp2.getRestaurant() + " ratings :  " + tmp2.getAverageRating() + " price : " + tmp2.getPrice() + " discount : " + tmp2.getDiscount());
+                System.out.println("id : " + tmp2.getId() + " restuarant id :" + tmp2.getRestaurant() + " ratings :  " + tmp2.getAverageRating() + " price : " + tmp2.getFoodPrice() + " discount : " + tmp2.getFoodDiscount());
             }
         }
         else {
@@ -1158,7 +1160,7 @@ public class Core {
             System.out.println("suggestions : ");
             for(int i = 0; i < min(tmp.size() / 3, 5); i++) {
                 Food tmp2 = foods.get(tmp.get(i));
-                System.out.println("id : " + tmp2.getId() + " ratings :  " + tmp2.getAverageRating() + " price : " + tmp2.getPrice() + " discount : " + tmp2.getDiscount());
+                System.out.println("id : " + tmp2.getId() + " ratings :  " + tmp2.getAverageRating() + " price : " + tmp2.getFoodPrice() + " discount : " + tmp2.getFoodDiscount());
             }
         }
     }
@@ -1186,7 +1188,7 @@ public class Core {
             System.out.println("you don't have any active order!");
             return;
         }
-        Path path = map.getShortestPath(tmp.getLocation(), restaurants.get(orders.get(tmp.getActiveOrder()).getRestaurant()).getLocation());
+        Path path = map.getShortestPath(tmp.getLocation(), restaurants.get(orders.get(tmp.getActiveOrder()).getRestaurantId()).getLocation());
         System.out.println("estimated time : " + path.getTime());
         for (int i = 0; i < path.getNodeCount() - 1; i++)
             System.out.print(path.getNode(i) + " -> ");
@@ -1202,7 +1204,7 @@ public class Core {
             System.out.println("you don't have any active order!");
             return;
         }
-        Path path = map.getShortestPath(tmp.getLocation(), restaurants.get(orders.get(tmp.getActiveOrder()).getRestaurant()).getLocation());
+        Path path = map.getShortestPath(tmp.getLocation(), restaurants.get(orders.get(tmp.getActiveOrder()).getRestaurantId()).getLocation());
         System.out.println("estimated time : " + path.getTime());
         for (int i = 0; i < path.getNodeCount() - 1; i++)
             System.out.print(path.getNode(i) + " -> ");
@@ -1240,11 +1242,11 @@ public class Core {
             System.out.println("Order doesn't exist!");
             return;
         }
-        if (orders.get(id).getDeliveryman() != -1){
+        if (orders.get(id).getDeliverymanId() != -1){
             System.out.println("Order is taken!");
             return;
         }
-        orders.get(id).setDeliveryman(loggedInDeliveryman);
+        orders.get(id).setDeliverymanId(loggedInDeliveryman);
         ((Deliveryman)accounts.get(loggedInDeliveryman)).addOrder(id);
         ((Deliveryman)accounts.get(loggedInDeliveryman)).setActiveOrder(id);
         System.out.println("Order accepted successfully.");
@@ -1257,22 +1259,22 @@ public class Core {
         else {
             ArrayList<Integer> tmp = new ArrayList<>();
             for (Order i : orders.values())
-                if (i.getStatus().equals("inr") && i.getDeliveryman() == -1)
+                if (i.getStatus().equals("inr") && i.getDeliverymanId() == -1)
                     tmp.add(i.getId());
             for (int i = 0; i < tmp.size(); i++)
                 for (int j = 0; j < tmp.size(); j++)
-                    if (map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurant()).getLocation(), ((Deliveryman) accounts.get(loggedInDeliveryman)).getLocation()) +
-                            map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurant()).getLocation(), ((User)accounts.get(orders.get(tmp.get(i)).getUser())).getSelectedLocation()) >
-                            map.getDistance(restaurants.get(orders.get(tmp.get(j)).getRestaurant()).getLocation(), ((Deliveryman) accounts.get(loggedInDeliveryman)).getLocation()) +
-                                    map.getDistance(restaurants.get(orders.get(tmp.get(j)).getRestaurant()).getLocation(), ((User)accounts.get(orders.get(tmp.get(j)).getUser())).getSelectedLocation())) {
+                    if (map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurantId()).getLocation(), ((Deliveryman) accounts.get(loggedInDeliveryman)).getLocation()) +
+                            map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurantId()).getLocation(), ((User)accounts.get(orders.get(tmp.get(i)).getUserId())).getSelectedLocation()) >
+                            map.getDistance(restaurants.get(orders.get(tmp.get(j)).getRestaurantId()).getLocation(), ((Deliveryman) accounts.get(loggedInDeliveryman)).getLocation()) +
+                                    map.getDistance(restaurants.get(orders.get(tmp.get(j)).getRestaurantId()).getLocation(), ((User)accounts.get(orders.get(tmp.get(j)).getUserId())).getSelectedLocation())) {
                         Collections.swap(tmp,i,j);
                     }
             ArrayList<Integer> result = new ArrayList<>();
             for (int i = 0; i < Math.min(5, tmp.size()); i++) {
                 result.add(tmp.get(i));
                 Order tmp2 = orders.get(tmp.get(i));
-                int koft = map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurant()).getLocation(), ((Deliveryman) accounts.get(loggedInDeliveryman)).getLocation()) + map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurant()).getLocation(), ((User)accounts.get(orders.get(tmp.get(i)).getUser())).getSelectedLocation());
-                System.out.println("id : " + tmp2.getId() + " Restaurant id : " + tmp2.getRestaurant() + " Estimated time : " + koft);
+                int koft = map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurantId()).getLocation(), ((Deliveryman) accounts.get(loggedInDeliveryman)).getLocation()) + map.getDistance(restaurants.get(orders.get(tmp.get(i)).getRestaurantId()).getLocation(), ((User)accounts.get(orders.get(tmp.get(i)).getUserId())).getSelectedLocation());
+                System.out.println("id : " + tmp2.getId() + " Restaurant id : " + tmp2.getRestaurantId() + " Estimated time : " + koft);
             }
             return result;
         }
@@ -1381,7 +1383,7 @@ public class Core {
             return;
         }
         Order ord = orders.get(acc.getActiveOrder());
-        if (restaurants.get(ord.getRestaurant()).getLocation() != acc.getLocation()) {
+        if (restaurants.get(ord.getRestaurantId()).getLocation() != acc.getLocation()) {
             System.out.println("you need to be at restaurant location!");
             return;
         }

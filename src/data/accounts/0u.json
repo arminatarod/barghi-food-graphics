@@ -1,0 +1,1 @@
+{"username":"armin","password":"Aa123456","type":"User","recoveryQuestion":"question","recoveryQuestionAnswer":"answer","id":0,"locations":[1],"orders":[],"comments":[],"cart":{"id":-1,"restaurantId":-1,"userId":0,"deliverymanId":-1,"userLocation":1,"deliveryPrice":0,"status":"pend","items":{}},"selectedLocation":1,"balance":0.0}

@@ -130,7 +130,7 @@ public class deliverymanPageController {
             estimationLabel.setText("Estimated time left: -");
         } else {
             currentDeliveryLabel.setText("Current delivery ID: " + currentDelivery);
-            startLabel.setText("Starting point: " + MainApplication.core.restaurants.get(MainApplication.core.orders.get(currentDelivery).getRestaurant()).getLocation());
+            startLabel.setText("Starting point: " + MainApplication.core.restaurants.get(MainApplication.core.orders.get(currentDelivery).getRestaurantId()).getLocation());
             destinationLabel.setText("Destination point: " + MainApplication.core.restaurants.get(MainApplication.core.orders.get(currentDelivery).getUserLocation()));
             estimationLabel.setText("Estimated time left: " + MainApplication.core.showEstimatedDeliveryTime());
         }
@@ -142,7 +142,7 @@ public class deliverymanPageController {
         int deliverymanLocation = ((Deliveryman)MainApplication.core.accounts.get(MainApplication.core.loggedInDeliveryman)).getLocation();
         for (int i : availableOrders) {
             int userLocation = MainApplication.core.orders.get(i).getUserLocation();
-            int restaurantLocation = MainApplication.core.restaurants.get(MainApplication.core.orders.get(i).getRestaurant()).getLocation();
+            int restaurantLocation = MainApplication.core.restaurants.get(MainApplication.core.orders.get(i).getRestaurantId()).getLocation();
             int toRestaurantTime = MainApplication.core.map.getShortestPath(deliverymanLocation, restaurantLocation).getTime();
             int toUserTime = MainApplication.core.map.getShortestPath(restaurantLocation, userLocation).getTime();
             List<Object> row = new ArrayList<>();

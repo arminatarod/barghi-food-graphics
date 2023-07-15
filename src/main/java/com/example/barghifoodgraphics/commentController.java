@@ -120,7 +120,7 @@ public class commentController {
             Label idLabel = new Label("ID: " + i);
             idLabel.setFont(Font.font("System", FontWeight.NORMAL, 12));
             idLabel.setTextFill(Color.color(0.8,0.8,0.8));
-            Label userLabel = new Label("User: " + MainApplication.core.accounts.get(MainApplication.core.comments.get(i).getCommenter()).getUsername());
+            Label userLabel = new Label("User: " + MainApplication.core.accounts.get(MainApplication.core.comments.get(i).getCommenterID()).getUsername());
             userLabel.setFont(Font.font("System", FontWeight.NORMAL, 16));
             userLabel.setTextFill(Color.WHITE);
             Label contentLabel = new Label(MainApplication.core.comments.get(i).getContent());

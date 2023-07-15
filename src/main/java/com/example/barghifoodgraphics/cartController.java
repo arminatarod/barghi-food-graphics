@@ -106,11 +106,11 @@ public class cartController {
                 row.add(new SimpleStringProperty(String.valueOf(index++)));
                 row.add(new SimpleStringProperty(String.valueOf(i)));
                 row.add(new SimpleStringProperty(MainApplication.core.foods.get(i).getName()));
-                row.add(new SimpleStringProperty(String.valueOf(MainApplication.core.foods.get(i).getPrice())));
+                row.add(new SimpleStringProperty(String.valueOf(MainApplication.core.foods.get(i).getFoodPrice())));
                 row.add(new SimpleStringProperty(String.valueOf(((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().getItems().get(i))));
-                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getPrice() * (double) ((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().getItems().get(i) * (1.0 / (1.0 - MainApplication.core.foods.get(i).getDiscount()))))));
-                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getDiscount() * 100.0))));
-                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getPrice() * (double) ((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().getItems().get(i)))));
+                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getFoodPrice() * (double) ((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().getItems().get(i) * (1.0 / (1.0 - MainApplication.core.foods.get(i).getFoodDiscount()))))));
+                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getFoodDiscount() * 100.0))));
+                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getFoodPrice() * (double) ((User) MainApplication.core.accounts.get(MainApplication.core.loggedInUser)).getCart().getItems().get(i)))));
                 data.add(row);
             }
             cartTable.setItems(data);

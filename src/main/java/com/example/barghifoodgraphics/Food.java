@@ -1,8 +1,10 @@
 package com.example.barghifoodgraphics;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
 import java.time.LocalTime;
@@ -18,11 +20,12 @@ public class Food {
     private boolean isActive;
     private HashSet<Integer> comments;
 
-    public Food(int id, int price, int restaurantId, String name) {
+    public Food(int id, int price, int restaurantId, String name, String foodType) {
         this.id = id;
         this.price = price;
         this.restaurantId = restaurantId;
         this.name = name;
+        this.foodType = foodType;
         ratings = new HashMap<>();
         isActive = false;
         comments = new HashSet<>();
@@ -73,7 +76,7 @@ public class Food {
     }
 
     @JsonCreator
-    public Food(@JsonProperty("id")int id, @JsonProperty("price") int price, @JsonProperty("restaurantId") int restaurantId, @JsonProperty("discountTimestamp") LocalTime discountTimestamp, @JsonProperty("averageRating") double averageRating, @JsonProperty("discount") double discount, @JsonProperty("ratings") HashMap<Integer, Integer> ratings, @JsonProperty("name") String name, @JsonProperty("isActive") boolean isActive, @JsonProperty("comments") HashSet<Integer> comments) {
+    public Food(@JsonProperty("id")int id, @JsonProperty("price") int price, @JsonProperty("restaurantId") int restaurantId, @JsonProperty("discountTimestamp") LocalTime discountTimestamp, @JsonProperty("averageRating") double averageRating, @JsonProperty("discount") double discount, @JsonProperty("ratings") HashMap<Integer, Integer> ratings, @JsonProperty("name") String name, @JsonProperty("foodType") String foodType, @JsonProperty("isActive") boolean isActive, @JsonProperty("comments") HashSet<Integer> comments) {
         this.id = id;
         this.price = price;
         this.restaurantId = restaurantId;
@@ -82,6 +85,7 @@ public class Food {
         this.discount = discount;
         this.ratings = ratings;
         this.name = name;
+        this.foodType = foodType;
         this.isActive = isActive;
         this.comments = comments;
     }
@@ -96,11 +100,15 @@ public class Food {
         save();
     }
     public double getDiscount() {
+        return discount;
+    }
+    @JsonIgnore
+    public double getFoodDiscount() {
         if (LocalTime.now().isAfter(discountTimestamp)) {
             return 0;
         }
         else {
-            return  0;
+            return discount;
         }
     }
     public LocalTime getDiscountTimestamp() {
@@ -128,6 +136,10 @@ public class Food {
         save();
     }
     public double getPrice() {
+        return price;
+    }
+    @JsonIgnore
+    public double getFoodPrice() {
         if (LocalTime.now().isAfter(discountTimestamp)) {
             return price;
         }
@@ -140,9 +152,6 @@ public class Food {
     }
     public double getAverageRating() {
         return averageRating;
-    }
-    public int getRatingCount() {
-        return ratings.size();
     }
     public void addRating(int raterID, int rating) {
         averageRating = (averageRating * ratings.size() + rating) / (ratings.size() + 1);
@@ -162,14 +171,14 @@ public class Food {
     public HashSet<Integer> getComments() {
         return comments;
     }
-    public HashMap<Integer, Integer> getRaters() {
-        return ratings;
-    }
     public void save() {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
         try {
             mapper.writeValue(new File("src/data/foods/" + id + ".json"), this);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
     public void removeComment(int id) {
         comments.remove(id);

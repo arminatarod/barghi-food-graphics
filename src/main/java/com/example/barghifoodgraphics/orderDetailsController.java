@@ -5,7 +5,6 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -38,11 +37,11 @@ public class orderDetailsController {
                 row.add(new SimpleStringProperty(String.valueOf(index++)));
                 row.add(new SimpleStringProperty(String.valueOf(i)));
                 row.add(new SimpleStringProperty(MainApplication.core.foods.get(i).getName()));
-                row.add(new SimpleStringProperty(String.valueOf(MainApplication.core.foods.get(i).getPrice())));
+                row.add(new SimpleStringProperty(String.valueOf(MainApplication.core.foods.get(i).getFoodPrice())));
                 row.add(new SimpleStringProperty(String.valueOf(MainApplication.core.orders.get(orderID).getItems().get(i))));
-                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getPrice() * (double) MainApplication.core.orders.get(orderID).getItems().get(i) * (1.0 / (1.0 - MainApplication.core.foods.get(i).getDiscount()))))));
-                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getDiscount() * 100.0))));
-                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getPrice() * (double) MainApplication.core.orders.get(orderID).getItems().get(i)))));
+                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getFoodPrice() * (double) MainApplication.core.orders.get(orderID).getItems().get(i) * (1.0 / (1.0 - MainApplication.core.foods.get(i).getFoodDiscount()))))));
+                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getFoodDiscount() * 100.0))));
+                row.add(new SimpleStringProperty(String.valueOf((int) (MainApplication.core.foods.get(i).getFoodPrice() * (double) MainApplication.core.orders.get(orderID).getItems().get(i)))));
                 data.add(row);
             }
         orderTable.setItems(data);

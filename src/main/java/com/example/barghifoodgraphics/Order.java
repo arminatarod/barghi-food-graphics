@@ -54,9 +54,9 @@ public class Order {
         this.userLocation = userLocation;
         save();
     }
-
-    public void setRestaurant(int restaurant) {
+    public void setRestaurantId(int restaurant) {
         this.restaurantId = restaurant;
+        save();
     }
     public void setStatus(String status) {
         this.status = status;
@@ -69,24 +69,24 @@ public class Order {
         this.id = id;
         save();
     }
-    public void setDeliveryman(int deliveryman) {
+    public void setDeliverymanId(int deliveryman) {
         this.deliverymanId = deliveryman;
         save();
     }
-    public void setUser(int user) {
+    public void setUserId(int user) {
         this.userId = user;
         save();
     }
-    public int getRestaurant() {
+    public int getRestaurantId() {
         return restaurantId;
     }
     public int getId() {
         return id;
     }
-    public int getDeliveryman() {
+    public int getDeliverymanId() {
         return deliverymanId;
     }
-    public int getUser() {
+    public int getUserId() {
         return userId;
     }
     public HashMap<Integer, Integer> getItems() {
@@ -120,8 +120,7 @@ public class Order {
         if (id >= 0) {
             try {
                 mapper.writeValue(new File("src/data/orders/" + id + ".json"), this);
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) {}
         }
     }
 }

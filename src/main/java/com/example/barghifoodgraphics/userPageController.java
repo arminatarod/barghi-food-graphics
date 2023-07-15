@@ -122,13 +122,13 @@ public class userPageController {
             Label newLabel = new Label("Order id: " + i);
             newLabel.setTextFill(Color.WHITE);
             newOrder.getChildren().add(newLabel);
-            newLabel = new Label("Origin: " + MainApplication.core.orders.get(i).getRestaurant());
+            newLabel = new Label("Origin: " + MainApplication.core.orders.get(i).getRestaurantId());
             newLabel.setTextFill(Color.WHITE);
             newOrder.getChildren().add(newLabel);
             newLabel = new Label("Delivery cost: " + MainApplication.core.orders.get(i).getDeliveryPrice());
             newLabel.setTextFill(Color.WHITE);
             newOrder.getChildren().add(newLabel);
-            newLabel = new Label("Deliveryman: " + MainApplication.core.accounts.get(MainApplication.core.orders.get(i).getDeliveryman()).getUsername());
+            newLabel = new Label("Deliveryman: " + MainApplication.core.accounts.get(MainApplication.core.orders.get(i).getDeliverymanId()).getUsername());
             newLabel.setTextFill(Color.WHITE);
             newOrder.getChildren().add(newLabel);
             newLabel = new Label("Status: " + MainApplication.core.orders.get(i).getStatus());

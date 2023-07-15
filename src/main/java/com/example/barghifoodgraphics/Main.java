@@ -180,7 +180,7 @@ public class Main {
             else if ((matcher = getMatcher(command, "^-ADD FOOD (?<name>[a-zA-Z]+) (?<price>[0-9]+) *")) != null) {
                 String name = matcher.group("name");
                 int price = Integer.parseInt(matcher.group("price"));
-                core.addFood(name, price);
+                core.addFood(name, price, "Burger");
             }
             else if ((matcher = getMatcher(command, "^-SHOW ESTIMATED DELIVERY TIME *")) != null) {
                 core.showEstimatedDeliveryTime();

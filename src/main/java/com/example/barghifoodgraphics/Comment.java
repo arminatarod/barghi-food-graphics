@@ -34,6 +34,7 @@ public class Comment {
 
     public void setCommenterID(int commenterID) {
         this.commenterID = commenterID;
+        save();
     }
 
     public int getReceptionId() {
@@ -57,9 +58,6 @@ public class Comment {
     public int getId() {
         return id;
     }
-    public int getCommenter() {
-        return commenterID;
-    }
     public String getAnswer() {
         return answer;
     }
@@ -68,10 +66,6 @@ public class Comment {
     }
     public void setId(int id) {
         this.id = id;
-        save();
-    }
-    public void setCommenter(int commenterID) {
-        this.commenterID = commenterID;
         save();
     }
     public void setAnswer(String answer) {
