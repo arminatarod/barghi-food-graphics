@@ -17,12 +17,12 @@ public class MapG {
             this.weight = weight;
             this.u = u;
             traffic = 1.0;
-            index = i;
+            v = i;
         }
-        private int weight, u, index;
+        private int weight, u, v;
 
-        public int getIndex() {
-            return index;
+        public int getV() {
+            return v;
         }
 
         private double traffic;
@@ -51,19 +51,27 @@ public class MapG {
     public int getN() {
         return n;
     }
-    public void setTraffic(int index, double traffic) {
+    public void setTraffic(int u, int v, double traffic) {
         for (ArrayList<edge> i : graph) {
             for (edge j : i) {
-                if (j.getIndex() == index){
+                if (j.getU() == u && j.getV() == v){
                     j.setTraffic(traffic);
+                    return;
+                }
+                if (j.getU() == v && j.getV() == u) {
+                    j.setTraffic(traffic);
+                    return;
                 }
             }
         }
     }
-    public double getTraffic(int index) {
+    public double getTraffic(int u, int v) {
         for (ArrayList<edge> i : graph) {
             for (edge j : i) {
-                if (j.getIndex() == index){
+                if (j.getU() == v && j.getV() == u) {
+                    return j.getTraffic();
+                }
+                if (j.getU() == u && j.getV() == v) {
                     return j.getTraffic();
                 }
             }
@@ -93,8 +101,8 @@ public class MapG {
         }
         for (int i = 0; i < m; i++) {
             int u = myReader.nextInt(), v = myReader.nextInt(), w = myReader.nextInt();
-            graph.get(u).add(new edge(v, w, i));
-            graph.get(v).add(new edge(u, w, i));
+            graph.get(u).add(new edge(v, w, u));
+            graph.get(v).add(new edge(u, w, v));
         }
         myReader.close();
     }
