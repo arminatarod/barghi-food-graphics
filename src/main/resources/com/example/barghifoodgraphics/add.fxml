@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#initialize" prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: #95EF83FF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.addController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: #95EF83FF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.addController">
    <children>
-      <HBox fx:id="BoxOne" alignment="CENTER" onMouseClicked="#initialize" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #064D05FF; -fx-border-color: black;">
+      <HBox fx:id="BoxOne" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #064D05FF; -fx-border-color: black;">
          <children>
             <Label alignment="CENTER" prefHeight="100.0" prefWidth="133.3" style="-fx-border-color: black;" text="Food name" textFill="#fff8f8">
                <HBox.margin>
