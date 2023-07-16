@@ -1,0 +1,131 @@
+Index: src/main/java/com/example/barghifoodgraphics/addController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.barghifoodgraphics;\r\n\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.Alert;\r\nimport javafx.scene.control.ButtonType;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.layout.HBox;\r\n\r\nimport java.util.Map;\r\nimport java.util.Optional;\r\n\r\npublic class addController {\r\n    @FXML HBox BoxOne;\r\n    @FXML HBox BoxTwo;\r\n    @FXML TextField foodNameTextField, foodPriceTextField, discountTextField;\r\n    public void ok()\r\n    {\r\n        if(foodNameTextField.getText().isBlank() || foodPriceTextField.getText().isBlank() || discountTextField.getText().isBlank())\r\n        {\r\n            Alert a = new Alert(Alert.AlertType.ERROR);\r\n            a.setHeaderText(\"Missing field\");\r\n            a.setContentText(\"You must complete all the fields.\");\r\n            a.show();\r\n        }\r\n        else\r\n        {\r\n            Alert a = new Alert(Alert.AlertType.CONFIRMATION);\r\n            a.setHeaderText(\"Confirmation\");\r\n            a.setContentText(\"Are you sure?\");\r\n            Optional<ButtonType> result = a.showAndWait();\r\n            if(result.isPresent() && result.get() == ButtonType.OK)\r\n            {\r\n                MainApplication.stage.setScene(MainApplication.adminPageTwo);\r\n                MainApplication.core.addFood(foodNameTextField.getText(), Integer.parseInt(foodPriceTextField.getText()));\r\n                for(Map.Entry<Integer, Food> tmp : MainApplication.core.foods.entrySet())\r\n                {\r\n                    if(tmp.getValue().getName().equals(foodNameTextField.getText())) {\r\n                        tmp.getValue().setDiscount(Double.parseDouble(discountTextField.getText()));\r\n                        break;\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/addController.java b/src/main/java/com/example/barghifoodgraphics/addController.java
+--- a/src/main/java/com/example/barghifoodgraphics/addController.java	(revision 845f1b8e686cc4237d023900d7ad2e2610dfbb4b)
++++ b/src/main/java/com/example/barghifoodgraphics/addController.java	(date 1689452683109)
+@@ -32,13 +32,6 @@
+             {
+                 MainApplication.stage.setScene(MainApplication.adminPageTwo);
+                 MainApplication.core.addFood(foodNameTextField.getText(), Integer.parseInt(foodPriceTextField.getText()));
+-                for(Map.Entry<Integer, Food> tmp : MainApplication.core.foods.entrySet())
+-                {
+-                    if(tmp.getValue().getName().equals(foodNameTextField.getText())) {
+-                        tmp.getValue().setDiscount(Double.parseDouble(discountTextField.getText()));
+-                        break;
+-                    }
+-                }
+             }
+         }
+     }
+Index: src/main/java/com/example/barghifoodgraphics/restaurantController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.barghifoodgraphics;\r\n\r\nimport javafx.event.EventHandler;\r\nimport javafx.fxml.FXML;\r\nimport javafx.geometry.Insets;\r\nimport javafx.geometry.Pos;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.control.ListView;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.scene.input.MouseEvent;\r\nimport javafx.scene.layout.Region;\r\nimport javafx.scene.layout.VBox;\r\nimport javafx.scene.text.Font;\r\n\r\nimport java.io.FileInputStream;\r\nimport java.io.FileNotFoundException;\r\nimport java.util.ArrayList;\r\n\r\npublic class restaurantController {\r\n    @FXML\r\n    private TextField searchBox;\r\n    @FXML\r\n    private ListView<String> searchResultsRestaurant;\r\n    @FXML\r\n    private VBox searchVbox, restaurantsBox;\r\n    public void changeToUserPage() {\r\n        MainApplication.stage.setScene(MainApplication.userPage);\r\n    }\r\n    public void refreshSearch() {\r\n        ArrayList<String> results = new ArrayList<>(MainApplication.core.searchRestaurantName(searchBox.getText()));\r\n        searchResultsRestaurant.getItems().clear();\r\n        searchResultsRestaurant.getItems().addAll(results);\r\n        searchVbox.setVisible(!searchBox.getText().isEmpty());\r\n    }\r\n    public void initialize() throws FileNotFoundException {\r\n        for (int i : MainApplication.core.getNearestRestaurants()) {\r\n            VBox restaurantBox = new VBox();\r\n            restaurantBox.setAlignment(Pos.TOP_CENTER);\r\n            restaurantBox.setStyle(\"-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;\");\r\n            restaurantBox.setPadding(new Insets(20, 20, 20, 20));\r\n            VBox.setMargin(restaurantBox, new Insets(20, 0, 20, 0));\r\n            restaurantBox.setPrefSize(10000, Region.USE_COMPUTED_SIZE);\r\n            ImageView restaurantLogo = new ImageView(new Image(new FileInputStream(\"src/main/resources/restaurantLogos/\" + i + \".png\")));\r\n            restaurantLogo.setPreserveRatio(true);\r\n            restaurantLogo.setFitHeight(150);\r\n            restaurantLogo.setFitWidth(200);\r\n            Label restaurantTitle = new Label(MainApplication.core.restaurants.get(i).getName());\r\n            restaurantTitle.setFont(Font.font(\"System\", 24));\r\n            restaurantTitle.setPadding(new Insets(5, 5, 5, 5));\r\n            Label restaurantRating = new Label(\"Rating: \" + \"★\".repeat((int)Math.round(MainApplication.core.restaurants.get(i).getAverageRating())) + \"☆\".repeat(5 - (int)Math.round(MainApplication.core.restaurants.get(i).getAverageRating())));\r\n            restaurantRating.setPadding(new Insets(5, 5, 5, 5));\r\n            StringBuilder foodTypes = new StringBuilder();\r\n            for (String foodType : MainApplication.core.restaurants.get(i).getFoodType())\r\n                foodTypes.append(foodType).append('-');\r\n            if (foodTypes.length() > 0)\r\n                foodTypes.deleteCharAt(foodTypes.length() - 1);\r\n            Label restaurantFoodTypes = new Label(foodTypes.toString());\r\n            restaurantFoodTypes.setPadding(new Insets(5, 5, 5, 5));\r\n            Label deliveryPrice = new Label(\"Delivery price: \" + MainApplication.core.showDeliveryPrice(i));\r\n            deliveryPrice.setPadding(new Insets(5, 5, 5, 5));\r\n            VBox.setMargin(deliveryPrice, new Insets(20, 0, 10, 0));\r\n            restaurantBox.getChildren().addAll(restaurantLogo, restaurantTitle, restaurantRating, restaurantFoodTypes, deliveryPrice);\r\n            restaurantsBox.getChildren().add(restaurantBox);\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/restaurantController.java b/src/main/java/com/example/barghifoodgraphics/restaurantController.java
+--- a/src/main/java/com/example/barghifoodgraphics/restaurantController.java	(revision 845f1b8e686cc4237d023900d7ad2e2610dfbb4b)
++++ b/src/main/java/com/example/barghifoodgraphics/restaurantController.java	(date 1689452158827)
+@@ -2,9 +2,10 @@
+ 
+ import javafx.event.EventHandler;
+ import javafx.fxml.FXML;
++import javafx.fxml.FXMLLoader;
+ import javafx.geometry.Insets;
+ import javafx.geometry.Pos;
+-import javafx.scene.Node;
++import javafx.scene.Scene;
+ import javafx.scene.control.Label;
+ import javafx.scene.control.ListView;
+ import javafx.scene.control.TextField;
+@@ -17,6 +18,7 @@
+ 
+ import java.io.FileInputStream;
+ import java.io.FileNotFoundException;
++import java.io.IOException;
+ import java.util.ArrayList;
+ 
+ public class restaurantController {
+@@ -29,6 +31,15 @@
+     public void changeToUserPage() {
+         MainApplication.stage.setScene(MainApplication.userPage);
+     }
++    public void changeToMenu(int restaurantID) throws IOException {
++        MainApplication.fxmlLoaderMenu = new FXMLLoader(MainApplication.class.getResource("menu.fxml"));
++        MainApplication.menu = new Scene(MainApplication.fxmlLoaderMenu.load(), 400, 600);
++        //hamin khat payin ro mituni copy koni va badesh bejaye initialize meghdar ye moteghayer ro avaz koni
++        //restaurantID morede nazar hamin bala gerefte shode, tu ye moteghayer berizesh
++        //vali hatman akhare in taghirat bezar khat payin bemune ke update beshe
++        ((menuController)MainApplication.fxmlLoaderMenu.getController()).initialize();
++        MainApplication.stage.setScene(MainApplication.menu);
++    }
+     public void refreshSearch() {
+         ArrayList<String> results = new ArrayList<>(MainApplication.core.searchRestaurantName(searchBox.getText()));
+         searchResultsRestaurant.getItems().clear();
+@@ -38,6 +49,13 @@
+     public void initialize() throws FileNotFoundException {
+         for (int i : MainApplication.core.getNearestRestaurants()) {
+             VBox restaurantBox = new VBox();
++            restaurantBox.setOnMouseClicked(mouseEvent -> {
++                try {
++                    changeToMenu(i);
++                } catch (IOException e) {
++                    throw new RuntimeException(e);
++                }
++            });
+             restaurantBox.setAlignment(Pos.TOP_CENTER);
+             restaurantBox.setStyle("-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;");
+             restaurantBox.setPadding(new Insets(20, 20, 20, 20));
+@@ -50,16 +68,15 @@
+             Label restaurantTitle = new Label(MainApplication.core.restaurants.get(i).getName());
+             restaurantTitle.setFont(Font.font("System", 24));
+             restaurantTitle.setPadding(new Insets(5, 5, 5, 5));
+-            Label restaurantRating = new Label("Rating: " + "★".repeat((int)Math.round(MainApplication.core.restaurants.get(i).getAverageRating())) + "☆".repeat(5 - (int)Math.round(MainApplication.core.restaurants.get(i).getAverageRating())));
++            Label restaurantRating = new Label("Rating: " + "★".repeat((int)Math.round(Main.core.restaurants.get(i).getAverageRating())) + "☆".repeat(5 - (int)Math.round(Main.core.restaurants.get(i).getAverageRating())));
+             restaurantRating.setPadding(new Insets(5, 5, 5, 5));
+             StringBuilder foodTypes = new StringBuilder();
+-            for (String foodType : MainApplication.core.restaurants.get(i).getFoodType())
++            for (String foodType : Main.core.restaurants.get(i).getFoodType())
+                 foodTypes.append(foodType).append('-');
+-            if (foodTypes.length() > 0)
+-                foodTypes.deleteCharAt(foodTypes.length() - 1);
++            foodTypes.deleteCharAt(foodTypes.length() - 1);
+             Label restaurantFoodTypes = new Label(foodTypes.toString());
+             restaurantFoodTypes.setPadding(new Insets(5, 5, 5, 5));
+-            Label deliveryPrice = new Label("Delivery price: " + MainApplication.core.showDeliveryPrice(i));
++            Label deliveryPrice = new Label("Delivery price: " + Main.core.showDeliveryPrice(i));
+             deliveryPrice.setPadding(new Insets(5, 5, 5, 5));
+             VBox.setMargin(deliveryPrice, new Insets(20, 0, 10, 0));
+             restaurantBox.getChildren().addAll(restaurantLogo, restaurantTitle, restaurantRating, restaurantFoodTypes, deliveryPrice);
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"f42fa66c-eb4f-4057-bbed-7b6c1c515121\" name=\"Changes\" comment=\"update\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/cartController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/cartController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/forgotPasswordController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/forgotPasswordController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/loginController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/loginController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/restaurantController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/restaurantController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/signupController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/signupController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/login.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/login.fxml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/signup.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/signup.fxml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n        <option value=\"FxmlFile\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"PREVIOUS_COMMIT_AUTHORS\">\r\n      <list>\r\n        <option value=\"Armin Atarod &lt;armin.atarod@gmail.com&gt;\" />\r\n      </list>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2SKzP1kv464TcHhH0pxCKHnK7YY\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;E:/Documents/Java codes/barghi-food-graphics/src/main/resources/com/example/barghifoodgraphics&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"E:\\Documents\\Java codes\\barghi-food-graphics\\src\\main\\resources\\com\\example\\barghifoodgraphics\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"com.example.barghifoodgraphics\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"MainApplication\" type=\"Application\" factoryName=\"Application\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.barghifoodgraphics.MainApplication\" />\r\n      <module name=\"barghi-food-graphics\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"f42fa66c-eb4f-4057-bbed-7b6c1c515121\" name=\"Changes\" comment=\"\" />\r\n      <created>1688910036363</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1688910036363</updated>\r\n      <workItem from=\"1688910038556\" duration=\"185000\" />\r\n      <workItem from=\"1688910237606\" duration=\"3721000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"update\">\r\n      <created>1688910303191</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1688910303191</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"update\">\r\n      <created>1688910351730</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1688910351730</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"supermarket update\">\r\n      <created>1689009185447</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689009185447</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"supermarket update\">\r\n      <created>1689064754709</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689064754709</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"supermarket update\">\r\n      <created>1689064877179</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689064877179</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"supermarket update\">\r\n      <created>1689064921879</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689064921879</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"core cleaning  v0.9\">\r\n      <created>1689150298023</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689150298024</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"8\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"update\" />\r\n    <MESSAGE value=\"supermarket update\" />\r\n    <MESSAGE value=\"core cleaning  v0.9\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"core cleaning  v0.9\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 845f1b8e686cc4237d023900d7ad2e2610dfbb4b)
++++ b/.idea/workspace.xml	(date 1689452683129)
+@@ -6,14 +6,8 @@
+   <component name="ChangeListManager">
+     <list default="true" id="f42fa66c-eb4f-4057-bbed-7b6c1c515121" name="Changes" comment="update">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/MainApplication.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/cartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/cartController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/forgotPasswordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/forgotPasswordController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/loginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/loginController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/addController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/addController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/restaurantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/restaurantController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/signupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/barghifoodgraphics/signupController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/login.fxml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/signup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/barghifoodgraphics/signup.fxml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />

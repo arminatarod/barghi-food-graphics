@@ -1,0 +1,107 @@
+Index: src/main/java/com/example/barghifoodgraphics/addController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.barghifoodgraphics;\r\n\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.Alert;\r\nimport javafx.scene.control.ButtonType;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.layout.HBox;\r\n\r\nimport java.util.Map;\r\nimport java.util.Optional;\r\n\r\npublic class addController {\r\n    @FXML HBox BoxOne;\r\n    @FXML HBox BoxTwo;\r\n    @FXML TextField foodNameTextField, foodPriceTextField, discountTextField;\r\n    public void ok()\r\n    {\r\n        if(foodNameTextField.getText().isBlank() || foodPriceTextField.getText().isBlank() || discountTextField.getText().isBlank())\r\n        {\r\n            Alert a = new Alert(Alert.AlertType.ERROR);\r\n            a.setHeaderText(\"Missing field\");\r\n            a.setContentText(\"You must complete all the fields.\");\r\n            a.show();\r\n        }\r\n        else\r\n        {\r\n            Alert a = new Alert(Alert.AlertType.CONFIRMATION);\r\n            a.setHeaderText(\"Confirmation\");\r\n            a.setContentText(\"Are you sure?\");\r\n            Optional<ButtonType> result = a.showAndWait();\r\n            if(result.isPresent() && result.get() == ButtonType.OK)\r\n            {\r\n                MainApplication.stage.setScene(MainApplication.adminPageTwo);\r\n                MainApplication.core.addFood(foodNameTextField.getText(), Integer.parseInt(foodPriceTextField.getText()), \"FOODTYPE\");\r\n                for(Map.Entry<Integer, Food> tmp : MainApplication.core.foods.entrySet())\r\n                {\r\n                    if(tmp.getValue().getName().equals(foodNameTextField.getText())) {\r\n                        tmp.getValue().setDiscount(Double.parseDouble(discountTextField.getText()));\r\n                        break;\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        ((adminController2)MainApplication.fxmlLoaderAdminPageTwo.getController()).initialize();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/addController.java b/src/main/java/com/example/barghifoodgraphics/addController.java
+--- a/src/main/java/com/example/barghifoodgraphics/addController.java	(revision accbd9229734f2d5892505074eaa9719322501e4)
++++ b/src/main/java/com/example/barghifoodgraphics/addController.java	(date 1689480257085)
+@@ -31,7 +31,7 @@
+             if(result.isPresent() && result.get() == ButtonType.OK)
+             {
+                 MainApplication.stage.setScene(MainApplication.adminPageTwo);
+-                MainApplication.core.addFood(foodNameTextField.getText(), Integer.parseInt(foodPriceTextField.getText()), "FOODTYPE");
++                MainApplication.core.addFood(foodNameTextField.getText(), Integer.parseInt(foodPriceTextField.getText()));
+                 for(Map.Entry<Integer, Food> tmp : MainApplication.core.foods.entrySet())
+                 {
+                     if(tmp.getValue().getName().equals(foodNameTextField.getText())) {
+@@ -41,6 +41,5 @@
+                 }
+             }
+         }
+-        ((adminController2)MainApplication.fxmlLoaderAdminPageTwo.getController()).initialize();
+     }
+ }
+Index: src/main/java/com/example/barghifoodgraphics/restaurantController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.barghifoodgraphics;\r\n\r\nimport javafx.event.EventHandler;\r\nimport javafx.fxml.FXML;\r\nimport javafx.geometry.Insets;\r\nimport javafx.geometry.Pos;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.control.ListView;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.image.ImageView;\r\nimport javafx.scene.input.MouseEvent;\r\nimport javafx.scene.layout.Region;\r\nimport javafx.scene.layout.VBox;\r\nimport javafx.scene.text.Font;\r\n\r\nimport java.io.FileInputStream;\r\nimport java.io.FileNotFoundException;\r\nimport java.util.ArrayList;\r\n\r\npublic class restaurantController {\r\n    @FXML\r\n    private TextField searchBox;\r\n    @FXML\r\n    private ListView<String> searchResultsRestaurant;\r\n    @FXML\r\n    private VBox searchVbox, restaurantsBox;\r\n    public void changeToUserPage() {\r\n        MainApplication.stage.setScene(MainApplication.userPage);\r\n    }\r\n    public void refreshSearch() {\r\n        ArrayList<String> results = new ArrayList<>(MainApplication.core.searchRestaurantName(searchBox.getText()));\r\n        searchResultsRestaurant.getItems().clear();\r\n        searchResultsRestaurant.getItems().addAll(results);\r\n        searchVbox.setVisible(!searchBox.getText().isEmpty());\r\n    }\r\n    public void initialize() throws FileNotFoundException {\r\n        for (int i : MainApplication.core.getNearestRestaurants()) {\r\n            VBox restaurantBox = new VBox();\r\n            restaurantBox.setAlignment(Pos.TOP_CENTER);\r\n            restaurantBox.setStyle(\"-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;\");\r\n            restaurantBox.setPadding(new Insets(20, 20, 20, 20));\r\n            VBox.setMargin(restaurantBox, new Insets(20, 0, 20, 0));\r\n            restaurantBox.setPrefSize(10000, Region.USE_COMPUTED_SIZE);\r\n            ImageView restaurantLogo = new ImageView(new Image(new FileInputStream(\"src/main/resources/restaurantLogos/\" + i + \".png\")));\r\n            restaurantLogo.setPreserveRatio(true);\r\n            restaurantLogo.setFitHeight(150);\r\n            restaurantLogo.setFitWidth(200);\r\n            Label restaurantTitle = new Label(MainApplication.core.restaurants.get(i).getName());\r\n            restaurantTitle.setFont(Font.font(\"System\", 24));\r\n            restaurantTitle.setPadding(new Insets(5, 5, 5, 5));\r\n            Label restaurantRating = new Label(\"Rating: \" + \"★\".repeat((int)Math.round(MainApplication.core.restaurants.get(i).getAverageRating())) + \"☆\".repeat(5 - (int)Math.round(MainApplication.core.restaurants.get(i).getAverageRating())));\r\n            restaurantRating.setPadding(new Insets(5, 5, 5, 5));\r\n            StringBuilder foodTypes = new StringBuilder();\r\n            for (String foodType : MainApplication.core.restaurants.get(i).getFoodType())\r\n                foodTypes.append(foodType).append('-');\r\n            if (foodTypes.length() > 0)\r\n                foodTypes.deleteCharAt(foodTypes.length() - 1);\r\n            Label restaurantFoodTypes = new Label(foodTypes.toString());\r\n            restaurantFoodTypes.setPadding(new Insets(5, 5, 5, 5));\r\n            Label deliveryPrice = new Label(\"Delivery price: \" + MainApplication.core.showDeliveryPrice(i));\r\n            deliveryPrice.setPadding(new Insets(5, 5, 5, 5));\r\n            VBox.setMargin(deliveryPrice, new Insets(20, 0, 10, 0));\r\n            restaurantBox.getChildren().addAll(restaurantLogo, restaurantTitle, restaurantRating, restaurantFoodTypes, deliveryPrice);\r\n            restaurantsBox.getChildren().add(restaurantBox);\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/barghifoodgraphics/restaurantController.java b/src/main/java/com/example/barghifoodgraphics/restaurantController.java
+--- a/src/main/java/com/example/barghifoodgraphics/restaurantController.java	(revision accbd9229734f2d5892505074eaa9719322501e4)
++++ b/src/main/java/com/example/barghifoodgraphics/restaurantController.java	(date 1689480257100)
+@@ -2,9 +2,10 @@
+ 
+ import javafx.event.EventHandler;
+ import javafx.fxml.FXML;
++import javafx.fxml.FXMLLoader;
+ import javafx.geometry.Insets;
+ import javafx.geometry.Pos;
+-import javafx.scene.Node;
++import javafx.scene.Scene;
+ import javafx.scene.control.Label;
+ import javafx.scene.control.ListView;
+ import javafx.scene.control.TextField;
+@@ -17,6 +18,7 @@
+ 
+ import java.io.FileInputStream;
+ import java.io.FileNotFoundException;
++import java.io.IOException;
+ import java.util.ArrayList;
+ 
+ public class restaurantController {
+@@ -29,6 +31,15 @@
+     public void changeToUserPage() {
+         MainApplication.stage.setScene(MainApplication.userPage);
+     }
++    public void changeToMenu(int restaurantID) throws IOException {
++        MainApplication.fxmlLoaderMenu = new FXMLLoader(MainApplication.class.getResource("menu.fxml"));
++        MainApplication.menu = new Scene(MainApplication.fxmlLoaderMenu.load(), 400, 600);
++        //hamin khat payin ro mituni copy koni va badesh bejaye initialize meghdar ye moteghayer ro avaz koni
++        //restaurantID morede nazar hamin bala gerefte shode, tu ye moteghayer berizesh
++        //vali hatman akhare in taghirat bezar khat payin bemune ke update beshe
++        ((menuController)MainApplication.fxmlLoaderMenu.getController()).initialize();
++        MainApplication.stage.setScene(MainApplication.menu);
++    }
+     public void refreshSearch() {
+         ArrayList<String> results = new ArrayList<>(MainApplication.core.searchRestaurantName(searchBox.getText()));
+         searchResultsRestaurant.getItems().clear();
+@@ -38,6 +49,13 @@
+     public void initialize() throws FileNotFoundException {
+         for (int i : MainApplication.core.getNearestRestaurants()) {
+             VBox restaurantBox = new VBox();
++            restaurantBox.setOnMouseClicked(mouseEvent -> {
++                try {
++                    changeToMenu(i);
++                } catch (IOException e) {
++                    throw new RuntimeException(e);
++                }
++            });
+             restaurantBox.setAlignment(Pos.TOP_CENTER);
+             restaurantBox.setStyle("-fx-background-color: WHITE; -fx-background-radius: 10; -fx-cursor: hand;");
+             restaurantBox.setPadding(new Insets(20, 20, 20, 20));
+@@ -50,16 +68,15 @@
+             Label restaurantTitle = new Label(MainApplication.core.restaurants.get(i).getName());
+             restaurantTitle.setFont(Font.font("System", 24));
+             restaurantTitle.setPadding(new Insets(5, 5, 5, 5));
+-            Label restaurantRating = new Label("Rating: " + "★".repeat((int)Math.round(MainApplication.core.restaurants.get(i).getAverageRating())) + "☆".repeat(5 - (int)Math.round(MainApplication.core.restaurants.get(i).getAverageRating())));
++            Label restaurantRating = new Label("Rating: " + "★".repeat((int)Math.round(Main.core.restaurants.get(i).getAverageRating())) + "☆".repeat(5 - (int)Math.round(Main.core.restaurants.get(i).getAverageRating())));
+             restaurantRating.setPadding(new Insets(5, 5, 5, 5));
+             StringBuilder foodTypes = new StringBuilder();
+-            for (String foodType : MainApplication.core.restaurants.get(i).getFoodType())
++            for (String foodType : Main.core.restaurants.get(i).getFoodType())
+                 foodTypes.append(foodType).append('-');
+-            if (foodTypes.length() > 0)
+-                foodTypes.deleteCharAt(foodTypes.length() - 1);
++            foodTypes.deleteCharAt(foodTypes.length() - 1);
+             Label restaurantFoodTypes = new Label(foodTypes.toString());
+             restaurantFoodTypes.setPadding(new Insets(5, 5, 5, 5));
+-            Label deliveryPrice = new Label("Delivery price: " + MainApplication.core.showDeliveryPrice(i));
++            Label deliveryPrice = new Label("Delivery price: " + Main.core.showDeliveryPrice(i));
+             deliveryPrice.setPadding(new Insets(5, 5, 5, 5));
+             VBox.setMargin(deliveryPrice, new Insets(20, 0, 10, 0));
+             restaurantBox.getChildren().addAll(restaurantLogo, restaurantTitle, restaurantRating, restaurantFoodTypes, deliveryPrice);
