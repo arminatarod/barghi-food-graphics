@@ -1,1 +1,1 @@
-{"id":0,"price":1234.0,"restaurantId":0,"discountTimestamp":null,"averageRating":0.0,"discount":0.0,"ratings":{},"name":"Burger","foodType":"Burger","comments":[],"active":false,"restaurant":0}
+{"id":0,"price":1234.0,"restaurantId":0,"discountTimestamp":[11,17,23,110149800],"averageRating":0.0,"discount":0.2,"ratings":{},"name":"Cheeseburger","foodType":"Burger","comments":[],"active":false,"restaurant":0}

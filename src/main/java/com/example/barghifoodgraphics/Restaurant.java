@@ -128,6 +128,7 @@ public class Restaurant {
     }
     public void removeFood(int id) {
         menu.remove(id);
+        save();
     }
     public void addFoodType(String type) {
         foodType.add(type);

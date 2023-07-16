@@ -14,21 +14,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class adminController2 {
     @FXML ListView<String> foodTypeListView;
-    @FXML TableView<List<Object>> myTable;
+    @FXML TableView<List<StringProperty>> myTable;
     @FXML TableColumn<List<StringProperty>,String> foodNameColumn, foodPriceColumn, averageRatingColumn, discountColumn, discountTimestampColumn;
     @FXML ImageView restaurantPicture;
     @FXML Button EditButton, AddButton, RemoveButton, CommentsButton;
     @FXML Label BackLabel;
     public String selectedFoodType;
     int selectedRow = -1;
-    boolean forFirst = true;
     public void initialize()
     {
         foodTypeListView.getItems().clear();
@@ -38,23 +34,23 @@ public class adminController2 {
         averageRatingColumn.setCellValueFactory(data -> data.getValue().get(2));
         discountColumn.setCellValueFactory(data -> data.getValue().get(3));
         discountTimestampColumn.setCellValueFactory(data -> data.getValue().get(4));
-        ObservableList<List<Object>> data = FXCollections.observableArrayList();
+        ObservableList<List<StringProperty>> data = FXCollections.observableArrayList();
         for (String type : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType()) {
-            if (forFirst) {
+            if (selectedFoodType == null)
                 selectedFoodType = type;
-                forFirst = false;
-            }
             for (Integer foodId : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getMenu()) {
-                List<Object>row = new ArrayList<>();
+                if (!selectedFoodType.equals(type))
+                    continue;
+                List<StringProperty> row = new ArrayList<>();
                 if (MainApplication.core.foods.get(foodId).getFoodType().equals(selectedFoodType)) {
                     row.add(new SimpleStringProperty(MainApplication.core.foods.get(foodId).getName()));
-                    row.add(new SimpleDoubleProperty(MainApplication.core.foods.get(foodId).getPrice()));
-                    row.add(new SimpleDoubleProperty(MainApplication.core.foods.get(foodId).getAverageRating()));
+                    row.add(new SimpleStringProperty(String.valueOf(MainApplication.core.foods.get(foodId).getPrice())));
+                    row.add(new SimpleStringProperty(String.valueOf(MainApplication.core.foods.get(foodId).getAverageRating())));
                     if (MainApplication.core.foods.get(foodId).getDiscount() == 0) {
                         row.add(new SimpleStringProperty("%" + 0));
                         row.add(new SimpleStringProperty("-"));
                     } else {
-                        row.add(new SimpleStringProperty("%" + MainApplication.core.foods.get(foodId).getDiscount()));
+                        row.add(new SimpleStringProperty("%" + MainApplication.core.foods.get(foodId).getDiscount() * 100));
                         row.add(new SimpleStringProperty(MainApplication.core.foods.get(foodId).getDiscountTimestamp().toString()));
                     }
                 }
@@ -77,7 +73,7 @@ public class adminController2 {
         MainApplication.fxmlLoaderComment = new FXMLLoader(MainApplication.class.getResource("comment.fxml"));
         MainApplication.comment = new Scene(MainApplication.fxmlLoaderComment.load(), 400, 600);
         ((commentController)MainApplication.fxmlLoaderComment.getController()).isAdmin = true;
-        ((commentController)MainApplication.fxmlLoaderComment.getController()).isFood = true;
+        ((commentController)MainApplication.fxmlLoaderComment.getController()).isFood = false;
         ((commentController)MainApplication.fxmlLoaderComment.getController()).objectID = MainApplication.core.selectedRestaurant;
         ((commentController)MainApplication.fxmlLoaderComment.getController()).previousScene = MainApplication.adminPageTwo;
         ((commentController)MainApplication.fxmlLoaderComment.getController()).initialize();
@@ -142,10 +138,10 @@ public class adminController2 {
         TextInputDialog inputDialog = new TextInputDialog();
         inputDialog.setContentText("Please add the new type");
         inputDialog.setTitle("Add");
-        inputDialog.show();
-        inputDialog.setOnHidden(event -> {
+        Optional<String> result = inputDialog.showAndWait();
+        if (result.isPresent())
             MainApplication.core.addFoodType(inputDialog.getResult(),true);
-        });
+        initialize();
     }
     public void Discount() throws IOException {
         if(selectedRow == -1)
@@ -165,6 +161,26 @@ public class adminController2 {
             MainApplication.fxmlLoaderAddDiscount = new FXMLLoader(MainApplication.class.getResource("addDiscount.fxml"));
             MainApplication.addDiscount = new Scene(MainApplication.fxmlLoaderAddDiscount.load(), 400, 600);
             MainApplication.stage.setScene(MainApplication.addDiscount);
+        }
+    }
+
+    public void foodComments() throws IOException {
+        if(selectedRow == -1) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("No row selected");
+            a.setContentText("You must select a row from the table.");
+            a.show();
+        } else {
+            MainApplication.fxmlLoaderComment = new FXMLLoader(MainApplication.class.getResource("comment.fxml"));
+            MainApplication.comment = new Scene(MainApplication.fxmlLoaderComment.load(), 400, 600);
+            ((commentController)MainApplication.fxmlLoaderComment.getController()).isAdmin = true;
+            ((commentController)MainApplication.fxmlLoaderComment.getController()).isFood = true;
+            for (Map.Entry<Integer, Food> food : MainApplication.core.foods.entrySet())
+                if (myTable.getColumns().get(0).getCellData(selectedRow).equals(food.getValue().getName()))
+                    ((commentController)MainApplication.fxmlLoaderComment.getController()).objectID = food.getKey();
+            ((commentController)MainApplication.fxmlLoaderComment.getController()).previousScene = MainApplication.adminPageTwo;
+            ((commentController)MainApplication.fxmlLoaderComment.getController()).initialize();
+            MainApplication.stage.setScene(MainApplication.comment);
         }
     }
 }

@@ -47,11 +47,12 @@
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="CommentsButton" alignment="CENTER" mnemonicParsing="false" text="Comments">
+                  <Button fx:id="CommentsButton" alignment="CENTER" mnemonicParsing="false" onAction="#foodComments" text="Comments">
                      <HBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </Button>
+                  <Button mnemonicParsing="false" onAction="#Discount" onMouseClicked="#Discount" text="Discount" />
                </children>
             </HBox>
             <HBox prefWidth="444.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
@@ -92,7 +93,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </ListView>
-                  <Button mnemonicParsing="false" text="Add">
+                  <Button mnemonicParsing="false" onAction="#addFoodType" text="Add">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>

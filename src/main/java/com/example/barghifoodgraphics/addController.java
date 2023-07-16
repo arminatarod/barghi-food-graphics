@@ -12,10 +12,10 @@ import java.util.Optional;
 public class addController {
     @FXML HBox BoxOne;
     @FXML HBox BoxTwo;
-    @FXML TextField foodNameTextField, foodPriceTextField, discountTextField;
+    @FXML TextField foodNameTextField, foodPriceTextField, foodTypeTextField;
     public void ok()
     {
-        if(foodNameTextField.getText().isBlank() || foodPriceTextField.getText().isBlank() || discountTextField.getText().isBlank())
+        if(foodNameTextField.getText().isBlank() || foodPriceTextField.getText().isBlank() || foodTypeTextField.getText().isBlank())
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setHeaderText("Missing field");
@@ -31,7 +31,7 @@ public class addController {
             if(result.isPresent() && result.get() == ButtonType.OK)
             {
                 MainApplication.stage.setScene(MainApplication.adminPageTwo);
-                MainApplication.core.addFood(foodNameTextField.getText(), Integer.parseInt(foodPriceTextField.getText()), discountTextField.getText());
+                MainApplication.core.addFood(foodNameTextField.getText(), Integer.parseInt(foodPriceTextField.getText()), foodTypeTextField.getText());
             }
         }
         ((adminController2)MainApplication.fxmlLoaderAdminPageTwo.getController()).initialize();

@@ -26,8 +26,9 @@ public class addDiscountController {
             Optional<ButtonType> result = a.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK)
             {
-                MainApplication.stage.setScene(MainApplication.adminPageTwo);
                 MainApplication.core.discountFood(MainApplication.core.selectedFood, Integer.parseInt(discountPercentage.getText()), Integer.parseInt(timestep.getText()));
+                ((adminController2)MainApplication.fxmlLoaderAdminPageTwo.getController()).initialize();
+                MainApplication.stage.setScene(MainApplication.adminPageTwo);
             }
         }
     }

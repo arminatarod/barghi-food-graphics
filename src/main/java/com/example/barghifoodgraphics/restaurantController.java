@@ -34,9 +34,7 @@ public class restaurantController {
     public void changeToMenu(int restaurantID) throws IOException {
         MainApplication.fxmlLoaderMenu = new FXMLLoader(MainApplication.class.getResource("menu.fxml"));
         MainApplication.menu = new Scene(MainApplication.fxmlLoaderMenu.load(), 400, 600);
-        //hamin khat payin ro mituni copy koni va badesh bejaye initialize meghdar ye moteghayer ro avaz koni
-        //restaurantID morede nazar hamin bala gerefte shode, tu ye moteghayer berizesh
-        //vali hatman akhare in taghirat bezar khat payin bemune ke update beshe
+        MainApplication.core.selectedRestaurant = restaurantID;
         ((menuController)MainApplication.fxmlLoaderMenu.getController()).initialize();
         MainApplication.stage.setScene(MainApplication.menu);
     }
@@ -68,15 +66,15 @@ public class restaurantController {
             Label restaurantTitle = new Label(MainApplication.core.restaurants.get(i).getName());
             restaurantTitle.setFont(Font.font("System", 24));
             restaurantTitle.setPadding(new Insets(5, 5, 5, 5));
-            Label restaurantRating = new Label("Rating: " + "★".repeat((int)Math.round(Main.core.restaurants.get(i).getAverageRating())) + "☆".repeat(5 - (int)Math.round(Main.core.restaurants.get(i).getAverageRating())));
+            Label restaurantRating = new Label("Rating: " + "★".repeat((int)Math.round(MainApplication.core.restaurants.get(i).getAverageRating())) + "☆".repeat(5 - (int)Math.round(MainApplication.core.restaurants.get(i).getAverageRating())));
             restaurantRating.setPadding(new Insets(5, 5, 5, 5));
             StringBuilder foodTypes = new StringBuilder();
-            for (String foodType : Main.core.restaurants.get(i).getFoodType())
+            for (String foodType : MainApplication.core.restaurants.get(i).getFoodType())
                 foodTypes.append(foodType).append('-');
             foodTypes.deleteCharAt(foodTypes.length() - 1);
             Label restaurantFoodTypes = new Label(foodTypes.toString());
             restaurantFoodTypes.setPadding(new Insets(5, 5, 5, 5));
-            Label deliveryPrice = new Label("Delivery price: " + Main.core.showDeliveryPrice(i));
+            Label deliveryPrice = new Label("Delivery price: " + MainApplication.core.showDeliveryPrice(i));
             deliveryPrice.setPadding(new Insets(5, 5, 5, 5));
             VBox.setMargin(deliveryPrice, new Insets(20, 0, 10, 0));
             restaurantBox.getChildren().addAll(restaurantLogo, restaurantTitle, restaurantRating, restaurantFoodTypes, deliveryPrice);
