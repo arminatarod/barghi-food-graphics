@@ -28,7 +28,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="100.0" prefWidth="133.3" style="-fx-border-color: black;" text="Discount" textFill="#fff8f8">
+            <Label alignment="CENTER" prefHeight="100.0" prefWidth="133.3" style="-fx-border-color: black;" text="Food Type" textFill="#fff8f8">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -50,7 +50,7 @@
                   <Font size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="discountTextField" alignment="CENTER" prefHeight="100.0" prefWidth="133.3" promptText="Discount" style="-fx-border-color: black; -fx-background-color: #08B006FF;">
+            <TextField fx:id="discountTExtField" alignment="CENTER" prefHeight="100.0" prefWidth="133.3" promptText="Food Type" style="-fx-border-color: black; -fx-background-color: #08B006FF;">
                <font>
                   <Font size="15.0" />
                </font>

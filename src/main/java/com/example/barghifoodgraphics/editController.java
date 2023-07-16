@@ -30,8 +30,11 @@ public class editController {
             Optional<ButtonType> result = a.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK)
             {
+                MainApplication.core.editFoodName(MainApplication.core.selectedFood, foodNameTextField.getText());
+                MainApplication.core.editFoodPrice(MainApplication.core.selectedFood, Integer.parseInt(foodPriceTextField.getText()));
                 MainApplication.stage.setScene(MainApplication.adminPageTwo);
             }
+            ((adminController2)MainApplication.fxmlLoaderAdminPageTwo.getController()).initialize();
         }
     }
 }

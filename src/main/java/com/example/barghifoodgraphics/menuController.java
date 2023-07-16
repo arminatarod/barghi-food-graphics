@@ -1,5 +1,6 @@
 package com.example.barghifoodgraphics;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -16,6 +17,8 @@ public class menuController {
     @FXML Label  averageRatingLabel, BackLabel;
     @FXML ChoiceBox<Integer> quantity;
     public List<TableView<List<StringProperty>>> tableViews = new ArrayList<>();
+    boolean forFirst = true;
+    String selectedFoodType;
     public void initialize()
     {
         int available = 5;
@@ -25,6 +28,11 @@ public class menuController {
             return;
         for(String FoodType : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType())
         {
+            if(forFirst)
+            {
+                forFirst = false;
+                selectedFoodType = FoodType;
+            }
             TableView<List<StringProperty>> tableView = new TableView<>();
             TableColumn<List<StringProperty>,String> FoodNameColumn = new TableColumn<>("Name");
             TableColumn<List<StringProperty>,String> FoodPriceColumn = new TableColumn<>("Price");
@@ -39,21 +47,27 @@ public class menuController {
             FoodAverageRatingColumn.setCellValueFactory(data -> data.getValue().get(2));
             DiscountColumn.setCellValueFactory(data -> data.getValue().get(3));
             ObservableList<List<StringProperty>> data = FXCollections.observableArrayList();
-            for(int i = 1;i < 7;i++)
+            for(Integer foodId : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getMenu())
             {
-                Random random = new Random();
-                List<StringProperty>row = new ArrayList<>();
-                row.add(new SimpleStringProperty("Food" + i));
-                row.add(new SimpleStringProperty(String. valueOf(100 * i + 230)));
-                row.add(new SimpleStringProperty(String.valueOf(random.nextInt(5)+1)));
-                row.add(new SimpleStringProperty("%" + random.nextInt(20)));
-                data.add(row);
+                if(MainApplication.core.foods.get(foodId).getFoodType().equals(selectedFoodType))
+                {
+                    List<StringProperty> row = new ArrayList<>();
+                    row.add(new SimpleStringProperty(MainApplication.core.foods.get(foodId).getName()));
+                    row.add(new SimpleStringProperty(String.valueOf(MainApplication.core.foods.get(foodId).getPrice())));
+                    row.add(new SimpleStringProperty(String.valueOf(MainApplication.core.foods.get(foodId).getAverageRating())));
+                    if(MainApplication.core.foods.get(foodId).getDiscount() == 0)
+                        row.add(new SimpleStringProperty("%" + 0));
+                    else
+                        row.add(new SimpleStringProperty("%" + MainApplication.core.foods.get(foodId).getDiscount()));
+                    data.add(row);
+                }
             }
             tableView.setItems(data);
             tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
             Tab tab = new Tab(FoodType, tableView);
             myTabPane.getTabs().add(tab);
             tableViews.add(tableView);
+            break;
         }
         averageRatingLabel.setText(Double.toString(MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getAverageRating()));
         quantity.setValue(1);
@@ -78,6 +92,17 @@ public class menuController {
                     MainApplication.core.addToCart(quantity.getValue());
                     break;
                 }
+            }
+        }
+    }
+    public void changeFoodType()
+    {
+        for(String name : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType())
+        {
+            if(name.equals(myTabPane.getSelectionModel().getSelectedItem().getText())){
+                selectedFoodType = name;
+                initialize();
+                break;
             }
         }
     }

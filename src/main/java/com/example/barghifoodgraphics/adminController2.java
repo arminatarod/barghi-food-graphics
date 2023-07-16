@@ -1,5 +1,6 @@
 package com.example.barghifoodgraphics;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -15,6 +16,7 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class adminController2 {
@@ -29,6 +31,7 @@ public class adminController2 {
     @FXML Label BackLabel;
     public String selectedFoodType;
     int selectedRow = -1;
+    boolean forFirst = true;
     public void initialize()
     {
         foodTypeListView.getItems().addAll(MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType());
@@ -39,13 +42,26 @@ public class adminController2 {
         ObservableList<List<Object>> data = FXCollections.observableArrayList();
         for(String type : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType())
         {
+            if(forFirst)
+            {
+                selectedFoodType = type;
+                forFirst = false;
+            }
             List<Object>row = new ArrayList<>();
             for(Integer foodId : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getMenu())
             {
-
+                if(MainApplication.core.foods.get(foodId).getFoodType().equals(selectedFoodType))
+                {
+                    row.add(new SimpleStringProperty(MainApplication.core.foods.get(foodId).getName()));
+                    row.add(new SimpleDoubleProperty(MainApplication.core.foods.get(foodId).getPrice()));
+                    row.add(new SimpleDoubleProperty(MainApplication.core.foods.get(foodId).getAverageRating()));
+                    if(MainApplication.core.foods.get(foodId).getDiscount() == 0)
+                        row.add(new SimpleStringProperty("%" + 0));
+                    else
+                        row.add(new SimpleStringProperty("%" + MainApplication.core.foods.get(foodId).getDiscount()));
+                }
             }
             data.add(row);
-            break;
         }
         myTable.setItems(data);
         String css = this.getClass().getResource("style2.css").toExternalForm();
@@ -61,6 +77,7 @@ public class adminController2 {
         {
             //TODO miad liste un ghzhro mide be data ke nmysh bede
             selectedFoodType = foodTypeListView.getItems().get(foodTypeListView.getSelectionModel().getSelectedIndex());
+            initialize();
         }
     }
     public void goToComments() throws IOException {
@@ -91,11 +108,15 @@ public class adminController2 {
         }
         else
         {
-
+            for(Map.Entry<Integer, Food> food : MainApplication.core.foods.entrySet())
+            {
+                if(myTable.getColumns().get(0).getCellData(selectedRow).equals(food.getValue().getName()))
+                    MainApplication.core.removeFood(food.getKey());
+            }
+            initialize();
         }
     }
-    public void goEdit()
-    {
+    public void goEdit() throws IOException {
         if(selectedRow == -1)
         {
             Alert a = new Alert(Alert.AlertType.ERROR);
@@ -105,11 +126,48 @@ public class adminController2 {
         }
         else
         {
+            for(Map.Entry<Integer, Food> food : MainApplication.core.foods.entrySet())
+            {
+                if(myTable.getColumns().get(0).getCellData(selectedRow).equals(food.getValue().getName()))
+                    MainApplication.core.selectedFood = food.getKey();
+            }
+            MainApplication.fxmlLoaderEdit = new FXMLLoader(MainApplication.class.getResource("edit.fxml"));
+            MainApplication.edit = new Scene(MainApplication.fxmlLoaderEdit.load(), 400, 250);
             MainApplication.stage.setScene(MainApplication.edit);
         }
     }
     public void goAdd()
     {
         MainApplication.stage.setScene(MainApplication.add);
+    }
+    public void addFoodType()
+    {
+        TextInputDialog inputDialog = new TextInputDialog();
+        inputDialog.setContentText("Please add the new type");
+        inputDialog.setTitle("Add");
+        inputDialog.show();
+        inputDialog.setOnHidden(event -> {
+            MainApplication.core.addFoodType(inputDialog.getResult(),true);
+        });
+    }
+    public void Discount() throws IOException {
+        if(selectedRow == -1)
+        {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("No row selected");
+            a.setContentText("You must select a row from the table.");
+            a.show();
+        }
+        else
+        {
+            for(Map.Entry<Integer, Food> food : MainApplication.core.foods.entrySet())
+            {
+                if(myTable.getColumns().get(0).getCellData(selectedRow).equals(food.getValue().getName()))
+                    MainApplication.core.selectedFood = food.getKey();
+            }
+            MainApplication.fxmlLoaderAddDiscount = new FXMLLoader(MainApplication.class.getResource("addDiscount.fxml"));
+            MainApplication.comment = new Scene(MainApplication.fxmlLoaderComment.load(), 400, 600);
+            MainApplication.stage.setScene(MainApplication.addDiscount);
+        }
     }
 }
