@@ -1,1 +1,1 @@
-{"location":1,"adminID":1,"id":0,"name":"Abjad","type":"FastFood","orders":[],"menu":[0],"averageRating":0.0,"ratings":{},"foodType":[],"balance":0.0,"comments":[],"admin":1,"raters":{}}
+{"location":1,"adminID":1,"id":0,"name":"Abjad","type":"Fast food","orders":[],"menu":[0],"averageRating":0.0,"ratings":{},"foodType":["Burger"],"balance":0.0,"comments":[],"admin":1,"raters":{}}

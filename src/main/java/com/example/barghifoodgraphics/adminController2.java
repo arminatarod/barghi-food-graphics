@@ -22,11 +22,8 @@ import java.util.Random;
 public class adminController2 {
     @FXML ListView<String> foodTypeListView;
     @FXML TableView<List<Object>> myTable;
-    @FXML TableColumn<List<StringProperty>,String> FoodNameColumn;
-    @FXML TableColumn<List<StringProperty>,String> FoodPriceColumn;
-    @FXML TableColumn<List<StringProperty>,String> FoodAverageRatingColumn;
-    @FXML TableColumn<List<StringProperty>,String> DiscountColumn;
-    @FXML ImageView RestaurantPic;
+    @FXML TableColumn<List<StringProperty>,String> foodNameColumn, foodPriceColumn, averageRatingColumn, discountColumn, discountTimestampColumn;
+    @FXML ImageView restaurantPicture;
     @FXML Button EditButton, AddButton, RemoveButton, CommentsButton;
     @FXML Label BackLabel;
     public String selectedFoodType;
@@ -34,34 +31,35 @@ public class adminController2 {
     boolean forFirst = true;
     public void initialize()
     {
+        foodTypeListView.getItems().clear();
         foodTypeListView.getItems().addAll(MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType());
-        FoodNameColumn.setCellValueFactory(data -> data.getValue().get(0));
-        FoodPriceColumn.setCellValueFactory(data -> data.getValue().get(1));
-        FoodAverageRatingColumn.setCellValueFactory(data -> data.getValue().get(2));
-        DiscountColumn.setCellValueFactory(data -> data.getValue().get(3));
+        foodNameColumn.setCellValueFactory(data -> data.getValue().get(0));
+        foodPriceColumn.setCellValueFactory(data -> data.getValue().get(1));
+        averageRatingColumn.setCellValueFactory(data -> data.getValue().get(2));
+        discountColumn.setCellValueFactory(data -> data.getValue().get(3));
+        discountTimestampColumn.setCellValueFactory(data -> data.getValue().get(4));
         ObservableList<List<Object>> data = FXCollections.observableArrayList();
-        for(String type : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType())
-        {
-            if(forFirst)
-            {
+        for (String type : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getFoodType()) {
+            if (forFirst) {
                 selectedFoodType = type;
                 forFirst = false;
             }
-            List<Object>row = new ArrayList<>();
-            for(Integer foodId : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getMenu())
-            {
-                if(MainApplication.core.foods.get(foodId).getFoodType().equals(selectedFoodType))
-                {
+            for (Integer foodId : MainApplication.core.restaurants.get(MainApplication.core.selectedRestaurant).getMenu()) {
+                List<Object>row = new ArrayList<>();
+                if (MainApplication.core.foods.get(foodId).getFoodType().equals(selectedFoodType)) {
                     row.add(new SimpleStringProperty(MainApplication.core.foods.get(foodId).getName()));
                     row.add(new SimpleDoubleProperty(MainApplication.core.foods.get(foodId).getPrice()));
                     row.add(new SimpleDoubleProperty(MainApplication.core.foods.get(foodId).getAverageRating()));
-                    if(MainApplication.core.foods.get(foodId).getDiscount() == 0)
+                    if (MainApplication.core.foods.get(foodId).getDiscount() == 0) {
                         row.add(new SimpleStringProperty("%" + 0));
-                    else
+                        row.add(new SimpleStringProperty("-"));
+                    } else {
                         row.add(new SimpleStringProperty("%" + MainApplication.core.foods.get(foodId).getDiscount()));
+                        row.add(new SimpleStringProperty(MainApplication.core.foods.get(foodId).getDiscountTimestamp().toString()));
+                    }
                 }
+                data.add(row);
             }
-            data.add(row);
         }
         myTable.setItems(data);
         String css = this.getClass().getResource("style2.css").toExternalForm();
@@ -69,13 +67,8 @@ public class adminController2 {
         css = this.getClass().getResource("style.css").toExternalForm();
         foodTypeListView.getStylesheets().add(css);
     }
-    public void choosingFoodType()
-    {
-        if(foodTypeListView.getSelectionModel().getSelectedItem() == null)
-            return;
-        else
-        {
-            //TODO miad liste un ghzhro mide be data ke nmysh bede
+    public void choosingFoodType() {
+        if (foodTypeListView.getSelectionModel().getSelectedItem() != null) {
             selectedFoodType = foodTypeListView.getItems().get(foodTypeListView.getSelectionModel().getSelectedIndex());
             initialize();
         }
@@ -170,7 +163,7 @@ public class adminController2 {
                     MainApplication.core.selectedFood = food.getKey();
             }
             MainApplication.fxmlLoaderAddDiscount = new FXMLLoader(MainApplication.class.getResource("addDiscount.fxml"));
-            MainApplication.comment = new Scene(MainApplication.fxmlLoaderComment.load(), 400, 600);
+            MainApplication.addDiscount = new Scene(MainApplication.fxmlLoaderAddDiscount.load(), 400, 600);
             MainApplication.stage.setScene(MainApplication.addDiscount);
         }
     }

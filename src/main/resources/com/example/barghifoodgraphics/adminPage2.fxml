@@ -11,21 +11,26 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.747326203208556" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.adminController2">
+<SplitPane dividerPositions="0.7" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barghifoodgraphics.adminController2">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <TableView fx:id="myTable" layoutY="32.0" onMouseClicked="#myTableClicked" prefHeight="313.0" prefWidth="444.0">
+            <TableView fx:id="myTable" layoutY="32.0" onMouseClicked="#myTableClicked" prefHeight="313.0" prefWidth="444.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
               <columns>
-                <TableColumn fx:id="FoodNameColumn" prefWidth="111.0" text="Food Name" />
-                <TableColumn fx:id="FoodPriceColumn" prefWidth="111.0" text="Food Price" />
-                  <TableColumn fx:id="FoodAverageRatingColumn" prefWidth="111.0" text=" Average Rating" />
-                  <TableColumn fx:id="DiscountColumn" prefWidth="111.0" text="Discount" />
+                <TableColumn fx:id="foodNameColumn" prefWidth="111.0" sortable="false" text="Food name" />
+                <TableColumn fx:id="foodPriceColumn" prefWidth="111.0" sortable="false" text="Food price" />
+                  <TableColumn fx:id="averageRatingColumn" prefWidth="150.0" sortable="false" text=" Average rating" />
+                  <TableColumn fx:id="discountColumn" prefWidth="111.0" sortable="false" text="Discount" />
+                  <TableColumn fx:id="discountTimestampColumn" prefWidth="200.0" sortable="false" text="Discount timestamp" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
-            <HBox alignment="CENTER" layoutY="346.0" prefHeight="54.0" prefWidth="444.0">
+            <HBox alignment="CENTER" layoutY="346.0" maxHeight="50.0" minWidth="50.0" prefHeight="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Button fx:id="AddButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#goAdd" text="Add">
                      <HBox.margin>
@@ -49,7 +54,7 @@
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="32.0" prefWidth="444.0">
+            <HBox prefWidth="444.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
                <children>
                   <Label fx:id="BackLabel" onMouseClicked="#back" style="-fx-cursor: hand;" text="← Back" textFill="#1e78a0">
                      <font>
@@ -57,17 +62,46 @@
                      </font>
                   </Label>
                </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </HBox>
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <Label alignment="CENTER" layoutX="34.0" layoutY="114.0" prefHeight="32.0" prefWidth="76.0" text="KFC" />
-            <Button layoutX="9.0" layoutY="167.0" mnemonicParsing="false" onMouseClicked="#goToComments" prefHeight="32.0" prefWidth="134.0" text="Comments" />
-            <ListView fx:id="foodTypeListView" layoutX="9.0" layoutY="205.0" onMouseClicked="#choosingFoodType" prefHeight="147.0" prefWidth="134.0" />
-             <ImageView fx:id="RestaurantPic" fitHeight="95.0" fitWidth="98.0" layoutX="27.0" layoutY="14.0">
-                 <Image url="@../../../../../../../../OneDrive/Desktop/KFCpicture.jpg" />
-             </ImageView>
-            <Button layoutX="57.0" layoutY="358.0" mnemonicParsing="false" text="Add" />
+            <VBox alignment="TOP_CENTER" layoutX="9.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                   <ImageView fx:id="restaurantPicture" fitHeight="95.0" fitWidth="98.0">
+                       <Image url="@../../../restaurantLogos/0.png" />
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                   </ImageView>
+                  <Label alignment="CENTER" text="KFC">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Button mnemonicParsing="false" onMouseClicked="#goToComments" prefHeight="32.0" prefWidth="134.0" text="Comments">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <ListView fx:id="foodTypeListView" onMouseClicked="#choosingFoodType" prefHeight="10000.0" prefWidth="10000.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </ListView>
+                  <Button mnemonicParsing="false" text="Add">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
          </children>
       </AnchorPane>
   </items>

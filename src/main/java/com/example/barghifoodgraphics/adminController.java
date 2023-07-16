@@ -38,7 +38,7 @@ public class adminController {
                     MainApplication.core.selectedRestaurant = tmp.getKey();
             }
             MainApplication.fxmlLoaderAdminPageTwo = new FXMLLoader(MainApplication.class.getResource("adminPage2.fxml"));
-            MainApplication.adminPageTwo = new Scene(MainApplication.fxmlLoaderAdminPageTwo.load(), 600, 400);
+            MainApplication.adminPageTwo = new Scene(MainApplication.fxmlLoaderAdminPageTwo.load(), 700, 600);
             MainApplication.stage.setScene(MainApplication.adminPageTwo);
         }
     }
