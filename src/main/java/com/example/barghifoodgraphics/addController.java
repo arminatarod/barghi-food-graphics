@@ -12,7 +12,7 @@ import java.util.Optional;
 public class addController {
     @FXML HBox BoxOne;
     @FXML HBox BoxTwo;
-    @FXML TextField foodNameTextField, foodPriceTextField, discountTextField;
+    @FXML TextField foodNameTextField, foodPriceTextField, discountTextField, foodTypeTextField;
     public void ok()
     {
         if(foodNameTextField.getText().isBlank() || foodPriceTextField.getText().isBlank() || discountTextField.getText().isBlank())
@@ -31,7 +31,7 @@ public class addController {
             if(result.isPresent() && result.get() == ButtonType.OK)
             {
                 MainApplication.stage.setScene(MainApplication.adminPageTwo);
-                MainApplication.core.addFood(foodNameTextField.getText(), Integer.parseInt(foodPriceTextField.getText()));
+                MainApplication.core.addFood(foodNameTextField.getText(), Integer.parseInt(foodPriceTextField.getText()), foodTypeTextField.getText());
                 for(Map.Entry<Integer, Food> tmp : MainApplication.core.foods.entrySet())
                 {
                     if(tmp.getValue().getName().equals(foodNameTextField.getText())) {
