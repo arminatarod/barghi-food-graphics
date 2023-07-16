@@ -83,8 +83,12 @@ public class adminController2 {
     public void goToComments() throws IOException {
         MainApplication.fxmlLoaderComment = new FXMLLoader(MainApplication.class.getResource("comment.fxml"));
         MainApplication.comment = new Scene(MainApplication.fxmlLoaderComment.load(), 400, 600);
+        ((commentController)MainApplication.fxmlLoaderComment.getController()).isAdmin = true;
+        ((commentController)MainApplication.fxmlLoaderComment.getController()).isFood = true;
+        ((commentController)MainApplication.fxmlLoaderComment.getController()).objectID = MainApplication.core.selectedRestaurant;
+        ((commentController)MainApplication.fxmlLoaderComment.getController()).previousScene = MainApplication.adminPageTwo;
+        ((commentController)MainApplication.fxmlLoaderComment.getController()).initialize();
         MainApplication.stage.setScene(MainApplication.comment);
-        //TODO inja btye inke bug nkhore zdm login vli byd bere scene comment
     }
     public void back()
     {

@@ -90,21 +90,14 @@ public class commentController {
             a.show();
             return;
         } else if (isAdmin) {
-            //TODO: delete response
+            MainApplication.core.removeResponse(Integer.parseInt(((Label)((VBox)commentContainer.getChildren().get(selectedComment)).getChildren().get(0)).getText().substring(4)));
         } else {
-            //TODO: delete comment
+            MainApplication.core.removeComment(Integer.parseInt(((Label)((VBox)commentContainer.getChildren().get(selectedComment)).getChildren().get(0)).getText().substring(4)));
         }
         initialize();
     }
     public void initialize() {
         selectedComment = -1;
-        if(MainApplication.core.loggedInAdmin == -1)
-            isFood = true;
-        else
-        {
-            isAdmin = true;
-            previousScene = MainApplication.adminPageTwo;
-        }
         if (isAdmin) {
             greenButton.setText("Add response");
             yellowButton.setText("Edit response");

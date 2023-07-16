@@ -29,27 +29,22 @@
                <children>
                   <Button fx:id="AddButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#goAdd" text="Add">
                      <HBox.margin>
-                        <Insets left="15.0" right="15.0" />
+                        <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="EditButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#goEdit" text="Edit">
                      <HBox.margin>
-                        <Insets left="15.0" right="15.0" />
+                        <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="RemoveButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#Remove" text="Remove">
                      <HBox.margin>
-                        <Insets left="15.0" right="15.0" />
+                        <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="CommentsButton" alignment="CENTER" mnemonicParsing="false" text="Comments">
                      <HBox.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onMouseClicked="#Discount" text="Discount">
-                     <HBox.margin>
-                        <Insets left="15.0" right="15.0" />
+                        <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </Button>
                </children>
@@ -72,7 +67,7 @@
              <ImageView fx:id="RestaurantPic" fitHeight="95.0" fitWidth="98.0" layoutX="27.0" layoutY="14.0">
                  <Image url="@../../../../../../../../OneDrive/Desktop/KFCpicture.jpg" />
              </ImageView>
-            <Button layoutX="57.0" layoutY="358.0" mnemonicParsing="false" onMouseClicked="#addFoodType" text="Add" />
+            <Button layoutX="57.0" layoutY="358.0" mnemonicParsing="false" text="Add" />
          </children>
       </AnchorPane>
   </items>
